@@ -1,0 +1,172 @@
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .MxContainer,
+  .MyContainer,
+  .CoPxContainer,
+  .CoPyContainer {
+    display: flex;
+    justify-content: space-between; /* Aligns items side by side */
+    width: 90%; /* Makes the container take up 90% of the browser width */
+    margin: 10px;
+  }
+  
+  .MxPerson,
+  .MyPerson {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.1s; /* Smooth transition for rotation */
+  }
+
+  .MxPersonImage,
+  .MyPersonImage {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .MLaxis {
+    position: absolute;
+    top: 45%; /* Raised the arrow vertically */
+    left: 50%; /* Position arrow in the center of the person */
+    width: 150px; /* Increased width of the arrow */
+    height: 4px; /* Thickness of the arrow line */
+    background-color: #CA2E55;
+    transform-origin: center;
+    transform: translateX(-50%); /* Center the arrow line */
+  }
+
+  .MLaxisLabel {
+    position: absolute;
+    top: 34%;
+    left: -35%;
+  }
+
+  .APaxisLabel {
+    position: absolute;
+    top: 46%;
+    left: 1%;
+  }
+
+  .APaxisFront {
+    position: absolute;
+    top: 45%; /* Raised the arrow vertically */
+    left: 42%; /* Position arrow in the center of the person */
+    width: 100px; /* Increased width of the arrow */
+    height: 4px; /* Thickness of the arrow line */
+    background-color: #CA2E55;
+    transform-origin: center;
+    transform: translateX(-50%) rotate(-45deg); /* Center the arrow line */
+  }
+
+  .APaxisBack {
+    position: absolute;
+    top: 30%; /* Raised the arrow vertically */
+    left: 60%; /* Position arrow in the center of the person */
+    width: 100px; /* Increased width of the arrow */
+    height: 4px; /* Thickness of the arrow line */
+    background-color: #CA2E55;
+    transform-origin: center;
+    transform: translateX(-50%) rotate(-45deg); /* Center the arrow line */
+  }
+  
+  .MxView,
+  .MyView,
+  .MxText,
+  .MyText,
+  .CoPxVis,
+  .CoPxText,
+  .CoPyVis,
+  .CoPyText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Allow both views to take equal space within the container */
+  }
+  
+  .MxText,
+  .MyText,
+  .CoPxText,
+  .CoPyText {
+    margin-left: 30px; 
+    width: 35%;
+  }
+
+.CoPxVis {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the contents */
+  position: relative; /* Allow absolute positioning within */
+}
+  
+.pressure-container {
+  display: flex;
+  justify-content: space-between; /* Position pressure boxes side by side */
+  position: relative; /* Needed to position the feet image over the boxes */
+  width: 200px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+}
+  
+.pressure-box {
+  width: 100px; /* Adjust size */
+  height: 100px;
+  border-radius: 5px;
+  z-index: 1; /* Ensure boxes are below the image */
+}
+  
+.CoPxFeet {
+  position: absolute;
+  top: 0; /* Position the feet image at the top of the container */
+  left: 50%; /* Center the image horizontally */
+  transform: translateX(-50%); /* Offset by half its width to truly center */
+  width: 100px; /* Size of the feet image */
+  height: 100px;
+  z-index: 2; /* Ensure the image is on top of the boxes */
+  }
+  
+#pressureSlider {
+  margin-top: 20px; /* Space between the pressure boxes and slider */
+}
+
+.CoPyVis {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pressure-container-y {
+    position: relative;
+    width: 200px; 
+    height: 100px; /* Taller container for upper and lower division */
+    display: flex;
+    flex-direction: column;
+}
+
+.pressure-box-y {
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 5px;
+}
+.CoPyFeet {
+    position: absolute;
+    top: 0; /* Position the feet image at the top of the container */
+    left: 50%; /* Center the image horizontally */
+    transform: translateX(-50%); /* Offset by half its width to truly center */
+    width: 100px; /* Size of the feet image */
+    height: 100px;
+    z-index: 2; /* Ensure the image is on top of the boxes */
+}
+
+#pressureSliderY {
+    transform: rotate(90deg);
+  }
+
+.MLaxisLabel,
+.APaxisLabel {
+    color: #CA2E55;
+}

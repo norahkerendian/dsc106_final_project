@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="features.css">
+</head>
+<body>
+    <h1>How to Measure Balance</h1>
+    <div class="MxContainer">
+        <div class="MxView">
+          <div class="MxPerson">
+            <img class="MxPersonImage" src="images/person.webp" alt="Human Outline">
+            <div class="MLaxis"></div>
+            <div class="MLaxisLabel">
+                <p>Medial-lateral Axis</p>
+            </div>
+          </div>
+        </div>
+        <div class = "MxText">
+            <p><b>Mx (moment about the medial-lateral axis)</b> – A moment is a turning or twisting force. 
+              The medial-lateral axis is like a line going from one side of your body to the other 
+              (left to right). If you tip forward or backward, that's an example of a moment around this 
+              axis. A negative Mx means you're rotating in one direction (for example, forward if positive 
+              means tipping backward, or vice versa).</p>
+        </div>
+    </div>
+    <div class="MyContainer">
+        <div class="MyView">
+          <div class="MyPerson">
+            <div class="APaxisBack"></div>
+            <img class="MyPersonImage" src="images/person.webp" alt="Human Outline">
+            <div class="APaxisFront"></div>
+            <div class="APaxisLabel">
+                <p>Anterior-posterior Axis</p>
+            </div>
+          </div>
+        </div>
+        <div class = "MyText">
+            <p><b>My (moment about the anterior-posterior axis)</b> – This is another turning force, 
+              but this time around a front-to-back axis. Imagine balancing on one foot and wobbling side 
+              to side—that’s creating a moment about this axis. A negative My means you’re rotating in 
+              one direction (for example, leaning more to the left if positive means leaning to the right, 
+              or vice versa).</p>
+        </div>
+    </div>
+    <div class="CoPxContainer">
+      <div class="CoPxVis">
+        <div class="pressure-container">
+          <div id="leftPressure" class="pressure-box"></div>
+          <div id="rightPressure" class="pressure-box"></div>
+          <img class="CoPxFeet" src="images/feet.png" alt="feet">
+        </div>
+        <input type="range" id="pressureSlider" min="0" max="100" value="100">
+      </div>
+      <div class="CoPxText">
+        <p><b>COPx (medial-lateral center of pressure location)</b> – This tells us where the pressure 
+          is under your feet from side to side (left to right). If you lean more on your right foot, your
+           COPx moves to the right. A negative COPx means your weight is shifted more to one side (let’s
+            say left), while a positive value means it’s shifted to the other side (right).</p>
+      </div>
+    </div>
+    <div class="CoPyContainer">
+        <div class="CoPyVis">
+            <input type="range" id="pressureSliderY" min="0" max="100" value="100">
+            <div class="pressure-container-y">
+              <div id="upperPressure" class="pressure-box-y"></div>
+              <div id="lowerPressure" class="pressure-box-y"></div>
+              <img class="CoPyFeet" src="images/feet.png" alt="feet">
+            </div>
+          </div>
+      <div class="CoPyText">
+        <p><b>COPy (anterior-posterior center of pressure location)</b> – This is similar, but it shows
+           where the pressure is from front to back. If you lean forward on your toes, your COPy moves 
+           forward; if you lean back on your heels, it moves backward. A negative COPy means your weight 
+           is more toward your heels, while a positive value means it’s more toward your toes.</p>
+      </div>
+    </div>
+    <script src="features.js"></script>
+    <script src="../global.js" type="module"></script>
+</body>
+</html>
