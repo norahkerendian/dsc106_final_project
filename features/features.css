@@ -47,15 +47,15 @@ h1 {
 
   .APaxisLabel {
     position: absolute;
-    top: 46%;
-    left: 1%;
+    top: 50%;
+    left: -43%;
   }
 
   .APaxisFront {
     position: absolute;
-    top: 45%; /* Raised the arrow vertically */
-    left: 42%; /* Position arrow in the center of the person */
-    width: 100px; /* Increased width of the arrow */
+    top: 50%; /* Raised the arrow vertically */
+    left: 38%; /* Position arrow in the center of the person */
+    width: 80px; /* Increased width of the arrow */
     height: 4px; /* Thickness of the arrow line */
     background-color: #CA2E55;
     transform-origin: center;
@@ -128,7 +128,14 @@ h1 {
   }
   
 #pressureSlider {
-  margin-top: 20px; /* Space between the pressure boxes and slider */
+  margin-top: 20px; 
+  appearance: none;
+  width: 300px;
+  height: 8px;
+  background: #ccc; /* Always gray */
+  border-radius: 3px;
+  outline: none;
+  accent-color: #CA2E55;
 }
 
 .CoPyVis {
@@ -164,6 +171,13 @@ h1 {
 
 #pressureSliderY {
     transform: rotate(90deg);
+    appearance: none;
+    width: 35%;
+    height: 8px;
+    background: #ccc; /* Always gray */
+    border-radius: 3px;
+    outline: none;
+    accent-color: #CA2E55;
   }
 
 .MLaxisLabel,
