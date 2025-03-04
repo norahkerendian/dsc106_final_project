@@ -1,0 +1,60 @@
+html {
+    color-scheme: light dark;
+  }
+  
+  body {
+      font: 100%/1.5 system-ui;
+      max-width: 100ch;
+      margin-inline: auto;
+      padding: 0 1rem;
+    }
+  
+  nav ul {
+      display: contents; 
+  }
+  
+  nav ul li {
+      display: contents; 
+  }
+  
+  nav {
+      display: flex; 
+      margin-bottom: 1rem;
+      --border-color: oklch(50% 10% 200 / 40%);
+      /* border-bottom-color: var(--border-color); */
+      border-bottom: 1px solid oklch(80% 3% 200);
+  }
+  
+  nav a {
+      flex: 1; 
+      text-decoration: none;
+      color: inherit;
+      text-align: center;
+      padding: 0.5em
+  }
+  
+  a.current {
+    border-bottom: 0.4em solid oklch(80% 3% 200);
+    padding-bottom: 0.5rem; 
+  }
+
+  :root {
+    --color-accent: oklch(85% 20% 240); 
+  }
+  
+  html {
+    accent-color: var(--color-accent); 
+  }
+  
+  nav a:hover {
+    border-bottom: 0.4em solid var(--color-accent);
+    background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+  }
+  
+  .color-scheme {
+    position: absolute;
+    top: 1rem; 
+    right: 1rem; 
+    font-size: 80%; 
+    font-family: inherit; 
+  }
