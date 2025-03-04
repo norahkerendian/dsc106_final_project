@@ -2,7 +2,6 @@ let pages = [
     { url: '', title: 'Home' },
     { url: 'background/', title: 'Background' },
     { url: 'plots/', title: 'Plots' },
-    { url: 'plots/', title: 'Plots' },
     
     
 
