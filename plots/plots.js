@@ -89,6 +89,40 @@ function loadAndPlotData(subject, file) {
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
+        // Add legend
+        const legend = svg.append("g")
+            .attr("transform", `translate(${width - 100}, 30)`); // Adjust position as needed
+
+        // Create legend items
+        const legendItems = [
+            { color: "blue", label: "CoPx" },
+            { color: "green", label: "CoPy" }
+        ];
+
+        const updateLegend = () => {
+            // Clear previous legend
+            legend.selectAll("*").remove();
+
+            // Add updated legend items
+            legendItems.forEach((item, index) => {
+                legend.append("rect")
+                    .attr("x", 0)
+                    .attr("y", index * 20)
+                    .attr("width", 12)
+                    .attr("height", 12)
+                    .attr("fill", item.color);
+
+                legend.append("text")
+                    .attr("x", 15)
+                    .attr("y", index * 20 + 12)
+                    .text(item.label)
+                    .style("font-size", "12px")
+                    .attr("alignment-baseline", "middle");
+            });
+        };
+
+        updateLegend();
+
         // Button event listener
         d3.select("#toggleButton").on("click", () => {
             isCOP = !isCOP; // Toggle dataset
@@ -100,6 +134,14 @@ function loadAndPlotData(subject, file) {
             pathY.datum(newDataY).transition().duration(500).attr("d", lineGen);
 
             d3.select("#toggleButton").text(isCOP ? "Switch to Mx/My" : "Switch to CoPx/CoPy");
+
+            // Update legend based on the toggle state
+            legendItems[0].label = isCOP ? "CoPx" : "Mx";
+            legendItems[1].label = isCOP ? "CoPy" : "My";
+            legendItems[0].color = isCOP ? "blue" : "blue";
+            legendItems[1].color = isCOP ? "green" : "green";
+
+            updateLegend(); // Update the legend
         });
     }).catch(error => console.error("Error loading file:", error));
 }
@@ -125,4 +167,3 @@ fileSelect.on("change", function () {
     d3.select("#toggleButton").text("Switch to Mx/My");
     loadAndPlotData(selectedSubject, selectedFile);
 });
-
