@@ -58,3 +58,26 @@ html {
     font-size: 80%; 
     font-family: inherit; 
   }
+
+  .term {
+    position: relative;
+    cursor: pointer;
+    color: #0077cc;
+    text-decoration: underline;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    max-width: 200px;
+    display: none;
+    z-index: 1000;
+}
+
+.tooltip.visible {
+    display: block;
+}
