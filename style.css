@@ -81,3 +81,15 @@ html {
 .tooltip.visible {
     display: block;
 }
+
+.chart-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  pointer-events: none; /* Prevent the tooltip from blocking mouse events */
+  z-index: 9999;
+}
+

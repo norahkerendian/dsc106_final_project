@@ -1,6 +1,8 @@
-// THIS WORKS:
-
 const width = 800, height = 400, margin = 50;
+const marginTop = 20;
+const marginRight = 20;
+const marginBottom = 20;
+const marginLeft = 40;
 const svg = d3.select("svg");
 let isCOP = true; // Track whether we're showing CoP or Mx/My
 
@@ -21,6 +23,11 @@ fileNames.forEach(fileName => {
         .attr("value", fileName)
         .text(fileName);
 });
+
+// Create tooltip div (initially hidden)
+const tooltip = d3.select("body").append("div")
+    .attr("class", "chart-tooltip")
+    .style("visibility", "hidden");
 
 // Function to load and plot data
 function loadAndPlotData(subject, file) {
@@ -47,12 +54,13 @@ function loadAndPlotData(subject, file) {
 
         // Create scales
         const xScale = d3.scaleLinear()
-            .domain(d3.extent(data, d => d.Time))
-            .range([margin, width - margin]);
+            .domain([0, d3.max(data, (d) => d.Time) + 0.01])
+            .range([marginLeft, width - marginRight]);
 
+        const yExtent = d3.extent([...normalizedDataX, ...normalizedDataY], d => d.value);
         const yScale = d3.scaleLinear()
-            .domain([-5, 5])
-            .range([height - margin, margin]);
+            .domain(yExtent)
+            .range([height - marginBottom, marginTop]);
 
         // Clear previous plot
         svg.selectAll("*").remove();
@@ -62,11 +70,12 @@ function loadAndPlotData(subject, file) {
         const yAxis = d3.axisLeft(yScale);
 
         svg.append("g")
-            .attr("transform", `translate(0, ${height - margin})`)
+            .attr("transform", `translate(0, ${height - marginBottom})`)
             .call(xAxis);
 
         svg.append("g")
-            .attr("transform", `translate(${margin}, 0)`)
+            .attr("class", "y-axis")
+            .attr("transform", `translate(${marginLeft}, 0)`)
             .call(yAxis);
 
         // Line generator
@@ -80,14 +89,14 @@ function loadAndPlotData(subject, file) {
             .attr("fill", "none")
             .attr("stroke", "blue")
             .attr("stroke-width", 2)
-            .attr("d", lineGen);
+            .attr("d", lineGen)
 
         const pathY = svg.append("path")
             .datum(normalizedDataY)
             .attr("fill", "none")
             .attr("stroke", "green")
             .attr("stroke-width", 2)
-            .attr("d", lineGen);
+            .attr("d", lineGen)
 
         // Add legend
         const legend = svg.append("g")
@@ -130,6 +139,16 @@ function loadAndPlotData(subject, file) {
             const newDataX = normalize(data, isCOP ? "CoPx" : "Mx");
             const newDataY = normalize(data, isCOP ? "CoPy" : "My");
 
+            // Recalculate the yExtent based on the new dataset
+            const yExtent = d3.extent([...newDataX, ...newDataY], d => d.value);
+            yScale.domain(yExtent); // Update the y-scale domain
+
+            // Update y-axis
+            svg.select(".y-axis")
+                .transition()
+                .duration(500)
+                .call(d3.axisLeft(yScale));
+
             pathX.datum(newDataX).transition().duration(500).attr("d", lineGen);
             pathY.datum(newDataY).transition().duration(500).attr("d", lineGen);
 
@@ -138,8 +157,6 @@ function loadAndPlotData(subject, file) {
             // Update legend based on the toggle state
             legendItems[0].label = isCOP ? "CoPx" : "Mx";
             legendItems[1].label = isCOP ? "CoPy" : "My";
-            legendItems[0].color = isCOP ? "blue" : "blue";
-            legendItems[1].color = isCOP ? "green" : "green";
 
             updateLegend(); // Update the legend
         });
