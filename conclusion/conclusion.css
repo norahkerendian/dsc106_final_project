@@ -1,0 +1,13 @@
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+p {
+    margin-left: 30px;
+    text-align: left;
+}
+.container {
+    display: flex;
+    align-items: center;
+}
