@@ -2,7 +2,7 @@ let pages = [
     { url: '', title: 'Home' },
     { url: 'background/', title: 'Background' },
     { url: 'features/features.html', title: 'Features' },
-    { url: 'plots/', title: 'Plots' },
+    { url: 'plots/', title: 'Main Plots' },
     
     
 
