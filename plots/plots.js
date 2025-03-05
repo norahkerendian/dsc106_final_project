@@ -24,15 +24,14 @@ fileNames.forEach(fileName => {
         .text(fileName);
 });
 
-// Create tooltip div (initially hidden)
-const tooltip = d3.select("body").append("div")
-    .attr("class", "chart-tooltip")
-    .style("visibility", "hidden");
+// // Create tooltip div (initially hidden)
+// const tooltip = d3.select("body").append("div")
+//     .attr("class", "chart-tooltip")
+//     .style("visibility", "hidden");
 
 // Function to load and plot data
 function loadAndPlotData(subject, file) {
     const filePath = `../data/S${subject}/${file}.csv`;
-
     d3.csv(filePath).then(data => {
         data.forEach(d => {
             d.Time = +d.Time;
@@ -208,3 +207,32 @@ fileSelect.on("change", function () {
     d3.select("#toggleButton").text("Switch to Mx/My");
     loadAndPlotData(selectedSubject, selectedFile);
 });
+
+// //tooltip
+// var tooltip = document.getElementById("tooltip");
+// circles.forEach(circle => {
+//     circle.on("mouseover", function (e) {
+//         let { population, cases } = e.target.options.customData;
+//         let municipality = e.target.getPopup().getContent().split("<strong>")[1].split("</strong>")[0]; // Extract municipality name
+
+//         tooltip.innerHTML = `
+//             <strong>${municipality}</strong><br>
+//             Average Cases: ${cases.toFixed(2)}<br>
+//             Average Population: ${population.toLocaleString()}<br>
+//             Cases per Capita: ${(cases / population * 100).toFixed(2)}%
+//         `;
+
+//         tooltip.style.display = "block";
+//         tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+//         tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+//     });
+
+//     circle.on("mousemove", function (e) {
+//         tooltip.style.left = (e.originalEvent.pageX + 10) + "px";
+//         tooltip.style.top = (e.originalEvent.pageY + 10) + "px";
+//     });
+
+//     circle.on("mouseout", function () {
+//         tooltip.style.display = "none";
+//     });
+// });

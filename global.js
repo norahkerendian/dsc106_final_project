@@ -4,9 +4,6 @@ let pages = [
     { url: 'plots/', title: 'Main Plots' },
     { url: 'conclusion/conclusion.html', title: 'Conclusion' },
     { url: 'writeup/', title: 'Write Up' },
-    
-    
-
   ];
 
   let nav = document.createElement('nav');
