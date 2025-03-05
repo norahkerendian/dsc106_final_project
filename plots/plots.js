@@ -1,10 +1,10 @@
 const width = 800, height = 400, margin = 50;
 const marginTop = 20;
 const marginRight = 20;
-const marginBottom = 20;
+const marginBottom = 40;
 const marginLeft = 40;
 const svg = d3.select("svg");
-let isCOP = true; // Track whether we're showing CoP or Mx/My
+let isCOP = true; 
 
 const subjects = Array.from({ length: 10 }, (_, i) => i + 1);
 const fileNames = ["ECL1", "ECR", "WL1", "WR"];
@@ -65,6 +65,7 @@ function loadAndPlotData(subject, file) {
         // Clear previous plot
         svg.selectAll("*").remove();
 
+
         // Create axes
         const xAxis = d3.axisBottom(xScale);
         const yAxis = d3.axisLeft(yScale);
@@ -73,10 +74,28 @@ function loadAndPlotData(subject, file) {
             .attr("transform", `translate(0, ${height - marginBottom})`)
             .call(xAxis);
 
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height - marginBottom + 35) 
+            .attr("text-anchor", "middle")
+            .style("fill", "black") 
+            .style("font-size", "14px")
+            .text("Time (s)");
+
         svg.append("g")
             .attr("class", "y-axis")
             .attr("transform", `translate(${marginLeft}, 0)`)
             .call(yAxis);
+
+        const yAxisLabel = svg.append("text")
+            .attr("class", "y-axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", marginLeft - 30) 
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text(isCOP ? "Normalized CoPx/CoPy" : "Normalized Mx/My");
+        
 
         // Line generator
         const lineGen = d3.line()
@@ -100,7 +119,7 @@ function loadAndPlotData(subject, file) {
 
         // Add legend
         const legend = svg.append("g")
-            .attr("transform", `translate(${width - 100}, 30)`); // Adjust position as needed
+            .attr("transform", `translate(${width - 100}, 30)`); 
 
         // Create legend items
         const legendItems = [
@@ -134,14 +153,14 @@ function loadAndPlotData(subject, file) {
 
         // Button event listener
         d3.select("#toggleButton").on("click", () => {
-            isCOP = !isCOP; // Toggle dataset
+            isCOP = !isCOP; 
 
             const newDataX = normalize(data, isCOP ? "CoPx" : "Mx");
             const newDataY = normalize(data, isCOP ? "CoPy" : "My");
 
             // Recalculate the yExtent based on the new dataset
             const yExtent = d3.extent([...newDataX, ...newDataY], d => d.value);
-            yScale.domain(yExtent); // Update the y-scale domain
+            yScale.domain(yExtent); 
 
             // Update y-axis
             svg.select(".y-axis")
@@ -157,6 +176,11 @@ function loadAndPlotData(subject, file) {
             // Update legend based on the toggle state
             legendItems[0].label = isCOP ? "CoPx" : "Mx";
             legendItems[1].label = isCOP ? "CoPy" : "My";
+
+            d3.select(".y-axis-label")
+                .transition()
+                .duration(500)
+                .text(isCOP ? "Normalized CoPx/CoPy" : "Normalized Mx/My");
 
             updateLegend(); // Update the legend
         });
