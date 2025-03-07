@@ -6,20 +6,26 @@
     <title>CoP and Mx/My Visualization</title>
     <link rel="stylesheet" href="../style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- <script defer src="script.js"></script> -->
 </head>
 <body>
     <h2>Postural Sway Visualization</h2>
+
+    <!-- static plots -->
+    <div id="static-plots">
+        <svg id="static-plot-1" width="800" height="200"></svg>
+        <svg id="static-plot-2" width="800" height="200"></svg>
+    </div>
+
     <label for="subject-select">Select Subject:</label>
     <select id="subject-select"></select>
 
-    <label for="file-select">Select File:</label>
+    <label for="file-select">Select Scenario:</label>
     <select id="file-select"></select>
     
     <button id="toggleButton">Switch to Mx/My</button>
-
-    <svg width="800" height="400"></svg>
-    <svg width="800" height="400"></svg>
+    
+    <!-- main plot -->
+    <svg id="main-plot" width="800" height="400"></svg>
 
     <script src="../global.js" type="module"></script>
     <script src="plots.js" type="module"></script>
