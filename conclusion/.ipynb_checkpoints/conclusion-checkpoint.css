@@ -6,20 +6,8 @@ h1 {
 p {
     margin-left: 30px;
     text-align: left;
-    line-height: 30px;
 }
 .container {
     display: flex;
     align-items: center;
 }
-
-.tooltip {
-    font-size: 14px;
-    font-weight: bold;
-    color: black;
-  }
-
-  .axis-label {
-    position: relative;
-    z-index: 10;
-  };
