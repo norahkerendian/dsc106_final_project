@@ -27,7 +27,7 @@ fetch('conclusion.json')
       .padding(0.5);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(grouped, d => d.dCoPy * 1000)])
+      .domain([0, d3.max(grouped, d => d.dMx)])
       .nice()
       .range([height - margin.bottom, margin.top]);
 
@@ -74,13 +74,13 @@ svg.selectAll(".bar-dCoPy")
 .append("rect")
 .attr("class", "bar-dCoPy")
 .attr("x", d => x(d.Senario) + x.bandwidth() / 2) // Offset to avoid overlap
-.attr("y", d => y(d.dCoPy * 1000)) // Scaling if needed
-.attr("height", d => y(0) - y(d.dCoPy * 1000))
+.attr("y", d => y(d.dCoPy * 700)) // Scaling if needed
+.attr("height", d => y(0) - y(d.dCoPy * 700))
 .attr("width", x.bandwidth() / 2)
 .attr("fill", "orange")
 .on("mouseover", (event, d) => {
   tooltip.style("opacity", 1)
-    .html(`dCoPy: ${(d.dCoPy * 1000).toFixed(2)}`); // Adjust scaling if needed
+    .html(`dCoPy: ${(d.dCoPy * 700).toFixed(2)}`); // Adjust scaling if needed
 })
 .on("mousemove", (event) => {
   tooltip.style("left", (event.pageX + 10) + "px")
