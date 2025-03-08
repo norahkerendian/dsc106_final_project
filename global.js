@@ -103,3 +103,31 @@ let pages = [
         });
     });
 });
+
+// Create play button
+const playButton = document.createElement('button');
+playButton.textContent = 'Play Music';
+document.body.appendChild(playButton);
+
+// Create pause button
+const pauseButton = document.createElement('button');
+pauseButton.textContent = 'Pause Music';
+document.body.appendChild(pauseButton);
+
+// Create audio element
+const audio = document.createElement('audio');
+audio.id = 'background-audio';
+audio.loop = true;
+
+// Create source element
+const source = document.createElement('source');
+source.src = '../jupiter/01.I.AllegroVivace.mp3';
+source.type = 'audio/mpeg';
+
+audio.appendChild(source);
+document.body.appendChild(audio);
+
+// Add event listeners
+playButton.addEventListener('click', () => audio.play());
+pauseButton.addEventListener('click', () => audio.pause());
+
