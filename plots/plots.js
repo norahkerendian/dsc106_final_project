@@ -204,7 +204,8 @@
 //     loadAndPlotData(selectedSubject, selectedFile);
 // });
 
-const width = 800, height = 400, staticHeight = 200;
+// WORKS WITH 3 plots
+const width = 800, height = 400, staticHeight = 300;
 const marginTop = 20, marginRight = 20, marginBottom = 40, marginLeft = 40;
 
 const mainSvg = d3.select("#main-plot");
