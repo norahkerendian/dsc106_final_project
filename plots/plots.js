@@ -70,7 +70,7 @@ function plotStaticDataMx() {
         const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
-            .range([height / 2 - marginBottom, marginTop]);
+            .range([height - marginBottom, marginTop]);
 
         // Create plot
         const staticSvg = d3.select("#static-plot-Mx");
@@ -85,7 +85,7 @@ function plotStaticDataMx() {
         staticSvg.append("path")
             .datum(normalizedDataMxWL1)
             .attr("fill", "none")
-            .attr("stroke", "blue")
+            .attr("stroke", "#fc8d59")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
@@ -93,7 +93,7 @@ function plotStaticDataMx() {
         staticSvg.append("path")
             .datum(normalizedDataMxECR)
             .attr("fill", "none")
-            .attr("stroke", "red")
+            .attr("stroke", "#99d594")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
@@ -104,7 +104,7 @@ function plotStaticDataMx() {
         legend.append("rect")
             .attr("width", 12)
             .attr("height", 12)
-            .attr("fill", "blue");
+            .attr("fill", "#fc8d59");
 
         legend.append("text")
             .attr("x", 15)
@@ -117,7 +117,7 @@ function plotStaticDataMx() {
             .attr("y", 20)
             .attr("width", 12)
             .attr("height", 12)
-            .attr("fill", "red");
+            .attr("fill", "#99d594");
 
         legend.append("text")
             .attr("x", 15)
@@ -127,7 +127,7 @@ function plotStaticDataMx() {
 
         // X Axis
         staticSvg.append("g")
-            .attr("transform", `translate(0, ${height / 2 - marginBottom})`)
+            .attr("transform", `translate(0, ${height - marginBottom})`)
             .call(d3.axisBottom(xScale));
 
         // Y Axis
@@ -138,7 +138,7 @@ function plotStaticDataMx() {
         // Axis labels
         staticSvg.append("text")
             .attr("x", width / 2)
-            .attr("y", height / 2 - marginBottom + 35)
+            .attr("y", height - marginBottom + 35)
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
             .text("Time (s)");
@@ -189,8 +189,8 @@ function plotStaticDataCOPy() {
             }));
         }
 
-        let normalizedDataCoPyWL1 = normalize(dataWL1, "Mx");
-        let normalizedDataCoPyECR = normalize(dataECR, "Mx");
+        let normalizedDataCoPyWL1 = normalize(dataWL1, "CoPy");
+        let normalizedDataCoPyECR = normalize(dataECR, "CoPy");
 
         // Create scales
         const xScale = d3.scaleLinear()
@@ -200,7 +200,7 @@ function plotStaticDataCOPy() {
         const yExtent = d3.extent([...normalizedDataCoPyWL1, ...normalizedDataCoPyECR], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
-            .range([height / 2 - marginBottom, marginTop]);
+            .range([height- marginBottom, marginTop]);
 
         // Create plot
         const staticSvg = d3.select("#static-plot-CoPy");
@@ -215,7 +215,7 @@ function plotStaticDataCOPy() {
         staticSvg.append("path")
             .datum(normalizedDataCoPyWL1)
             .attr("fill", "none")
-            .attr("stroke", "blue")
+            .attr("stroke", "#fc8d59")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
@@ -223,7 +223,7 @@ function plotStaticDataCOPy() {
         staticSvg.append("path")
             .datum(normalizedDataCoPyECR)
             .attr("fill", "none")
-            .attr("stroke", "red")
+            .attr("stroke", "#99d594")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
@@ -234,7 +234,7 @@ function plotStaticDataCOPy() {
         legend.append("rect")
             .attr("width", 12)
             .attr("height", 12)
-            .attr("fill", "blue");
+            .attr("fill", "#fc8d59");
 
         legend.append("text")
             .attr("x", 15)
@@ -247,7 +247,7 @@ function plotStaticDataCOPy() {
             .attr("y", 20)
             .attr("width", 12)
             .attr("height", 12)
-            .attr("fill", "red");
+            .attr("fill", "#99d594");
 
         legend.append("text")
             .attr("x", 15)
@@ -257,7 +257,7 @@ function plotStaticDataCOPy() {
 
         // X Axis
         staticSvg.append("g")
-            .attr("transform", `translate(0, ${height / 2 - marginBottom})`)
+            .attr("transform", `translate(0, ${height - marginBottom})`)
             .call(d3.axisBottom(xScale));
 
         // Y Axis
@@ -268,7 +268,7 @@ function plotStaticDataCOPy() {
         // Axis labels
         staticSvg.append("text")
             .attr("x", width / 2)
-            .attr("y", height / 2 - marginBottom + 35)
+            .attr("y", height - marginBottom + 35)
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
             .text("Time (s)");
@@ -360,14 +360,14 @@ function loadAndPlotData(subject, file) {
         const pathX = svg.append("path")
             .datum(normalizedDataX)
             .attr("fill", "none")
-            .attr("stroke", "blue")
+            .attr("stroke", "#5ab4ac")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
         const pathY = svg.append("path")
             .datum(normalizedDataY)
             .attr("fill", "none")
-            .attr("stroke", "green")
+            .attr("stroke", "#d8b365")
             .attr("stroke-width", 2)
             .attr("d", lineGen);
 
@@ -376,8 +376,8 @@ function loadAndPlotData(subject, file) {
             .attr("transform", `translate(${width - 100}, 30)`);
 
         const legendItems = [
-            { color: "blue", label: "CoPx" },
-            { color: "green", label: "CoPy" }
+            { color: "#5ab4ac", label: "CoPx" },
+            { color: "#d8b365", label: "CoPy" }
         ];
 
         const updateLegend = () => {
