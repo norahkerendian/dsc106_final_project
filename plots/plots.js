@@ -385,6 +385,43 @@ function loadAndPlotData(subject, file) {
             legend.selectAll("*").remove();
 
             // Add updated legend items
+            // legendItems.forEach((item, index) => {
+            //     legend.append("rect")
+            //         .attr("x", 0)
+            //         .attr("y", index * 20)
+            //         .attr("width", 12)
+            //         .attr("height", 12)
+            //         .attr("fill", item.color);
+
+            //     legend.append("rect") // Add a rectangle for the border
+            //         .attr("x", -5)
+            //         .attr("y", -5)
+            //         .attr("width", 70) // Adjust width based on legend size
+            //         .attr("height", 50) // Adjust height based on legend size
+            //         .style("fill", "none") // No fill for a transparent background
+            //         .style("stroke", "black") // Border color
+            //         .style("stroke-width", 1);
+
+            //     legend.append("text")
+            //         .attr("x", 15)
+            //         .attr("y", index * 20 + 12)
+            //         .text(item.label)
+            //         .style("font-size", "12px")
+            //         .attr("alignment-baseline", "middle");
+            // });
+            // Add background rectangle for legend (shaded light gray)
+                legend.append("rect")
+                .attr("x", -10)
+                .attr("y", -10)
+                .attr("width", 70) 
+                .attr("height", legendItems.length * 20 + 10) 
+                .style("fill", "#f0f0f0") 
+                .style("stroke", "black") // Border color
+                .style("stroke-width", 1)
+                .style("rx", 4) 
+                .style("ry", 4); 
+
+            // Add updated legend items
             legendItems.forEach((item, index) => {
                 legend.append("rect")
                     .attr("x", 0)
@@ -395,7 +432,7 @@ function loadAndPlotData(subject, file) {
 
                 legend.append("text")
                     .attr("x", 15)
-                    .attr("y", index * 20 + 12)
+                    .attr("y", index * 20 + 10)
                     .text(item.label)
                     .style("font-size", "12px")
                     .attr("alignment-baseline", "middle");

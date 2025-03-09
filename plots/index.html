@@ -9,7 +9,34 @@
 </head>
 <body>
     <h2>Postural Sway Visualization</h2>
+    <!-- <p>
+        ECL1: Eyes Closed, Music 0.1Hz <br> 
+        ECR: Eyes Closed, Music Regular <br>
+        WL1: VR shifting, Music 0.1Hz <br>
+        WR: VR shifting, Music Regular <br>
+    </p> -->
 
+    <table style="border-collapse: collapse; width: 100%;">
+        <tr>
+            <td style="padding: 5px; font-weight: bold;">ECL1:</td>
+            <td style="padding: 5px;">Eyes Closed, Music 0.1Hz</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; font-weight: bold;">ECR:</td>
+            <td style="padding: 5px;">Eyes Closed, Music Regular</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; font-weight: bold;">WL1:</td>
+            <td style="padding: 5px;">VR shifting, Music 0.1Hz</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px; font-weight: bold;">WR:</td>
+            <td style="padding: 5px;">VR shifting, Music Regular</td>
+        </tr>
+    </table>
+    
+
+    
     <h3>Normalized Mx for WL1 and ECR Over Time</h3>
     <svg id="static-plot-Mx" width="1000" height="400"></svg>
 
@@ -25,6 +52,8 @@
     <button id="toggleButton">Switch to Mx/My</button>
 
     <svg id="main-plot" width="1000" height="400"></svg>
+
+    <small>*Data is normalized by subtracting the mean and dividing by the standard deviation.</small>
 
     <script src="../global.js" type="module"></script>
     <script src="plots.js" type="module"></script>
