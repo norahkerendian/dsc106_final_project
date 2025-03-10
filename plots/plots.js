@@ -26,14 +26,15 @@ fileNames.forEach(fileName => {
 
 // Function to load and plot static data for Mx of WL1 and ECR
 function plotStaticDataMx() {
-    const filePathWL1 = `../data/S1/WL1.csv`;
-    const filePathECR = `../data/S1/ECR.csv`;
+    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
             data.forEach(d => {
                 d.Time = +d.Time;
                 d.Mx = +d.Mx;
+                d.smoothMx = +d.smoothMx;
             });
             return data;
         }),
@@ -41,6 +42,7 @@ function plotStaticDataMx() {
             data.forEach(d => {
                 d.Time = +d.Time;
                 d.Mx = +d.Mx;
+                d.smoothMx = +d.smoothMx;
             });
             return data;
         })
@@ -60,14 +62,16 @@ function plotStaticDataMx() {
         }
 
         let normalizedDataMxWL1 = normalize(dataWL1, "Mx");
+        let normalizedDataMxWL1smooth = normalize(dataWL1, "smoothMx");
         let normalizedDataMxECR = normalize(dataECR, "Mx");
+        let normalizedDataMxECRsmooth = normalize(dataECR, "smoothMx");
 
         // Create scales
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
 
-        const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR], d => d.value);
+        const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR, ...normalizedDataMxECRsmooth, ...normalizedDataMxWL1smooth], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
             .range([height - marginBottom, marginTop]);
@@ -81,21 +85,42 @@ function plotStaticDataMx() {
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
-        // Draw WL1 line
+        // Draw WL1 line (background)
         staticSvg.append("path")
-            .datum(normalizedDataMxWL1)
-            .attr("fill", "none")
-            .attr("stroke", "#fc8d59")
-            .attr("stroke-width", 2)
-            .attr("d", lineGen);
+        .datum(normalizedDataMxWL1)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
 
-        // Draw ECR line
+        // Draw ECR line (background)
         staticSvg.append("path")
-            .datum(normalizedDataMxECR)
-            .attr("fill", "none")
-            .attr("stroke", "#99d594")
-            .attr("stroke-width", 2)
-            .attr("d", lineGen);
+        .datum(normalizedDataMxECR)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw WL1 line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataMxWL1smooth)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataMxECRsmooth)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
 
         // Legend
         const legend = staticSvg.append("g")
@@ -155,15 +180,173 @@ function plotStaticDataMx() {
     });
 }
 
+// Function to load and plot static data for My of WL1 and ECR
+function plotStaticDataMy() {
+    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+
+    Promise.all([
+        d3.csv(filePathWL1).then(data => {
+            data.forEach(d => {
+                d.Time = +d.Time;
+                d.My = +d.My;
+                d.smoothMy = +d.smoothMy;
+            });
+            return data;
+        }),
+        d3.csv(filePathECR).then(data => {
+            data.forEach(d => {
+                d.Time = +d.Time;
+                d.My = +d.My;
+                d.smoothMy = +d.smoothMy;
+            });
+            return data;
+        })
+    ]).then(([dataWL1, dataECR]) => {
+        console.log(`Number of data points for WL1:`, dataWL1.length);
+        console.log(`Number of data points for ECR:`, dataECR.length);
+
+        // Normalize Mx values
+        function normalize(data, key) {
+            const mean = d3.mean(data, d => d[key]);
+            const std = d3.deviation(data, d => d[key]);
+            console.log(`Mean: ${mean} Std Dev: ${std}`);
+            return data.map(d => ({
+                Time: d.Time,
+                value: (d[key] - mean) / std
+            }));
+        }
+
+        let normalizedDataMyWL1 = normalize(dataWL1, "My");
+        let normalizedDataMyWL1smooth = normalize(dataWL1, "smoothMy");
+        let normalizedDataMyECR = normalize(dataECR, "My");
+        let normalizedDataMyECRsmooth = normalize(dataECR, "smoothMy");
+
+        // Create scales
+        const xScale = d3.scaleLinear()
+            .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
+            .range([marginLeft, width - marginRight]);
+
+        const yExtent = d3.extent([...normalizedDataMyWL1, ...normalizedDataMyECR, ...normalizedDataMyECRsmooth, ...normalizedDataMyWL1smooth], d => d.value);
+        const yScale = d3.scaleLinear()
+            .domain(yExtent)
+            .range([height - marginBottom, marginTop]);
+
+        // Create plot
+        const staticSvg = d3.select("#static-plot-My");
+        staticSvg.selectAll("*").remove();
+
+        // Line generator
+        const lineGen = d3.line()
+            .x(d => xScale(d.Time))
+            .y(d => yScale(d.value));
+
+        // Draw WL1 line (background)
+        staticSvg.append("path")
+        .datum(normalizedDataMyWL1)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line (background)
+        staticSvg.append("path")
+        .datum(normalizedDataMyECR)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw WL1 line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataMyWL1smooth)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataMyECRsmooth)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+
+        // Legend
+        const legend = staticSvg.append("g")
+            .attr("transform", `translate(${width - 100}, 20)`);
+
+        legend.append("rect")
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", "#fc8d59");
+
+        legend.append("text")
+            .attr("x", 15)
+            .attr("y", 10)
+            .text("WL1")
+            .style("font-size", "12px");
+
+        legend.append("rect")
+            .attr("x", 0)
+            .attr("y", 20)
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", "#99d594");
+
+        legend.append("text")
+            .attr("x", 15)
+            .attr("y", 30)
+            .text("ECR")
+            .style("font-size", "12px");
+
+        // X Axis
+        staticSvg.append("g")
+            .attr("transform", `translate(0, ${height - marginBottom})`)
+            .call(d3.axisBottom(xScale));
+
+        // Y Axis
+        staticSvg.append("g")
+            .attr("transform", `translate(${marginLeft}, 0)`)
+            .call(d3.axisLeft(yScale));
+
+        // Axis labels
+        staticSvg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height - marginBottom + 35)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text("Time (s)");
+
+        staticSvg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", marginLeft - 30)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text("Normalized My");
+    }).catch(error => {
+        console.error("Error loading data:", error);
+    });
+}
+
+// Function that plots static data for CoPy
 function plotStaticDataCOPy() {
-    const filePathWL1 = `../data/S1/WL1.csv`;
-    const filePathECR = `../data/S1/ECR.csv`;
+    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
             data.forEach(d => {
                 d.Time = +d.Time;
                 d.CoPy = +d.CoPy;
+                d.smoothCoPy = +d.smoothCoPy;
             });
             return data;
         }),
@@ -171,6 +354,7 @@ function plotStaticDataCOPy() {
             data.forEach(d => {
                 d.Time = +d.Time;
                 d.CoPy = +d.CoPy;
+                d.smoothCoPy = +d.smoothCoPy;
             });
             return data;
         })
@@ -190,14 +374,16 @@ function plotStaticDataCOPy() {
         }
 
         let normalizedDataCoPyWL1 = normalize(dataWL1, "CoPy");
+        let normalizedDataCoPyWL1smooth = normalize(dataWL1, "smoothCoPy");
         let normalizedDataCoPyECR = normalize(dataECR, "CoPy");
+        let normalizedDataCoPyECRsmooth = normalize(dataECR, "smoothCoPy");
 
         // Create scales
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
 
-        const yExtent = d3.extent([...normalizedDataCoPyWL1, ...normalizedDataCoPyECR], d => d.value);
+        const yExtent = d3.extent([...normalizedDataCoPyWL1, ...normalizedDataCoPyECR, ...normalizedDataCoPyWL1smooth, ...normalizedDataCoPyECRsmooth], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
             .range([height- marginBottom, marginTop]);
@@ -211,21 +397,198 @@ function plotStaticDataCOPy() {
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
-        // Draw WL1 line
+        // Draw WL1 line (background)
         staticSvg.append("path")
-            .datum(normalizedDataCoPyWL1)
-            .attr("fill", "none")
-            .attr("stroke", "#fc8d59")
-            .attr("stroke-width", 2)
-            .attr("d", lineGen);
+        .datum(normalizedDataCoPyWL1)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
 
-        // Draw ECR line
+        // Draw ECR line (background)
         staticSvg.append("path")
-            .datum(normalizedDataCoPyECR)
-            .attr("fill", "none")
-            .attr("stroke", "#99d594")
-            .attr("stroke-width", 2)
-            .attr("d", lineGen);
+        .datum(normalizedDataCoPyECR)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw WL1 line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPyWL1smooth)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPyECRsmooth)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+
+        // Legend
+        const legend = staticSvg.append("g")
+            .attr("transform", `translate(${width - 100}, 20)`);
+
+        legend.append("rect")
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", "#fc8d59");
+
+        legend.append("text")
+            .attr("x", 15)
+            .attr("y", 10)
+            .text("WL1")
+            .style("font-size", "12px");
+
+        legend.append("rect")
+            .attr("x", 0)
+            .attr("y", 20)
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", "#99d594");
+
+        legend.append("text")
+            .attr("x", 15)
+            .attr("y", 30)
+            .text("ECR")
+            .style("font-size", "12px");
+
+        // X Axis
+        staticSvg.append("g")
+            .attr("transform", `translate(0, ${height - marginBottom})`)
+            .call(d3.axisBottom(xScale));
+
+        // Y Axis
+        staticSvg.append("g")
+            .attr("transform", `translate(${marginLeft}, 0)`)
+            .call(d3.axisLeft(yScale));
+
+        // Axis labels
+        staticSvg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height - marginBottom + 35)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text("Time (s)");
+
+        staticSvg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -height / 2)
+            .attr("y", marginLeft - 30)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .text("Normalized CoPy");
+    }).catch(error => {
+        console.error("Error loading data:", error);
+    });
+}
+
+// Function that plots static data for CoPx
+function plotStaticDataCOPx() {
+    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+
+    Promise.all([
+        d3.csv(filePathWL1).then(data => {
+            data.forEach(d => {
+                d.Time = +d.Time;
+                d.CoPx = +d.CoPx;
+                d.smoothCoPx = +d.smoothCoPx;
+            });
+            return data;
+        }),
+        d3.csv(filePathECR).then(data => {
+            data.forEach(d => {
+                d.Time = +d.Time;
+                d.CoPx = +d.CoPx;
+                d.smoothCoPx = +d.smoothCoPx;
+            });
+            return data;
+        })
+    ]).then(([dataWL1, dataECR]) => {
+        console.log(`Number of data points for WL1:`, dataWL1.length);
+        console.log(`Number of data points for ECR:`, dataECR.length);
+
+        // Normalize Mx values
+        function normalize(data, key) {
+            const mean = d3.mean(data, d => d[key]);
+            const std = d3.deviation(data, d => d[key]);
+            console.log(`Mean: ${mean} Std Dev: ${std}`);
+            return data.map(d => ({
+                Time: d.Time,
+                value: (d[key] - mean) / std
+            }));
+        }
+
+        let normalizedDataCoPxWL1 = normalize(dataWL1, "CoPx");
+        let normalizedDataCoPxWL1smooth = normalize(dataWL1, "smoothCoPx");
+        let normalizedDataCoPxECR = normalize(dataECR, "CoPx");
+        let normalizedDataCoPxECRsmooth = normalize(dataECR, "smoothCoPx");
+
+        // Create scales
+        const xScale = d3.scaleLinear()
+            .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
+            .range([marginLeft, width - marginRight]);
+
+        const yExtent = d3.extent([...normalizedDataCoPxWL1, ...normalizedDataCoPxECR, ...normalizedDataCoPxWL1smooth, ...normalizedDataCoPxECRsmooth], d => d.value);
+        const yScale = d3.scaleLinear()
+            .domain(yExtent)
+            .range([height- marginBottom, marginTop]);
+
+        // Create plot
+        const staticSvg = d3.select("#static-plot-CoPx");
+        staticSvg.selectAll("*").remove();
+
+        // Line generator
+        const lineGen = d3.line()
+            .x(d => xScale(d.Time))
+            .y(d => yScale(d.value));
+
+        // Draw WL1 line (background)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPxWL1)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line (background)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPxECR)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594")
+        .attr("stroke-width", 1) // Thinner stroke
+        .attr("opacity", 0.3) // Lower opacity
+        .attr("d", lineGen);
+
+        // Draw WL1 line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPxWL1smooth)
+        .attr("fill", "none")
+        .attr("stroke", "#fc8d59") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
+        // Draw ECR line smooth (main focus)
+        staticSvg.append("path")
+        .datum(normalizedDataCoPxECRsmooth)
+        .attr("fill", "none")
+        .attr("stroke", "#99d594") // Keep bright color
+        .attr("stroke-width", 2.5) // Thicker stroke
+        .attr("opacity", 1) // Full opacity
+        .attr("d", lineGen);
+
 
         // Legend
         const legend = staticSvg.append("g")
@@ -383,33 +746,6 @@ function loadAndPlotData(subject, file) {
         const updateLegend = () => {
             // Clear previous legend
             legend.selectAll("*").remove();
-
-            // Add updated legend items
-            // legendItems.forEach((item, index) => {
-            //     legend.append("rect")
-            //         .attr("x", 0)
-            //         .attr("y", index * 20)
-            //         .attr("width", 12)
-            //         .attr("height", 12)
-            //         .attr("fill", item.color);
-
-            //     legend.append("rect") // Add a rectangle for the border
-            //         .attr("x", -5)
-            //         .attr("y", -5)
-            //         .attr("width", 70) // Adjust width based on legend size
-            //         .attr("height", 50) // Adjust height based on legend size
-            //         .style("fill", "none") // No fill for a transparent background
-            //         .style("stroke", "black") // Border color
-            //         .style("stroke-width", 1);
-
-            //     legend.append("text")
-            //         .attr("x", 15)
-            //         .attr("y", index * 20 + 12)
-            //         .text(item.label)
-            //         .style("font-size", "12px")
-            //         .attr("alignment-baseline", "middle");
-            // });
-            // Add background rectangle for legend (shaded light gray)
                 legend.append("rect")
                 .attr("x", -10)
                 .attr("y", -10)
@@ -479,7 +815,9 @@ function loadAndPlotData(subject, file) {
 
 // Load the static plot first
 plotStaticDataMx();
+plotStaticDataMy();
 plotStaticDataCOPy();
+plotStaticDataCOPx();
 
 // Load initial dynamic data
 const initialSubject = subjectSelect.node().value;
