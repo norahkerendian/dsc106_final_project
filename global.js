@@ -182,10 +182,10 @@
 
 let pages = [
     { url: '', title: 'Background' },
-    { url: 'features/features.html', title: 'Features' },
-    { url: 'plots/index.html', title: 'Main Plots' },
-    { url: 'conclusion/conclusion.html', title: 'Conclusion' },
-    { url: 'writeup/index.html', title: 'Write Up' },
+    { url: '../features/features.html', title: 'Features' },
+    { url: '../plots/index.html', title: 'Main Plots' },
+    { url: '../conclusion/conclusion.html', title: 'Conclusion' },
+    { url: '../writeup/index.html', title: 'Write Up' },
 ];
 
 let nav = document.createElement('nav');
