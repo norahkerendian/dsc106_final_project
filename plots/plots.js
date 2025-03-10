@@ -18,10 +18,25 @@ subjects.forEach(subject => {
         .text(`Subject ${subject}`);
 });
 
+const scenarioMap = {
+    'ECL1': 'Eyes Closed, Music 0.1Hz',
+    'ECR': 'Eyes Closed, Music Regular',
+    'WL1': 'VR Shifting, Music 0.1Hz',
+    'WR': 'VR Shifting, Music Regular'
+};
+
+
+// fileNames.forEach(fileName => {
+//     fileSelect.append("option")
+//         .attr("value", fileName)
+//         .text(fileName);
+// });
+
 fileNames.forEach(fileName => {
+    const displayName = scenarioMap[fileName] || fileName; 
     fileSelect.append("option")
-        .attr("value", fileName)
-        .text(fileName);
+        .attr("value", fileName) 
+        .text(displayName); 
 });
 
 // Function to load and plot static data for Mx of WL1 and ECR
@@ -124,7 +139,7 @@ function plotStaticDataMx() {
 
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 100}, 20)`);
+            .attr("transform", `translate(${width - 190}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -134,7 +149,7 @@ function plotStaticDataMx() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 10)
-            .text("WL1")
+            .text("VR shifting, Music 0.1Hz")
             .style("font-size", "12px");
 
         legend.append("rect")
@@ -147,7 +162,7 @@ function plotStaticDataMx() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 30)
-            .text("ECR")
+            .text("Eyes Closed, Music Regular")
             .style("font-size", "12px");
 
         // X Axis
@@ -280,7 +295,7 @@ function plotStaticDataMy() {
 
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 100}, 20)`);
+            .attr("transform", `translate(${width - 190}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -290,7 +305,7 @@ function plotStaticDataMy() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 10)
-            .text("WL1")
+            .text("VR shifting, Music 0.1Hz")
             .style("font-size", "12px");
 
         legend.append("rect")
@@ -303,7 +318,7 @@ function plotStaticDataMy() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 30)
-            .text("ECR")
+            .text("Eyes Closed, Music Regular")
             .style("font-size", "12px");
 
         // X Axis
@@ -436,7 +451,7 @@ function plotStaticDataCOPy() {
 
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 100}, 20)`);
+            .attr("transform", `translate(${width - 190}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -446,7 +461,7 @@ function plotStaticDataCOPy() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 10)
-            .text("WL1")
+            .text("VR shifting, Music 0.1Hz")
             .style("font-size", "12px");
 
         legend.append("rect")
@@ -459,7 +474,7 @@ function plotStaticDataCOPy() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 30)
-            .text("ECR")
+            .text("Eyes Closed, Music Regular")
             .style("font-size", "12px");
 
         // X Axis
@@ -592,7 +607,7 @@ function plotStaticDataCOPx() {
 
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 100}, 20)`);
+            .attr("transform", `translate(${width - 190}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -602,7 +617,7 @@ function plotStaticDataCOPx() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 10)
-            .text("WL1")
+            .text("VR shifting, Music 0.1Hz")
             .style("font-size", "12px");
 
         legend.append("rect")
@@ -615,7 +630,7 @@ function plotStaticDataCOPx() {
         legend.append("text")
             .attr("x", 15)
             .attr("y", 30)
-            .text("ECR")
+            .text("Eyes Closed, Music Regular")
             .style("font-size", "12px");
 
         // X Axis
