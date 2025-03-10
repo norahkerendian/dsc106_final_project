@@ -279,25 +279,25 @@ document.body.appendChild(audio);
 playButton.addEventListener('click', () => audio.play());
 pauseButton.addEventListener('click', () => audio.pause());
 
-let navigating = false; // Prevents multiple navigation triggers
+// let navigating = false; // Prevents multiple navigation triggers
 
-document.addEventListener('scroll', () => {
-    // Only navigate when the user reaches the bottom and isn't already navigating
-    if (!navigating && window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
-        navigating = true;
-        setTimeout(goToNextPage, 1000); // Delay navigation to ensure smooth experience
-    }
-});
+// document.addEventListener('scroll', () => {
+//     // Only navigate when the user reaches the bottom and isn't already navigating
+//     if (!navigating && window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+//         navigating = true;
+//         setTimeout(goToNextPage, 1000); // Delay navigation to ensure smooth experience
+//     }
+// });
 
-function goToNextPage() {
-    const currentPageIndex = pages.findIndex(page =>
-        location.pathname.endsWith(page.url)
-    );
+// function goToNextPage() {
+//     const currentPageIndex = pages.findIndex(page =>
+//         location.pathname.endsWith(page.url)
+//     );
 
-    if (currentPageIndex !== -1 && currentPageIndex < pages.length - 1) {
-        const nextPage = pages[currentPageIndex + 1].url;
-        window.location.href = nextPage;
-    }
+//     if (currentPageIndex !== -1 && currentPageIndex < pages.length - 1) {
+//         const nextPage = pages[currentPageIndex + 1].url;
+//         window.location.href = nextPage;
+//     }
 
-    navigating = false; // Allow further navigation
-}
+//     navigating = false; // Allow further navigation
+// }
