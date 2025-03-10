@@ -181,11 +181,11 @@
 
 
 let pages = [
-    { url: '/dsc106_final_project/', title: 'Background' },
-    { url: '/dsc106_final_project/features/features.html', title: 'Features' },
-    { url: '/dsc106_final_project/plots/index.html', title: 'Main Plots' },
-    { url: '/dsc106_final_project/conclusion/conclusion.html', title: 'Conclusion' },
-    { url: '/dsc106_final_project/writeup/index.html', title: 'Write Up' },
+    { url: '', title: 'Background' },
+    { url: 'features/features.html', title: 'Features' },
+    { url: 'plots/index.html', title: 'Main Plots' },
+    { url: 'conclusion/conclusion.html', title: 'Conclusion' },
+    { url: 'writeup/index.html', title: 'Write Up' },
 ];
 
 let nav = document.createElement('nav');
@@ -252,15 +252,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// // Create play button
+// const playButton = document.createElement('button');
+// playButton.textContent = 'Play Music';
+// document.body.appendChild(playButton);
+
+// // Create pause button
+// const pauseButton = document.createElement('button');
+// pauseButton.textContent = 'Pause Music';
+// document.body.appendChild(pauseButton);
+
+// // Create audio element
+// const audio = document.createElement('audio');
+// audio.id = 'background-audio';
+// audio.loop = true;
+
+// // Create source element
+// const source = document.createElement('source');
+// source.src = '../jupiter/01.I.AllegroVivace.mp3';
+// source.type = 'audio/mpeg';
+
+// audio.appendChild(source);
+// document.body.appendChild(audio);
+
+// // Add event listeners
+// playButton.addEventListener('click', () => audio.play());
+// pauseButton.addEventListener('click', () => audio.pause());
+// Create a container div for the buttons
+
+const buttonContainer = document.createElement('div');
+buttonContainer.classList.add('button-container');
+
 // Create play button
 const playButton = document.createElement('button');
 playButton.textContent = 'Play Music';
-document.body.appendChild(playButton);
+playButton.classList.add('music-button');
 
 // Create pause button
 const pauseButton = document.createElement('button');
 pauseButton.textContent = 'Pause Music';
-document.body.appendChild(pauseButton);
+pauseButton.classList.add('music-button');
+
+// Append buttons to the container
+buttonContainer.appendChild(playButton);
+buttonContainer.appendChild(pauseButton);
+
+// Add container to the body
+document.body.appendChild(buttonContainer);
 
 // Create audio element
 const audio = document.createElement('audio');
@@ -275,9 +313,16 @@ source.type = 'audio/mpeg';
 audio.appendChild(source);
 document.body.appendChild(audio);
 
+// Set the starting point of the song (in seconds)
+const startTime = 2; // Set the time you want to start the music (e.g., 30 seconds)
+
+audio.currentTime = startTime; // Set the audio to start from 30 seconds
+
 // Add event listeners
 playButton.addEventListener('click', () => audio.play());
 pauseButton.addEventListener('click', () => audio.pause());
+
+
 
 // let navigating = false; // Prevents multiple navigation triggers
 

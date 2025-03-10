@@ -98,4 +98,29 @@ text {
   visibility: visible !important;
 }
 
+.button-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.music-button {
+  padding: 7px 10px;
+  font-size: 16px;
+  background-color: lightgray;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.music-button:hover {
+  background-color: #CA2E55;
+}
+
+
+
 
