@@ -96,6 +96,7 @@ svg.selectAll(".bar-dCoPy")
       .call(d3.axisBottom(x).tickFormat(d => scenarioLabels[d])) // Custom labels
       .selectAll("text")
       .style("text-anchor", "start")
+      .style("font-size", "11px") 
       .attr("dx", "-6em")
       .attr("dy", "0.9em")
       .attr("transform", "rotate(0)");
@@ -103,13 +104,13 @@ svg.selectAll(".bar-dCoPy")
     // Add Y axis
     // Define the left Y-axis scale for blue bars (dMx)
     const yLeft = d3.scaleLinear()
-    .domain([0, d3.max(grouped, d => d.dMx)])
+    .domain([0, d3.max(grouped, d => d.dMx*1000)])
     .nice()
     .range([height - margin.bottom, margin.top]);
 
     // Define the right Y-axis scale for orange bars (dCoPy)
     const yRight = d3.scaleLinear()
-    .domain([0, d3.max(grouped, d => d.dCoPy)])  // Scale appropriately
+    .domain([0, d3.max(grouped, d => d.dCoPy*1000*1000)])  // Scale appropriately
     .nice()
     .range([height - margin.bottom, margin.top]);
 
@@ -142,35 +143,29 @@ svg.append("g")
       .style("text-anchor", "middle")
       .attr("class", "axis-label")
       .append("tspan")  // First line
-      .text("Momement") //Medial-Lateral 
+      .text("Change in Momement") //Medial-Lateral 
       .attr("x", -height / 2.5)
       .attr("dy", "-0.5em")  // Adjust vertical spacing
       .append("tspan")  // Second line
-      .text("(Avg Newton-meters)")
+      .text("(Newton-millimeters)")
       .attr("x", -height / 2.5)
       .attr("dy", "1.2em"); // Adjust vertical spacing
 
-// // // Right Y-axis title
-// // svg.append("text")
-// //   .attr("transform", "rotate(90)") // Rotate to align with the right Y-axis
-// //   .attr("x", height / 2) // Center along Y-axis
-// //   .attr("y", width - margin.right + 40) // Push further inside SVG
-// //   .style("text-anchor", "middle") // Center text alignment
-// //   .style("fill", "black") // Ensure text is visible
-// //   .attr("class", "axis-label")
-// //   .append("tspan")  
-// //   .text("Anterior-Posterior Movement");
-
-// const rightYAxisLabel =  svg.append("text")
-// .attr("transform", "rotate(-90)") // Rotate to align with Y-axis
-// .attr("x", -height / 2)
-// .attr("y", -margin.left / 2)
-// .style("text-anchor", "middle")
-// .attr("class", "axis-label")
-// // .append("tspan")  // First line
-// .text("Anterior-Posterior Pressure")
-// rightYAxisLabel.raise();
-
+// Right Y axis title
+svg.append("text")
+  .attr("transform", "rotate(90)") 
+  .attr("x", height / 2)  // Centered vertically on the chart
+  .attr("y", -width + margin.right - 70)  // Position relative to right side
+  .style("text-anchor", "middle")
+  .attr("class", "axis-label")
+  .append("tspan")
+  .text("Change in Center of Pressure")
+  .attr("x", height / 2.5)
+  .attr("dy", "-0.5em")
+  .append("tspan")
+  .text("(millimeters)")
+  .attr("x", height / 2.5)
+  .attr("dy", "1.2em");
 
 
 
@@ -206,7 +201,7 @@ legend.append("rect")
 legend.append("text")
 .attr("x", 20)
 .attr("y", 12)
-.style("font-size", "10px")
+.style("font-size", "12px")
 .text("Medial-Lateral Momement (Mx)");
 
 // Add orange legend item (dCoPy)
@@ -220,7 +215,7 @@ legend.append("rect")
 legend.append("text")
 .attr("x", 20)
 .attr("y", 37)
-.style("font-size", "10px")
+.style("font-size", "12px")
 .text("Anterior-Posterior Balance (CoPy)");
   
     })
