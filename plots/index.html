@@ -8,7 +8,7 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <h2>Postural Sway Visualizations</h2>
+    <div class = 'center'><h1>Postural Sway Visualizations</h2></div>
 
     <!-- <table style="border-collapse: collapse; width: 100%;">
         <tr>
@@ -28,30 +28,40 @@
             <td style="padding: 5px;">VR shifting, Music Regular</td>
         </tr>
     </table> -->
+    <div class="center">
+        <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+        <svg id="static-plot-Mx" width="800" height="400"></svg>
+        <br>
+        <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+        <svg id="static-plot-My" width="800" height="400"></svg>
+        <br>
+        <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+        <svg id="static-plot-CoPy" width="800" height="400"></svg>
+        <br>
+        <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+        <svg id="static-plot-CoPx" width="800" height="400"></svg>
+        <br>
+        <h3>Normalized Features for Selected Subject and Scenario</h3>
+    </div>
+
+    <div class="center">
+        <div class="controls">
+            <label for="subject-select">Select Subject:</label>
+            <select id="subject-select"></select>
+            
+            <label for="file-select">Select Scenario:</label>
+            <select id="file-select"></select>
+            
+            <button id="toggleButton">Switch to Mx/My</button>
+        </div>
+    </div>
     
-    <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-    <svg id="static-plot-Mx" width="800" height="400"></svg>
+    <div class="center">
+        <svg id="main-plot" width="800" height="400"></svg>
+        <br>
+        <small>*Data is normalized by subtracting the mean and dividing by the standard deviation.</small>
 
-    <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-    <svg id="static-plot-My" width="800" height="400"></svg>
-
-    <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-    <svg id="static-plot-CoPy" width="800" height="400"></svg>
-
-    <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-    <svg id="static-plot-CoPx" width="800" height="400"></svg>
-    <br>
-    <h3>Normalized Features for Selected Subject and Scenario</h3>
-    <label for="subject-select">Select Subject:</label>
-    <select id="subject-select"></select>
-    <label for="file-select">Select Scenario:</label>
-    <select id="file-select"></select>
-    <button id="toggleButton">Switch to Mx/My</button>
-    <br>
-    <svg id="main-plot" width="800" height="400"></svg>
-    <br>
-    <small>*Data is normalized by subtracting the mean and dividing by the standard deviation.</small>
-    <br>
+    </div>
     <script src="../global.js" type="module"></script>
     <script src="plots.js" type="module"></script>
 </body>
