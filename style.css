@@ -130,7 +130,9 @@ text {
 
 .controls {
   display: flex;
-  gap: 10px; 
+  gap: 10px; /* Adds space between elements */
   align-items: center;
   justify-content: center;
 }
+
+
