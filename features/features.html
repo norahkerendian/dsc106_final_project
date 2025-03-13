@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="features.css">
 </head>
 <body>  
+  <section id = "section2">
   <!-- <button onclick="document.getElementById('background-audio').play()">Play Music</button>
   <button onclick="document.getElementById('background-audio').pause()">Pause Music</button>
   <audio id="background-audio" loop>
@@ -18,7 +19,7 @@
     <div class="MxContainer">
         <div class="MxView">
           <div class="MxPerson">
-            <img class="MxPersonImage" src="images/person.webp" alt="Human Outline">
+            <img class="MxPersonImage" src="features/images/person.webp" alt="Human Outline">
             <div class="MLaxis"></div>
             <div class="MLaxisLabel">
                 <p>Medial-lateral Axis</p>
@@ -37,7 +38,7 @@
         <div class="MyView">
           <div class="MyPerson">
             <div class="APaxisBack"></div>
-            <img class="MyPersonImage" src="images/person.webp" alt="Human Outline">
+            <img class="MyPersonImage" src="features/images/person.webp" alt="Human Outline">
             <div class="APaxisFront"></div>
             <div class="APaxisLabel">
                 <p>Anterior-posterior Axis</p>
@@ -57,7 +58,7 @@
         <div class="pressure-container">
           <div id="leftPressure" class="pressure-box"></div>
           <div id="rightPressure" class="pressure-box"></div>
-          <img class="CoPxFeet" src="images/feet2.png" alt="feet">
+          <img class="CoPxFeet" src="features/images/feet2.png" alt="feet">
         </div>
         <input type="range" id="pressureSlider" min="0" max="100" value="100">
       </div>
@@ -74,7 +75,7 @@
             <div class="pressure-container-y">
               <div id="upperPressure" class="pressure-box-y"></div>
               <div id="lowerPressure" class="pressure-box-y"></div>
-              <img class="CoPyFeet" src="images/feet2.png" alt="feet">
+              <img class="CoPyFeet" src="features/images/feet2.png" alt="feet">
             </div>
           </div>
       <div class="CoPyText">
@@ -84,7 +85,8 @@
            is more toward your heels, while a positive value means it’s more toward your toes.</p>
       </div>
     </div>
-    <script src="features.js"></script>
-    <script src="../global.js" type="module"></script>
+  </section>
+  <script src="features.js"></script>
+    <!-- <script src="../global.js" type="module"></script> -->
 </body>
 </html>
