@@ -68,27 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Highlight navbar based on scroll position
-//     const observer = new IntersectionObserver((entries) => {
-//         let activeSection = null;
+    // const observer = new IntersectionObserver((entries) => {
+    //     let activeSection = null;
 
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 activeSection = entry.target.getAttribute('id');
-//             }
-//         });
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             activeSection = entry.target.getAttribute('id');
+    //         }
+    //     });
 
-//         if (activeSection) {
-//             navLinks.forEach(link => link.classList.remove('active'));
-//             const activeLink = document.querySelector(`nav a[href="#${activeSection}"]`);
-//             if (activeLink) {
-//                 activeLink.classList.add('active');
-//             }
-//         }
-//     }, { threshold: 0.6 }); // Adjust threshold for better responsiveness
+    //     if (activeSection) {
+    //         navLinks.forEach(link => link.classList.remove('active'));
+    //         const activeLink = document.querySelector(`nav a[href="#${activeSection}"]`);
+    //         if (activeLink) {
+    //             activeLink.classList.add('active');
+    //         }
+    //     }
+    // }, { threshold: 0.6 }); // Adjust threshold for better responsiveness
 
-//     sections.forEach(section => {
-//         observer.observe(section);
-//     });
+    // sections.forEach(section => {
+    //     observer.observe(section);
+    // });
  });
 
 document.addEventListener("DOMContentLoaded", function () {

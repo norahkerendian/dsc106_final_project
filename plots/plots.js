@@ -41,8 +41,8 @@ fileNames.forEach(fileName => {
 
 // Function to load and plot static data for Mx of WL1 and ECR
 function plotStaticDataMx() {
-    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
-    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+    const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
@@ -197,8 +197,8 @@ function plotStaticDataMx() {
 
 // Function to load and plot static data for My of WL1 and ECR
 function plotStaticDataMy() {
-    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
-    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+    const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
@@ -353,8 +353,8 @@ function plotStaticDataMy() {
 
 // Function that plots static data for CoPy
 function plotStaticDataCOPy() {
-    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
-    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+    const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
@@ -509,8 +509,8 @@ function plotStaticDataCOPy() {
 
 // Function that plots static data for CoPx
 function plotStaticDataCOPx() {
-    const filePathWL1 = `../data/smoothS1/smoothWL1.csv`;
-    const filePathECR = `../data/smoothS1/smoothECR.csv`;
+    const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
+    const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
     Promise.all([
         d3.csv(filePathWL1).then(data => {
@@ -665,7 +665,7 @@ function plotStaticDataCOPx() {
 
 // Function to load and plot dynamic data (existing code)
 function loadAndPlotData(subject, file) {
-    const filePath = `../data/S${subject}/${file}.csv`;
+    const filePath = `../dsc106_final_project/data/S${subject}/${file}.csv`;
     d3.csv(filePath).then(data => {
         data.forEach(d => {
             d.Time = +d.Time;
@@ -855,3 +855,4 @@ fileSelect.on("change", function () {
     d3.select("#toggleButton").text("Switch to Mx/My");
     loadAndPlotData(selectedSubject, selectedFile);
 });
+console.log("Plots.js loaded!");
