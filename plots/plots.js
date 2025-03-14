@@ -39,6 +39,163 @@ fileNames.forEach(fileName => {
         .text(displayName); 
 });
 
+
+// Function to load and plot static data for Mx of WL1 and ECR
+// function plotStaticDataMx() {
+//     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
+//     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
+
+//     Promise.all([
+//         d3.csv(filePathWL1).then(data => {
+//             data.forEach(d => {
+//                 d.Time = +d.Time;
+//                 d.Mx = +d.Mx;
+//                 d.smoothMx = +d.smoothMx;
+//             });
+//             return data;
+//         }),
+//         d3.csv(filePathECR).then(data => {
+//             data.forEach(d => {
+//                 d.Time = +d.Time;
+//                 d.Mx = +d.Mx;
+//                 d.smoothMx = +d.smoothMx;
+//             });
+//             return data;
+//         })
+//     ]).then(([dataWL1, dataECR]) => {
+//         console.log(`Number of data points for WL1:`, dataWL1.length);
+//         console.log(`Number of data points for ECR:`, dataECR.length);
+
+//         // Normalize Mx values
+//         function normalize(data, key) {
+//             const mean = d3.mean(data, d => d[key]);
+//             const std = d3.deviation(data, d => d[key]);
+//             console.log(`Mean: ${mean} Std Dev: ${std}`);
+//             return data.map(d => ({
+//                 Time: d.Time,
+//                 value: (d[key] - mean) / std
+//             }));
+//         }
+
+//         let normalizedDataMxWL1 = normalize(dataWL1, "Mx");
+//         let normalizedDataMxWL1smooth = normalize(dataWL1, "smoothMx");
+//         let normalizedDataMxECR = normalize(dataECR, "Mx");
+//         let normalizedDataMxECRsmooth = normalize(dataECR, "smoothMx");
+
+//         // Create scales
+//         const xScale = d3.scaleLinear()
+//             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
+//             .range([marginLeft, width - marginRight]);
+
+//         const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR, ...normalizedDataMxECRsmooth, ...normalizedDataMxWL1smooth], d => d.value);
+//         const yScale = d3.scaleLinear()
+//             .domain(yExtent)
+//             .range([height - marginBottom, marginTop]);
+
+//         // Create plot
+//         const staticSvg = d3.select("#static-plot-Mx");
+//         staticSvg.selectAll("*").remove();
+
+//         // Line generator
+//         const lineGen = d3.line()
+//             .x(d => xScale(d.Time))
+//             .y(d => yScale(d.value));
+
+//         // Draw WL1 line (background)
+//         staticSvg.append("path")
+//         .datum(normalizedDataMxWL1)
+//         .attr("fill", "none")
+//         .attr("stroke", "#fc8d59")
+//         .attr("stroke-width", 1) // Thinner stroke
+//         .attr("opacity", 0.3) // Lower opacity
+//         .attr("d", lineGen);
+
+//         // Draw ECR line (background)
+//         staticSvg.append("path")
+//         .datum(normalizedDataMxECR)
+//         .attr("fill", "none")
+//         .attr("stroke", "#99d594")
+//         .attr("stroke-width", 1) // Thinner stroke
+//         .attr("opacity", 0.3) // Lower opacity
+//         .attr("d", lineGen);
+
+//         // Draw WL1 line smooth (main focus)
+//         staticSvg.append("path")
+//         .datum(normalizedDataMxWL1smooth)
+//         .attr("fill", "none")
+//         .attr("stroke", "#fc8d59") // Keep bright color
+//         .attr("stroke-width", 2.5) // Thicker stroke
+//         .attr("opacity", 1) // Full opacity
+//         .attr("d", lineGen);
+
+//         // Draw ECR line smooth (main focus)
+//         staticSvg.append("path")
+//         .datum(normalizedDataMxECRsmooth)
+//         .attr("fill", "none")
+//         .attr("stroke", "#99d594") // Keep bright color
+//         .attr("stroke-width", 2.5) // Thicker stroke
+//         .attr("opacity", 1) // Full opacity
+//         .attr("d", lineGen);
+
+
+//         // Legend
+//         const legend = staticSvg.append("g")
+//             .attr("transform", `translate(${width - 190}, 20)`);
+
+//         legend.append("rect")
+//             .attr("width", 12)
+//             .attr("height", 12)
+//             .attr("fill", "#fc8d59");
+
+//         legend.append("text")
+//             .attr("x", 15)
+//             .attr("y", 10)
+//             .text("VR shifting, Music 0.1Hz")
+//             .style("font-size", "12px");
+
+//         legend.append("rect")
+//             .attr("x", 0)
+//             .attr("y", 20)
+//             .attr("width", 12)
+//             .attr("height", 12)
+//             .attr("fill", "#99d594");
+
+//         legend.append("text")
+//             .attr("x", 15)
+//             .attr("y", 30)
+//             .text("Eyes Closed, Music Regular")
+//             .style("font-size", "12px");
+
+//         // X Axis
+//         staticSvg.append("g")
+//             .attr("transform", `translate(0, ${height - marginBottom})`)
+//             .call(d3.axisBottom(xScale));
+
+//         // Y Axis
+//         staticSvg.append("g")
+//             .attr("transform", `translate(${marginLeft}, 0)`)
+//             .call(d3.axisLeft(yScale));
+
+//         // Axis labels
+//         staticSvg.append("text")
+//             .attr("x", width / 2)
+//             .attr("y", height - marginBottom + 35)
+//             .attr("text-anchor", "middle")
+//             .style("font-size", "14px")
+//             .text("Time (s)");
+
+//         staticSvg.append("text")
+//             .attr("transform", "rotate(-90)")
+//             .attr("x", -height / 2)
+//             .attr("y", marginLeft - 30)
+//             .attr("text-anchor", "middle")
+//             .style("font-size", "14px")
+//             .text("Normalized Mx");
+//     }).catch(error => {
+//         console.error("Error loading data:", error);
+//     });
+// }
+
 // Function to load and plot static data for Mx of WL1 and ECR
 function plotStaticDataMx() {
     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
@@ -82,6 +239,13 @@ function plotStaticDataMx() {
         let normalizedDataMxECRsmooth = normalize(dataECR, "smoothMx");
 
         // Create scales
+        const marginTop = 20;
+        const marginRight = 30;
+        const marginBottom = 40;
+        const marginLeft = 50;
+        const width = 800;
+        const height = 400;
+
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
@@ -91,50 +255,123 @@ function plotStaticDataMx() {
             .domain(yExtent)
             .range([height - marginBottom, marginTop]);
 
+
         // Create plot
-        const staticSvg = d3.select("#static-plot-Mx");
+        const staticSvg = d3.select("#static-plot-Mx")
+            .attr("width", width)
+            .attr("height", height);
         staticSvg.selectAll("*").remove();
+
+        // Add vertical line
+        const verticalLine = staticSvg.append("line")
+            .attr("x1", xScale(0))
+            .attr("x2", xScale(0))
+            .attr("y1", marginTop)
+            .attr("y2", height - marginBottom)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4 4");
 
         // Line generator
         const lineGen = d3.line()
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
+        // Create a single shared transition
+        const sharedTransition = d3.transition()
+            .duration(4000)
+            .ease(d3.easeLinear);
+
+        // Function to animate line drawing using the shared transition
+        function animateLine(path) {
+            const totalLength = path.node().getTotalLength();
+
+            path
+                .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+                .attr("stroke-dashoffset", totalLength)
+                .transition(sharedTransition) // Use the shared transition
+                .attr("stroke-dashoffset", 0);
+        }
+
+        // Create an observer to detect when the plot is visible
+        // const observer = new IntersectionObserver(
+        //     (entries, observer) => {
+        //         entries.forEach(entry => {
+        //             if (entry.isIntersecting) {
+        //                 // Trigger the animation when the plot comes into view
+        //                 animateLine(d3.select("#static-plot-Mx .line1"));
+        //                 animateLine(d3.select("#static-plot-Mx .line2"));
+        //                 animateLine(d3.select("#static-plot-Mx .line3"));
+
+        //                 // Optionally stop observing after the first trigger
+        //                 observer.unobserve(entry.target);
+        //             }
+        //         });
+        //     },
+        //     { threshold: 0.5 } // Start the animation when 50% of the plot is visible
+        // );
+
+        // // Observe the plot container
+        // const plotContainer = document.getElementById('plot-container');
+        // observer.observe(plotContainer);
+
+        // Animate the vertical line using the shared transition
+        verticalLine
+            .transition(sharedTransition) // Use the shared transition
+            .attrTween("x1", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            })
+            .attrTween("x2", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            });
+
         // Draw WL1 line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataMxWL1)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMxWL1)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataMxECR)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMxECR)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw WL1 line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataMxWL1smooth)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMxWL1smooth)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataMxECRsmooth)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMxECRsmooth)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
 
 
         // Legend
@@ -190,10 +427,12 @@ function plotStaticDataMx() {
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
             .text("Normalized Mx");
+
     }).catch(error => {
         console.error("Error loading data:", error);
     });
 }
+
 
 // Function to load and plot static data for My of WL1 and ECR
 function plotStaticDataMy() {
