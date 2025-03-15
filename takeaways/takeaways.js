@@ -1,47 +1,32 @@
-// Ensure D3 is loaded
-document.addEventListener("DOMContentLoaded", function() {
-  // Wait a bit to ensure the DOM is fully populated by the content loader in global.js
-  setTimeout(function() {
-    console.log("Initializing chart in takeaways.js");
-    
-    // Check if the SVG element exists
-    const svgElement = document.getElementById("barchart");
-    if (!svgElement) {
-      console.error("Cannot find #barchart SVG element");
-      return;
-    }
-    
-    const data = [
-      {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
-      {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
-      {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
-      {"Scenario":"WL1","Change in Forward-Backward Position":23.4076439986,"Change in Side-to-Side Position":2.5628889158}
-    ];
+const svg = d3.select("#barchart");
+const data = [
+  {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
+  {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
+  {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
+  {"Scenario":"WL1","Change in Forward-Backward Position":23.4076439986,"Change in Side-to-Side Position":2.5628889158}
+];
+const scenarioLabels = {
+  "ECL1": "Eyes Closed, Music 0.1Hz",
+  "ECR": "Eyes Closed, Music Regular",
+  "WL1": "VR shifting, Music 0.1Hz",
+  "WR": "VR shifting, Music Regular"
+};
+const width = 900, height = 500, margin = { top: 70, right: 120, bottom: 120, left: 120};
+// Define shorter variable names for readability in the code
+const forwardBackwardKey = "Change in Forward-Backward Position";
+const sideToSideKey = "Change in Side-to-Side Position";     
+
+setTimeout(function() {
+  console.log("Initializing chart in takeaways.js");
     
     createChart(data);
 
     function createChart(data) {
-      // Define chart dimensions
-      const scenarioLabels = {
-        "ECL1": "Eyes Closed, Music 0.1Hz",
-        "ECR": "Eyes Closed, Music Regular",
-        "WL1": "VR shifting, Music 0.1Hz",
-        "WR": "VR shifting, Music Regular"
-      };
-
-      const width = 900, height = 500, margin = { top: 70, right: 120, bottom: 120, left: 120};
       
-      // Select the correct SVG
-      const svg = d3.select("#barchart")
-        .attr("width", width)
-        .attr("height", height);
-
+      svg.attr("width", width).attr("height", height);
+      
       // Clear any previous content
       svg.selectAll("*").remove();
-
-      // Define shorter variable names for readability in the code
-      const forwardBackwardKey = "Change in Forward-Backward Position";
-      const sideToSideKey = "Change in Side-to-Side Position";
 
       // X and Y scales
       const x = d3.scaleBand()
@@ -299,4 +284,3 @@ document.addEventListener("DOMContentLoaded", function() {
       .style("display", "flex")
       .style("justify-content", "center");
   }, 500); // 500ms delay to ensure content is loaded
-});
