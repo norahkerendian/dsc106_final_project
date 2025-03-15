@@ -1,4 +1,4 @@
-const svg = d3.select("#barchart");
+const barchart = d3.select("#barchart");
 const data = [
   {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
   {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
@@ -23,10 +23,10 @@ setTimeout(function() {
 
     function createChart(data) {
       
-      svg.attr("width", width).attr("height", height);
+      barchart.attr("width", width).attr("height", height);
       
       // Clear any previous content
-      svg.selectAll("*").remove();
+      barchart.selectAll("*").remove();
 
       // X and Y scales
       const x = d3.scaleBand()
@@ -61,7 +61,7 @@ setTimeout(function() {
         .style("opacity", 0);
 
       // Draw blue bars (Forward-Backward)
-      svg.selectAll(".bar-fb")
+      barchart.selectAll(".bar-fb")
         .data(data)
         .enter()
         .append("rect")
@@ -84,7 +84,7 @@ setTimeout(function() {
         });
 
       // Draw orange bars (Side-to-Side)
-      svg.selectAll(".bar-ss")
+      barchart.selectAll(".bar-ss")
         .data(data)
         .enter()
         .append("rect")
@@ -107,7 +107,7 @@ setTimeout(function() {
         });
 
       // Add X axis with custom labels
-      svg.append("g")
+      barchart.append("g")
         .attr("transform", `translate(0,${height - margin.bottom})`)
         .call(d3.axisBottom(x).tickFormat(d => "")) // Empty string as we'll add custom labels
         .selectAll(".tick")
@@ -149,7 +149,7 @@ setTimeout(function() {
         .range([height - margin.bottom, margin.top]);
 
       // Left Y-axis (for blue bars)
-      svg.append("g")
+      barchart.append("g")
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(yLeft))
         .call(g => g.select(".domain").attr("stroke", "steelblue")) // Color axis line
@@ -159,7 +159,7 @@ setTimeout(function() {
         .attr("fill", "black"); // Keep text black
 
       // Left Y axis title
-      svg.append("text")
+      barchart.append("text")
         .attr("transform", "rotate(-90)") // Rotate to align with Y-axis
         .attr("x", -height / 2)
         .attr("y", margin.left / 3)
@@ -175,7 +175,7 @@ setTimeout(function() {
         .attr("dy", "1.2em"); // Adjust vertical spacing
 
       // X axis label
-      svg.append("text")
+      barchart.append("text")
         .attr("class", "annotation")
         .attr("x", width / 2)
         .attr("y", height - margin.bottom + 80)
@@ -183,7 +183,7 @@ setTimeout(function() {
         .text("Scenario");
 
       // Add title annotation
-      svg.append("text")
+      barchart.append("text")
         .attr("class", "annotation")
         .attr("x", width / 2)
         .attr("y", 40)
@@ -192,7 +192,7 @@ setTimeout(function() {
         .text("Less Environment Stability ≈ More Movement");
 
       // Add less stable annotation
-      svg.append("text")
+      barchart.append("text")
         .attr("class", "annotation")
         .attr("x", width - 300)
         .attr("y", height - margin.bottom + 80)
@@ -202,7 +202,7 @@ setTimeout(function() {
         .text("less stable");
 
       // Create Diagonal arrow marker definition
-      svg.append("defs").append("marker")
+      barchart.append("defs").append("marker")
         .attr("id", "arrowhead")
         .attr("refX", 6)
         .attr("refY", 3)
@@ -214,7 +214,7 @@ setTimeout(function() {
         .attr("fill", "#CA2E55");
 
       // Draw the Diagonal arrow line
-      svg.append("line")
+      barchart.append("line")
         .attr("x1", 650)
         .attr("y1", height - margin.bottom + 76)
         .attr("x2", 700)
@@ -224,7 +224,7 @@ setTimeout(function() {
         .attr("marker-end", "url(#arrowhead)");
 
       // Create a legend container
-      const legend = svg.append("g")
+      const legend = barchart.append("g")
         .attr("class", "legend")
         .attr("transform", `translate(${width - margin.right - 620}, ${margin.top})`); // Position the legend
 
@@ -257,7 +257,7 @@ setTimeout(function() {
         .text("Side-to-Side");
 
       // Create Diagonal arrow marker definition
-      svg.append("defs").append("marker")
+      barchart.append("defs").append("marker")
         .attr("id", "arrowhead2")
         .attr("refX", 6)
         .attr("refY", 3)
@@ -269,7 +269,7 @@ setTimeout(function() {
         .attr("fill", "#CA2E55");
 
       // Draw the trend arrow line
-      svg.append("line")
+      barchart.append("line")
         .attr("x1", 200)
         .attr("y1", 300)
         .attr("x2", 650)
