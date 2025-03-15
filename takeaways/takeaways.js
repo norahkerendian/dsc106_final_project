@@ -1,23 +1,14 @@
 // Use D3 from global scope
 document.addEventListener("DOMContentLoaded", function() {
-  // Load data from takeaways.json
-  d3.json("takeaways.json")
-    .then(function(data) {
-      createChart(data);
-    })
-    .catch(function(error) {
-      console.error("Error loading data:", error);
-      
-      // Fallback to hardcoded data if file can't be loaded
-      const fallbackData = [
-      {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
-      {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
-      {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
-      {"Scenario":"WL1","Change in Forward-Backward Position":23.4076439986,"Change in Side-to-Side Position":2.5628889158}
-    ];
-      
-      createChart(fallbackData);
-    });
+  console.log("SVG element:", document.querySelector(".barchart"));
+  const data = [
+    {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
+    {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
+    {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
+    {"Scenario":"WL1","Change in Forward-Backward Position":23.4076439986,"Change in Side-to-Side Position":2.5628889158}
+  ];
+  
+  createChart(data);
 
   function createChart(data) {
     // Define chart dimensions
