@@ -4,18 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Features</title>
+    <style scoped>
+      /* Parallax section with background image */
+      .parallax-1 {
+          height: 40vh;
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+      }
+
+      /* Apply background image to parallax-1 */
+      .parallax-1 { 
+          background-image: url('features/images/vr.jpg');
+          background-position: center center; /* Ensure it's centered properly */
+      }
+
+      /* Inner content within the parallax section */
+      .parallax-inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50%;
+          color: white;
+          max-width: 80%;
+          text-align: center;
+      }
+
+      #section2 h1 {
+          font-size: 30px;
+          text-align: center;
+          color: white; /* Fixed the color syntax */
+          padding: 1rem;
+          font-size: 2rem;
+          background: rgb(0, 0, 0);
+      }
+
+      p, ul {
+          font-size: 1.2rem;
+          line-height: 1.6;
+          margin: 20px;
+      }
+  </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="features.css">
 </head>
 <body>  
-  <section id = "section2">
+  <section id="section2">
+    <div class="parallax-1">
+        <div class="parallax-inner">
+            <h1>How to Measure Balance</h1>
+        </div>
+    </div>
+  <!-- <section id = "section2"> -->
   <!-- <button onclick="document.getElementById('background-audio').play()">Play Music</button>
   <button onclick="document.getElementById('background-audio').pause()">Pause Music</button>
   <audio id="background-audio" loop>
     <source src="../jupiter/01.I.AllegroVivace.mp3" type="audio/mpeg">
   </audio> -->
-    <h1>How to Measure Balance</h1>
+    <!-- <h1>How to Measure Balance</h1> -->
     <div class="MxContainer">
         <div class="MxView">
           <div class="MxPerson">

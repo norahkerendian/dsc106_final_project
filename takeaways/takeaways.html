@@ -4,13 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takeaways</title>
+    <style scoped>
+        /* Parallax section with background image */
+        .parallax-1 {
+            height: 40vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Apply background image to parallax-1 */
+        .parallax-1 { 
+            background-image: url('takeaways/imgs/vr.jpg');
+            background-position: center center; /* Ensure it's centered properly */
+        }
+
+        /* Inner content within the parallax section */
+        .parallax-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            color: white;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        #section4 h1 {
+            font-size: 30px;
+            text-align: center;
+            color: white; /* Fixed the color syntax */
+            padding: 1rem;
+            font-size: 2rem;
+            background: rgb(0, 0, 0);
+        }
+
+        p, ul {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 20px;
+        }
+    </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="takeaways.css">
 </head>
 <body>
-    <section id = "section4">
-    <h1>Takeaways</h1>
+    <section id="section4">
+        <div class="parallax-1">
+            <div class="parallax-inner">
+                <h1>Takeaways</h1>
+            </div>
+        </div>
+    <!-- <section id = "section4">
+    <h1>Takeaways</h1> -->
     <p><strong>Our findings reveal that even in healthy adults, stability changes of the visual and auditory environment could significantly influence balance.</strong></p>
 
     <p>By analyzing the average overall movement of the subjects, we find that <strong>when</strong> the VR environment shifts in the anterior-posterior direction ↕️,
