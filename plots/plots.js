@@ -623,23 +623,23 @@ function plotStaticDataMx() {
     });
 }
 
-let hasPlayed = false;
+let hasPlayed_mx = false;
 
 // Function to play animation
-function playAnimation() {
+function playAnimation_mx() {
     plotStaticDataMx();
 }
 
 // Intersection Observer to trigger plotStaticDataMx when visible
-const plotElement = document.querySelector("#static-plot-Mx");
+const plotElement_mx = document.querySelector("#static-plot-Mx");
 
-const observer = new IntersectionObserver(
+const observer_mx = new IntersectionObserver(
     (entries, observer) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && !hasPlayed) {
+            if (entry.isIntersecting && !hasPlayed_mx) {
                 console.log("Plot is in viewport. Starting animation...");
-                playAnimation();
-                hasPlayed = true;
+                playAnimation_mx();
+                hasPlayed_mx = true;
                 observer.unobserve(entry.target);
                 // plotStaticDataMx();
                 // observer.unobserve(entry.target); // Stop observing once triggered
@@ -649,13 +649,14 @@ const observer = new IntersectionObserver(
     { threshold: 0.5 } // Trigger when 50% of the element is in view
 );
 
-observer.observe(plotElement);
+observer_mx.observe(plotElement_mx);
 
 document.getElementById("replay-btn-mx").addEventListener("click", () => {
     console.log("Replaying animation...");
-    hasPlayed = true; // Keep the flag true so it doesn't auto-replay on scroll
+    hasPlayed_mx = true; // Keep the flag true so it doesn't auto-replay on scroll
     plotStaticDataMx();
 });
+
 
 // Function to load and plot static data for My of WL1 and ECR
 function plotStaticDataMy() {
@@ -700,6 +701,19 @@ function plotStaticDataMy() {
         let normalizedDataMyECRsmooth = normalize(dataECR, "smoothMy");
 
         // Create scales
+        const marginTop = 20;
+        const marginRight = 30;
+        const marginBottom = 40;
+        const marginLeft = 50;
+        const width = 800;
+        const height = 400;
+
+        // Create plot
+        const staticSvg = d3.select("#static-plot-My")
+            .attr("width", width)
+            .attr("height", height);
+        staticSvg.selectAll("*").remove();
+
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
@@ -709,55 +723,97 @@ function plotStaticDataMy() {
             .domain(yExtent)
             .range([height - marginBottom, marginTop]);
 
-        // Create plot
-        const staticSvg = d3.select("#static-plot-My");
-        staticSvg.selectAll("*").remove();
+        // Add vertical line
+        const verticalLine = staticSvg.append("line")
+            .attr("x1", xScale(0))
+            .attr("x2", xScale(0))
+            .attr("y1", marginTop)
+            .attr("y2", height - marginBottom)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4 4");
 
         // Line generator
         const lineGen = d3.line()
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
+        // Create a single shared transition
+        const sharedTransition = d3.transition()
+            .duration(4000)
+            .ease(d3.easeLinear);
+
+        // Function to animate line drawing using the shared transition
+        function animateLine(path) {
+            const totalLength = path.node().getTotalLength();
+
+            path
+                .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+                .attr("stroke-dashoffset", totalLength)
+                .transition(sharedTransition)
+                .attr("stroke-dashoffset", 0);
+        }
+
+        // Animate the vertical line using the shared transition
+        verticalLine
+            .transition(sharedTransition)
+            .attrTween("x1", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            })
+            .attrTween("x2", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            });
+
         // Draw WL1 line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataMyWL1)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMyWL1)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataMyECR)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMyECR)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw WL1 line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataMyWL1smooth)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMyWL1smooth)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataMyECRsmooth)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
-
-
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataMyECRsmooth)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 190}, 20)`);
+            .attr("transform", `translate(${width - 210}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -813,8 +869,39 @@ function plotStaticDataMy() {
     });
 }
 
-// Function that plots static data for CoPy
-function plotStaticDataCOPy() {
+let hasPlayed_my = false;
+
+// Function to play animation
+function playAnimation_my() {
+    plotStaticDataMy();
+}
+
+// Intersection Observer to trigger plotStaticDataMx when visible
+const plotElement_my = document.querySelector("#static-plot-My");
+
+const observer_my = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasPlayed_my) {
+                console.log("Plot is in viewport. Starting animation...");
+                playAnimation_my();
+                hasPlayed_my = true;
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.5 } // Trigger when 50% of the element is in view
+);
+
+observer_my.observe(plotElement_my);
+
+document.getElementById("replay-btn-my").addEventListener("click", () => {
+    console.log("Replaying animation...");
+    hasPlayed_my = true; // Keep the flag true so it doesn't auto-replay on scroll
+    plotStaticDataMy();
+});
+
+function plotStaticDataCoPy() {
     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
@@ -856,64 +943,119 @@ function plotStaticDataCOPy() {
         let normalizedDataCoPyECRsmooth = normalize(dataECR, "smoothCoPy");
 
         // Create scales
+        const marginTop = 20;
+        const marginRight = 30;
+        const marginBottom = 40;
+        const marginLeft = 50;
+        const width = 800;
+        const height = 400;
+
+        // Create plot
+        const staticSvg = d3.select("#static-plot-CoPy")
+            .attr("width", width)
+            .attr("height", height);
+        staticSvg.selectAll("*").remove();
+
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
 
-        const yExtent = d3.extent([...normalizedDataCoPyWL1, ...normalizedDataCoPyECR, ...normalizedDataCoPyWL1smooth, ...normalizedDataCoPyECRsmooth], d => d.value);
+        const yExtent = d3.extent([...normalizedDataCoPyWL1, ...normalizedDataCoPyECR, ...normalizedDataCoPyECRsmooth, ...normalizedDataCoPyWL1smooth], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
-            .range([height- marginBottom, marginTop]);
+            .range([height - marginBottom, marginTop]);
 
-        // Create plot
-        const staticSvg = d3.select("#static-plot-CoPy");
-        staticSvg.selectAll("*").remove();
+        // Add vertical line
+        const verticalLine = staticSvg.append("line")
+            .attr("x1", xScale(0))
+            .attr("x2", xScale(0))
+            .attr("y1", marginTop)
+            .attr("y2", height - marginBottom)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4 4");
 
         // Line generator
         const lineGen = d3.line()
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
+        // Create a single shared transition
+        const sharedTransition = d3.transition()
+            .duration(4000)
+            .ease(d3.easeLinear);
+
+        // Function to animate line drawing using the shared transition
+        function animateLine(path) {
+            const totalLength = path.node().getTotalLength();
+
+            path
+                .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+                .attr("stroke-dashoffset", totalLength)
+                .transition(sharedTransition)
+                .attr("stroke-dashoffset", 0);
+        }
+
+        // Animate the vertical line using the shared transition
+        verticalLine
+            .transition(sharedTransition)
+            .attrTween("x1", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            })
+            .attrTween("x2", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            });
+
         // Draw WL1 line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPyWL1)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPyWL1)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPyECR)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPyECR)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw WL1 line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPyWL1smooth)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPyWL1smooth)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPyECRsmooth)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
-
-
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPyECRsmooth)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 190}, 20)`);
+            .attr("transform", `translate(${width - 210}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -969,8 +1111,38 @@ function plotStaticDataCOPy() {
     });
 }
 
-// Function that plots static data for CoPx
-function plotStaticDataCOPx() {
+let hasPlayed_CoPy = false;
+
+// Function to play animation
+function playAnimation_CoPy() {
+    plotStaticDataCoPy();
+}
+
+const plotElement_CoPy = document.querySelector("#static-plot-CoPy");
+
+const observer_CoPy = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasPlayed_CoPy) {
+                console.log("Plot is in viewport. Starting animation...");
+                playAnimation_CoPy();
+                hasPlayed_CoPy = true;
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.5 } // Trigger when 50% of the element is in view
+);
+
+observer_CoPy.observe(plotElement_CoPy);
+
+document.getElementById("replay-btn-copy").addEventListener("click", () => {
+    console.log("Replaying animation...");
+    hasPlayed_CoPy = true; // Keep the flag true so it doesn't auto-replay on scroll
+    plotStaticDataCoPy();
+});
+
+function plotStaticDataCoPx() {
     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
 
@@ -1012,64 +1184,119 @@ function plotStaticDataCOPx() {
         let normalizedDataCoPxECRsmooth = normalize(dataECR, "smoothCoPx");
 
         // Create scales
+        const marginTop = 20;
+        const marginRight = 30;
+        const marginBottom = 40;
+        const marginLeft = 50;
+        const width = 800;
+        const height = 400;
+
+        // Create plot
+        const staticSvg = d3.select("#static-plot-CoPx")
+            .attr("width", width)
+            .attr("height", height);
+        staticSvg.selectAll("*").remove();
+
         const xScale = d3.scaleLinear()
             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
             .range([marginLeft, width - marginRight]);
 
-        const yExtent = d3.extent([...normalizedDataCoPxWL1, ...normalizedDataCoPxECR, ...normalizedDataCoPxWL1smooth, ...normalizedDataCoPxECRsmooth], d => d.value);
+        const yExtent = d3.extent([...normalizedDataCoPxWL1, ...normalizedDataCoPxECR, ...normalizedDataCoPxECRsmooth, ...normalizedDataCoPxWL1smooth], d => d.value);
         const yScale = d3.scaleLinear()
             .domain(yExtent)
-            .range([height- marginBottom, marginTop]);
+            .range([height - marginBottom, marginTop]);
 
-        // Create plot
-        const staticSvg = d3.select("#static-plot-CoPx");
-        staticSvg.selectAll("*").remove();
+        // Add vertical line
+        const verticalLine = staticSvg.append("line")
+            .attr("x1", xScale(0))
+            .attr("x2", xScale(0))
+            .attr("y1", marginTop)
+            .attr("y2", height - marginBottom)
+            .attr("stroke", "black")
+            .attr("stroke-width", 1)
+            .attr("stroke-dasharray", "4 4");
 
         // Line generator
         const lineGen = d3.line()
             .x(d => xScale(d.Time))
             .y(d => yScale(d.value));
 
+        // Create a single shared transition
+        const sharedTransition = d3.transition()
+            .duration(4000)
+            .ease(d3.easeLinear);
+
+        // Function to animate line drawing using the shared transition
+        function animateLine(path) {
+            const totalLength = path.node().getTotalLength();
+
+            path
+                .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
+                .attr("stroke-dashoffset", totalLength)
+                .transition(sharedTransition)
+                .attr("stroke-dashoffset", 0);
+        }
+
+        // Animate the vertical line using the shared transition
+        verticalLine
+            .transition(sharedTransition)
+            .attrTween("x1", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            })
+            .attrTween("x2", function() {
+                return function(t) {
+                    return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
+                };
+            });
+
         // Draw WL1 line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPxWL1)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPxWL1)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line (background)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPxECR)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594")
-        .attr("stroke-width", 1) // Thinner stroke
-        .attr("opacity", 0.3) // Lower opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPxECR)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 1)
+                .attr("opacity", 0.3)
+                .attr("d", lineGen)
+        );
 
         // Draw WL1 line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPxWL1smooth)
-        .attr("fill", "none")
-        .attr("stroke", "#fc8d59") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPxWL1smooth)
+                .attr("fill", "none")
+                .attr("stroke", "#fc8d59")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
 
         // Draw ECR line smooth (main focus)
-        staticSvg.append("path")
-        .datum(normalizedDataCoPxECRsmooth)
-        .attr("fill", "none")
-        .attr("stroke", "#99d594") // Keep bright color
-        .attr("stroke-width", 2.5) // Thicker stroke
-        .attr("opacity", 1) // Full opacity
-        .attr("d", lineGen);
-
-
+        animateLine(
+            staticSvg.append("path")
+                .datum(normalizedDataCoPxECRsmooth)
+                .attr("fill", "none")
+                .attr("stroke", "#99d594")
+                .attr("stroke-width", 2.5)
+                .attr("opacity", 1)
+                .attr("d", lineGen)
+        );
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 190}, 20)`);
+            .attr("transform", `translate(${width - 210}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -1119,11 +1346,42 @@ function plotStaticDataCOPx() {
             .attr("y", marginLeft - 30)
             .attr("text-anchor", "middle")
             .style("font-size", "14px")
-            .text("Normalized CoPy");
+            .text("Normalized CoPx");
     }).catch(error => {
         console.error("Error loading data:", error);
     });
 }
+
+let hasPlayed_CoPx = false;
+
+// Function to play animation
+function playAnimation_CoPx() {
+    plotStaticDataCoPx();
+}
+
+const plotElement_CoPx = document.querySelector("#static-plot-CoPx");
+
+const observer_CoPx = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasPlayed_CoPx) {
+                console.log("Plot is in viewport. Starting animation...");
+                playAnimation_CoPx();
+                hasPlayed_CoPx = true;
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    { threshold: 0.5 } // Trigger when 50% of the element is in view
+);
+
+observer_CoPx.observe(plotElement_CoPx);
+
+document.getElementById("replay-btn-copx").addEventListener("click", () => {
+    console.log("Replaying animation...");
+    hasPlayed_CoPx = true; // Keep the flag true so it doesn't auto-replay on scroll
+    plotStaticDataCoPx();
+});
 
 // Function to load and plot dynamic data (existing code)
 function loadAndPlotData(subject, file) {
@@ -1293,8 +1551,8 @@ function loadAndPlotData(subject, file) {
 // Load the static plot first
 plotStaticDataMx();
 plotStaticDataMy();
-plotStaticDataCOPy();
-plotStaticDataCOPx();
+plotStaticDataCoPy();
+plotStaticDataCoPx();
 
 // Load initial dynamic data
 const initialSubject = subjectSelect.node().value;
