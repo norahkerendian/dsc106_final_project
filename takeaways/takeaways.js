@@ -1,5 +1,5 @@
 const barchart = d3.select("#barchart");
-const data = [
+const dataTA = [
   {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
   {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
   {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
@@ -11,38 +11,39 @@ const scenarioLabels = {
   "WL1": "VR shifting, Music 0.1Hz",
   "WR": "VR shifting, Music Regular"
 };
-const width = 900, height = 500, margin = { top: 70, right: 120, bottom: 120, left: 120};
-// Define shorter variable names for readability in the code
-const forwardBackwardKey = "Change in Forward-Backward Position";
-const sideToSideKey = "Change in Side-to-Side Position";     
+    
 
 setTimeout(function() {
   console.log("Initializing chart in takeaways.js");
     
-    createChart(data);
+    createChart(dataTA);
 
-    function createChart(data) {
+    function createChart(dataTA) {
+      const widthTA = 900, heightTA = 500, marginTA = { top: 70, right: 120, bottom: 120, left: 120};
+      // Define shorter variable names for readability in the code
+      const forwardBackwardKey = "Change in Forward-Backward Position";
+      const sideToSideKey = "Change in Side-to-Side Position"; 
       
-      barchart.attr("width", width).attr("height", height);
+      barchart.attr("width", widthTA).attr("height", heightTA);
       
       // Clear any previous content
       barchart.selectAll("*").remove();
 
       // X and Y scales
       const x = d3.scaleBand()
-        .domain(data.map(d => d.Scenario))
-        .range([margin.left, width - margin.right])
+        .domain(dataTA.map(d => d.Scenario))
+        .range([marginTA.left, widthTA - marginTA.right])
         .padding(0.5);
 
       // Find the maximum value for Y scale (with a bit of headroom)
-      const maxFB = d3.max(data, d => d[forwardBackwardKey]) * 1.1;
-      const maxSS = d3.max(data, d => d[sideToSideKey]) * 1.1;
+      const maxFB = d3.max(dataTA, d => d[forwardBackwardKey]) * 1.1;
+      const maxSS = d3.max(dataTA, d => d[sideToSideKey]) * 1.1;
       
       // Create a scale that can handle both data series
       const y = d3.scaleLinear()
         .domain([0, Math.max(maxFB, maxSS)])
         .nice()
-        .range([height - margin.bottom, margin.top]);
+        .range([heightTA - marginTA.bottom, marginTA.top]);
 
       // Create a tooltip div (hidden by default)
       // Remove any existing tooltip first
@@ -62,7 +63,7 @@ setTimeout(function() {
 
       // Draw blue bars (Forward-Backward)
       barchart.selectAll(".bar-fb")
-        .data(data)
+        .data(dataTA)
         .enter()
         .append("rect")
         .attr("class", "bar-fb")
@@ -85,7 +86,7 @@ setTimeout(function() {
 
       // Draw orange bars (Side-to-Side)
       barchart.selectAll(".bar-ss")
-        .data(data)
+        .data(dataTA)
         .enter()
         .append("rect")
         .attr("class", "bar-ss")
@@ -108,7 +109,7 @@ setTimeout(function() {
 
       // Add X axis with custom labels
       barchart.append("g")
-        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .attr("transform", `translate(0,${heightTA - marginTA.bottom})`)
         .call(d3.axisBottom(x).tickFormat(d => "")) // Empty string as we'll add custom labels
         .selectAll(".tick")
         .append("text")
@@ -140,17 +141,17 @@ setTimeout(function() {
       const yLeft = d3.scaleLinear()
         .domain([0, maxFB])
         .nice()
-        .range([height - margin.bottom, margin.top]);
+        .range([heightTA - marginTA.bottom, marginTA.top]);
 
       // Define the right Y-axis scale
       const yRight = d3.scaleLinear()
         .domain([0, maxSS])
         .nice()
-        .range([height - margin.bottom, margin.top]);
+        .range([heightTA - marginTA.bottom, marginTA.top]);
 
       // Left Y-axis (for blue bars)
       barchart.append("g")
-        .attr("transform", `translate(${margin.left},0)`)
+        .attr("transform", `translate(${marginTA.left},0)`)
         .call(d3.axisLeft(yLeft))
         .call(g => g.select(".domain").attr("stroke", "steelblue")) // Color axis line
         .call(g => g.selectAll(".tick line").attr("stroke", "steelblue")) // Color tick marks
@@ -161,31 +162,31 @@ setTimeout(function() {
       // Left Y axis title
       barchart.append("text")
         .attr("transform", "rotate(-90)") // Rotate to align with Y-axis
-        .attr("x", -height / 2)
-        .attr("y", margin.left / 3)
+        .attr("x", -heightTA / 2)
+        .attr("y", marginTA.left / 3)
         .style("text-anchor", "middle")
         .attr("class", "axis-label")
         .append("tspan")  // First line
         .text("Average Change in Position")
-        .attr("x", -height / 2.5)
+        .attr("x", -heightTA / 2.5)
         .attr("dy", "-0.5em")  // Adjust vertical spacing
         .append("tspan")  // Second line
         .text("(mm / second)")
-        .attr("x", -height / 2.5)
+        .attr("x", -heightTA / 2.5)
         .attr("dy", "1.2em"); // Adjust vertical spacing
 
       // X axis label
       barchart.append("text")
         .attr("class", "annotation")
-        .attr("x", width / 2)
-        .attr("y", height - margin.bottom + 80)
+        .attr("x", widthTA / 2)
+        .attr("y", heightTA - marginTA.bottom + 80)
         .style("text-anchor", "middle")
         .text("Scenario");
 
       // Add title annotation
       barchart.append("text")
         .attr("class", "annotation")
-        .attr("x", width / 2)
+        .attr("x", widthTA / 2)
         .attr("y", 40)
         .style("text-anchor", "middle")
         .style("font-weight", 900)
@@ -194,8 +195,8 @@ setTimeout(function() {
       // Add less stable annotation
       barchart.append("text")
         .attr("class", "annotation")
-        .attr("x", width - 300)
-        .attr("y", height - margin.bottom + 80)
+        .attr("x", widthTA - 300)
+        .attr("y", heightTA - marginTA.bottom + 80)
         .style("text-anchor", "middle")
         .style("font-weight", 200)
         .attr("stroke", "#CA2E55")
@@ -216,9 +217,9 @@ setTimeout(function() {
       // Draw the Diagonal arrow line
       barchart.append("line")
         .attr("x1", 650)
-        .attr("y1", height - margin.bottom + 76)
+        .attr("y1", heightTA - marginTA.bottom + 76)
         .attr("x2", 700)
-        .attr("y2", height - margin.bottom + 76)
+        .attr("y2", heightTA - marginTA.bottom + 76)
         .attr("stroke", "#CA2E55")
         .attr("stroke-width", 1)
         .attr("marker-end", "url(#arrowhead)");
@@ -226,7 +227,7 @@ setTimeout(function() {
       // Create a legend container
       const legend = barchart.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${width - margin.right - 620}, ${margin.top})`); // Position the legend
+        .attr("transform", `translate(${widthTA - marginTA.right - 620}, ${marginTA.top})`); // Position the legend
 
       // Add blue legend item (Forward-Backward)
       legend.append("rect")

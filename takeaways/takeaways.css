@@ -16,9 +16,9 @@ p {
 }
 
 #barchart {
-  width: 900px;
+  /* width: 900px;
   height: 500px;
-  margin: 0 auto;
+  margin: 0 auto; */
 }
 
 .tooltip {
