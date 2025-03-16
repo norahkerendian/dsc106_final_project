@@ -164,17 +164,15 @@ text {
 }
 
 .MxView,
-.MyView,
-.CoPyPlotFeet,
-.CoPxPlotFeet {
+.MyView {
     width: 2px;
     justify-content: center;
     align-items: center;
 }
 
-.CoPyPlotFeet {
+/* .CoPyPlotFeet {
     display: flex;
-}
+} */
 
 .CoPyFeet2,
 .CoPxFeet2 {
@@ -182,12 +180,12 @@ text {
     height: 100px;
 }
 
-.CoPyArrow {
+/* .CoPyArrow {
     height: 150px;
     width: 200px;
-}
+} */
 
-.CoPxArrow {
+/* .CoPxArrow {
     height: 30px;
     width: 170px;
 }
@@ -195,4 +193,4 @@ text {
 .CoPxPlotFeet {
     display: flex;
     flex-direction: column;
-}
+} */
