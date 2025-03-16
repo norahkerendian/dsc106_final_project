@@ -152,3 +152,10 @@ text {
   align-items: center;
   justify-content: center;
 }
+
+.MxPlot {
+    display: flex;
+    justify-content: space-between; /* Aligns items side by side */
+    width: 90%; /* Makes the container take up 90% of the browser width */
+    margin: 10px;
+}
