@@ -41,14 +41,18 @@ h1 {
 
   .MLaxisLabel {
     position: absolute;
-    top: 34%;
-    left: -35%;
+    top: 38%;
+    left: -45%;
   }
 
   .APaxisLabel {
     position: absolute;
-    top: 50%;
-    left: -43%;
+    top: 55%;
+    left: -45%;
+  }
+
+  .CoPxSliderLabel {
+    color: #CA2E55;
   }
 
   .APaxisFront {
@@ -84,6 +88,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     flex: 1; /* Allow both views to take equal space within the container */
   }
   

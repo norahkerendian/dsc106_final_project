@@ -54,6 +54,7 @@ slider.addEventListener("input", () => {
   rightBox.style.backgroundColor = rightColor;
 });
 
+
 const sliderY = document.getElementById("pressureSliderY");
 const upperBox = document.getElementById("upperPressure");
 const lowerBox = document.getElementById("lowerPressure");
