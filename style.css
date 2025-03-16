@@ -153,9 +153,22 @@ text {
   justify-content: center;
 }
 
-.MxPlot {
+.MxPlot,
+.MyPlot,
+.CoPyPlot {
     display: flex;
     justify-content: space-between; /* Aligns items side by side */
     width: 90%; /* Makes the container take up 90% of the browser width */
     margin: 10px;
+}
+
+.MxView,
+.MyView {
+    width: 2px;
+}
+
+.CoPxPlotFeet {
+    width: 100px; /* Size of the feet image */
+    height: 100px;
+    top: 50%;
 }

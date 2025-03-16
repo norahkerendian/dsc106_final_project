@@ -1,5 +1,7 @@
 // Add animation for rotation around the medial-lateral axis (tilting forward and backward)
 const personMx = document.querySelector(".MxPersonImage");
+console.log('MxPerson: ', document.querySelector(".MxPersonImage")); 
+
     let rotationMx = 0;
     let directionMx = 1;
 

@@ -73,20 +73,29 @@
             <div class="MxPerson">
               <img class="MxPersonImage" src="features/images/person.webp" alt="Human Outline">
               <div class="MLaxis"></div>
-              <div class="MLaxisLabel">
-                  <p>Medial-lateral Axis</p>
-              </div>
             </div>
         </div>
         </div>
         <br>
         <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-copy">Restart CoPy Animation</button>
+        <div class="CoPyPlot">
         <svg id="static-plot-CoPy" width="800" height="400"></svg>
+        <img class="CoPxPlotFeet" src="features/images/feet2.png" alt="feet">
+        </div>
         <br>
         <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-my">Restart My Animation</button>
-        <svg id="static-plot-My" width="800" height="400"></svg>
+        <div class="MyPlot">
+            <svg id="static-plot-My" width="800" height="400"></svg>
+            <div class="MyView">
+                <div class="MyPerson">
+                  <div class="APaxisBack"></div>
+                  <img class="MyPersonImage" src="features/images/person.webp" alt="Human Outline">
+                  <div class="APaxisFront"></div>
+                </div>
+            </div>
+            </div>
         <br>
         <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-copx">Restart CoPx Animation</button>
@@ -129,7 +138,7 @@
 </section>
     <!-- <script src="../global.js" type="module"></script> -->
     <script src="plots.js" type="module"></script>
-    <script src="../features/features.js"></script>
+    <script src="../features/features.js" type="module"></script>
 </body>
 </html>
 
