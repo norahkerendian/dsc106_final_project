@@ -154,11 +154,10 @@ text {
 }
 
 .MxPlot,
-.MyPlot,
-.CoPyPlot {
+.MyPlot {
     display: flex;
-    justify-content: space-between; /* Aligns items side by side */
-    width: 90%; /* Makes the container take up 90% of the browser width */
+    justify-content: space-between; 
+    width: 90%;
     margin: 10px;
 }
 
@@ -167,8 +166,8 @@ text {
     width: 2px;
 }
 
-.CoPxPlotFeet {
-    width: 100px; /* Size of the feet image */
+/* .CoPxPlotFeet {
+    width: 100px;
     height: 100px;
     top: 50%;
-}
+} */
