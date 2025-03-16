@@ -51,6 +51,7 @@
         }
     </style>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../features/features.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
@@ -68,7 +69,15 @@
         <button id="replay-btn-mx">Restart Mx Animation</button>
         <div class="MxPlot">
         <svg id="static-plot-Mx" width="800" height="400"></svg>
-        <p>test</p>
+        <div class="MxView">
+            <div class="MxPerson">
+              <img class="MxPersonImage" src="features/images/person.webp" alt="Human Outline">
+              <div class="MLaxis"></div>
+              <div class="MLaxisLabel">
+                  <p>Medial-lateral Axis</p>
+              </div>
+            </div>
+        </div>
         </div>
         <br>
         <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
@@ -120,6 +129,7 @@
 </section>
     <!-- <script src="../global.js" type="module"></script> -->
     <script src="plots.js" type="module"></script>
+    <script src="../features/features.js"></script>
 </body>
 </html>
 
