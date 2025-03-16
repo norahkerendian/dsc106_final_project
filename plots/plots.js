@@ -25,13 +25,6 @@ const scenarioMap = {
     'WR': 'VR Shifting, Music Regular'
 };
 
-
-// fileNames.forEach(fileName => {
-//     fileSelect.append("option")
-//         .attr("value", fileName)
-//         .text(fileName);
-// });
-
 fileNames.forEach(fileName => {
     const displayName = scenarioMap[fileName] || fileName; 
     fileSelect.append("option")
@@ -39,379 +32,6 @@ fileNames.forEach(fileName => {
         .text(displayName); 
 });
 
-// ORIGINAL STATIC PLOT
-// Function to load and plot static data for Mx of WL1 and ECR
-// function plotStaticDataMx() {
-//     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
-//     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
-
-//     Promise.all([
-//         d3.csv(filePathWL1).then(data => {
-//             data.forEach(d => {
-//                 d.Time = +d.Time;
-//                 d.Mx = +d.Mx;
-//                 d.smoothMx = +d.smoothMx;
-//             });
-//             return data;
-//         }),
-//         d3.csv(filePathECR).then(data => {
-//             data.forEach(d => {
-//                 d.Time = +d.Time;
-//                 d.Mx = +d.Mx;
-//                 d.smoothMx = +d.smoothMx;
-//             });
-//             return data;
-//         })
-//     ]).then(([dataWL1, dataECR]) => {
-//         console.log(`Number of data points for WL1:`, dataWL1.length);
-//         console.log(`Number of data points for ECR:`, dataECR.length);
-
-//         // Normalize Mx values
-//         function normalize(data, key) {
-//             const mean = d3.mean(data, d => d[key]);
-//             const std = d3.deviation(data, d => d[key]);
-//             console.log(`Mean: ${mean} Std Dev: ${std}`);
-//             return data.map(d => ({
-//                 Time: d.Time,
-//                 value: (d[key] - mean) / std
-//             }));
-//         }
-
-//         let normalizedDataMxWL1 = normalize(dataWL1, "Mx");
-//         let normalizedDataMxWL1smooth = normalize(dataWL1, "smoothMx");
-//         let normalizedDataMxECR = normalize(dataECR, "Mx");
-//         let normalizedDataMxECRsmooth = normalize(dataECR, "smoothMx");
-
-//         // Create scales
-//         const xScale = d3.scaleLinear()
-//             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
-//             .range([marginLeft, width - marginRight]);
-
-//         const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR, ...normalizedDataMxECRsmooth, ...normalizedDataMxWL1smooth], d => d.value);
-//         const yScale = d3.scaleLinear()
-//             .domain(yExtent)
-//             .range([height - marginBottom, marginTop]);
-
-//         // Create plot
-//         const staticSvg = d3.select("#static-plot-Mx");
-//         staticSvg.selectAll("*").remove();
-
-//         // Line generator
-//         const lineGen = d3.line()
-//             .x(d => xScale(d.Time))
-//             .y(d => yScale(d.value));
-
-//         // Draw WL1 line (background)
-//         staticSvg.append("path")
-//         .datum(normalizedDataMxWL1)
-//         .attr("fill", "none")
-//         .attr("stroke", "#fc8d59")
-//         .attr("stroke-width", 1) // Thinner stroke
-//         .attr("opacity", 0.3) // Lower opacity
-//         .attr("d", lineGen);
-
-//         // Draw ECR line (background)
-//         staticSvg.append("path")
-//         .datum(normalizedDataMxECR)
-//         .attr("fill", "none")
-//         .attr("stroke", "#99d594")
-//         .attr("stroke-width", 1) // Thinner stroke
-//         .attr("opacity", 0.3) // Lower opacity
-//         .attr("d", lineGen);
-
-//         // Draw WL1 line smooth (main focus)
-//         staticSvg.append("path")
-//         .datum(normalizedDataMxWL1smooth)
-//         .attr("fill", "none")
-//         .attr("stroke", "#fc8d59") // Keep bright color
-//         .attr("stroke-width", 2.5) // Thicker stroke
-//         .attr("opacity", 1) // Full opacity
-//         .attr("d", lineGen);
-
-//         // Draw ECR line smooth (main focus)
-//         staticSvg.append("path")
-//         .datum(normalizedDataMxECRsmooth)
-//         .attr("fill", "none")
-//         .attr("stroke", "#99d594") // Keep bright color
-//         .attr("stroke-width", 2.5) // Thicker stroke
-//         .attr("opacity", 1) // Full opacity
-//         .attr("d", lineGen);
-
-
-//         // Legend
-//         const legend = staticSvg.append("g")
-//             .attr("transform", `translate(${width - 190}, 20)`);
-
-//         legend.append("rect")
-//             .attr("width", 12)
-//             .attr("height", 12)
-//             .attr("fill", "#fc8d59");
-
-//         legend.append("text")
-//             .attr("x", 15)
-//             .attr("y", 10)
-//             .text("VR shifting, Music 0.1Hz")
-//             .style("font-size", "12px");
-
-//         legend.append("rect")
-//             .attr("x", 0)
-//             .attr("y", 20)
-//             .attr("width", 12)
-//             .attr("height", 12)
-//             .attr("fill", "#99d594");
-
-//         legend.append("text")
-//             .attr("x", 15)
-//             .attr("y", 30)
-//             .text("Eyes Closed, Music Regular")
-//             .style("font-size", "12px");
-
-//         // X Axis
-//         staticSvg.append("g")
-//             .attr("transform", `translate(0, ${height - marginBottom})`)
-//             .call(d3.axisBottom(xScale));
-
-//         // Y Axis
-//         staticSvg.append("g")
-//             .attr("transform", `translate(${marginLeft}, 0)`)
-//             .call(d3.axisLeft(yScale));
-
-//         // Axis labels
-//         staticSvg.append("text")
-//             .attr("x", width / 2)
-//             .attr("y", height - marginBottom + 35)
-//             .attr("text-anchor", "middle")
-//             .style("font-size", "14px")
-//             .text("Time (s)");
-
-//         staticSvg.append("text")
-//             .attr("transform", "rotate(-90)")
-//             .attr("x", -height / 2)
-//             .attr("y", marginLeft - 30)
-//             .attr("text-anchor", "middle")
-//             .style("font-size", "14px")
-//             .text("Normalized Mx");
-//     }).catch(error => {
-//         console.error("Error loading data:", error);
-//     });
-// }
-
-// starts animation as soon as website refreshes
-// function plotStaticDataMx() {
-//     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
-//     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
-
-//     Promise.all([
-//         d3.csv(filePathWL1).then(data => {
-//             data.forEach(d => {
-//                 d.Time = +d.Time;
-//                 d.Mx = +d.Mx;
-//                 d.smoothMx = +d.smoothMx;
-//             });
-//             return data;
-//         }),
-//         d3.csv(filePathECR).then(data => {
-//             data.forEach(d => {
-//                 d.Time = +d.Time;
-//                 d.Mx = +d.Mx;
-//                 d.smoothMx = +d.smoothMx;
-//             });
-//             return data;
-//         })
-//     ]).then(([dataWL1, dataECR]) => {
-//         console.log(`Number of data points for WL1:`, dataWL1.length);
-//         console.log(`Number of data points for ECR:`, dataECR.length);
-
-//         // Normalize Mx values
-//         function normalize(data, key) {
-//             const mean = d3.mean(data, d => d[key]);
-//             const std = d3.deviation(data, d => d[key]);
-//             console.log(`Mean: ${mean} Std Dev: ${std}`);
-//             return data.map(d => ({
-//                 Time: d.Time,
-//                 value: (d[key] - mean) / std
-//             }));
-//         }
-
-//         let normalizedDataMxWL1 = normalize(dataWL1, "Mx");
-//         let normalizedDataMxWL1smooth = normalize(dataWL1, "smoothMx");
-//         let normalizedDataMxECR = normalize(dataECR, "Mx");
-//         let normalizedDataMxECRsmooth = normalize(dataECR, "smoothMx");
-
-//         // Create scales
-//         const marginTop = 20;
-//         const marginRight = 30;
-//         const marginBottom = 40;
-//         const marginLeft = 50;
-//         const width = 800;
-//         const height = 400;
-
-//         const xScale = d3.scaleLinear()
-//             .domain([0, d3.max([...dataWL1, ...dataECR], d => d.Time) + 0.01])
-//             .range([marginLeft, width - marginRight]);
-
-//         const yExtent = d3.extent([...normalizedDataMxWL1, ...normalizedDataMxECR, ...normalizedDataMxECRsmooth, ...normalizedDataMxWL1smooth], d => d.value);
-//         const yScale = d3.scaleLinear()
-//             .domain(yExtent)
-//             .range([height - marginBottom, marginTop]);
-
-
-//         // Create plot
-//         const staticSvg = d3.select("#static-plot-Mx")
-//             .attr("width", width)
-//             .attr("height", height);
-//         staticSvg.selectAll("*").remove();
-
-//         // Add vertical line
-//         const verticalLine = staticSvg.append("line")
-//             .attr("x1", xScale(0))
-//             .attr("x2", xScale(0))
-//             .attr("y1", marginTop)
-//             .attr("y2", height - marginBottom)
-//             .attr("stroke", "black")
-//             .attr("stroke-width", 1)
-//             .attr("stroke-dasharray", "4 4");
-
-//         // Line generator
-//         const lineGen = d3.line()
-//             .x(d => xScale(d.Time))
-//             .y(d => yScale(d.value));
-
-//         // Create a single shared transition
-//         const sharedTransition = d3.transition()
-//             .duration(4000)
-//             .ease(d3.easeLinear);
-
-//         // Function to animate line drawing using the shared transition
-//         function animateLine(path) {
-//             const totalLength = path.node().getTotalLength();
-
-//             path
-//                 .attr("stroke-dasharray", `${totalLength} ${totalLength}`)
-//                 .attr("stroke-dashoffset", totalLength)
-//                 .transition(sharedTransition) // Use the shared transition
-//                 .attr("stroke-dashoffset", 0);
-//         }
-
-//         // Animate the vertical line using the shared transition
-//         verticalLine
-//             .transition(sharedTransition) // Use the shared transition
-//             .attrTween("x1", function() {
-//                 return function(t) {
-//                     return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
-//                 };
-//             })
-//             .attrTween("x2", function() {
-//                 return function(t) {
-//                     return xScale(d3.max([...dataWL1, ...dataECR], d => d.Time) * t);
-//                 };
-//             });
-
-//         // Draw WL1 line (background)
-//         animateLine(
-//             staticSvg.append("path")
-//                 .datum(normalizedDataMxWL1)
-//                 .attr("fill", "none")
-//                 .attr("stroke", "#fc8d59")
-//                 .attr("stroke-width", 1)
-//                 .attr("opacity", 0.3)
-//                 .attr("d", lineGen)
-//         );
-
-//         // Draw ECR line (background)
-//         animateLine(
-//             staticSvg.append("path")
-//                 .datum(normalizedDataMxECR)
-//                 .attr("fill", "none")
-//                 .attr("stroke", "#99d594")
-//                 .attr("stroke-width", 1)
-//                 .attr("opacity", 0.3)
-//                 .attr("d", lineGen)
-//         );
-
-//         // Draw WL1 line smooth (main focus)
-//         animateLine(
-//             staticSvg.append("path")
-//                 .datum(normalizedDataMxWL1smooth)
-//                 .attr("fill", "none")
-//                 .attr("stroke", "#fc8d59")
-//                 .attr("stroke-width", 2.5)
-//                 .attr("opacity", 1)
-//                 .attr("d", lineGen)
-//         );
-
-//         // Draw ECR line smooth (main focus)
-//         animateLine(
-//             staticSvg.append("path")
-//                 .datum(normalizedDataMxECRsmooth)
-//                 .attr("fill", "none")
-//                 .attr("stroke", "#99d594")
-//                 .attr("stroke-width", 2.5)
-//                 .attr("opacity", 1)
-//                 .attr("d", lineGen)
-//         );
-
-
-//         // Legend
-//         const legend = staticSvg.append("g")
-//             .attr("transform", `translate(${width - 190}, 20)`);
-
-//         legend.append("rect")
-//             .attr("width", 12)
-//             .attr("height", 12)
-//             .attr("fill", "#fc8d59");
-
-//         legend.append("text")
-//             .attr("x", 15)
-//             .attr("y", 10)
-//             .text("VR shifting, Music 0.1Hz")
-//             .style("font-size", "12px");
-
-//         legend.append("rect")
-//             .attr("x", 0)
-//             .attr("y", 20)
-//             .attr("width", 12)
-//             .attr("height", 12)
-//             .attr("fill", "#99d594");
-
-//         legend.append("text")
-//             .attr("x", 15)
-//             .attr("y", 30)
-//             .text("Eyes Closed, Music Regular")
-//             .style("font-size", "12px");
-
-//         // X Axis
-//         staticSvg.append("g")
-//             .attr("transform", `translate(0, ${height - marginBottom})`)
-//             .call(d3.axisBottom(xScale));
-
-//         // Y Axis
-//         staticSvg.append("g")
-//             .attr("transform", `translate(${marginLeft}, 0)`)
-//             .call(d3.axisLeft(yScale));
-
-//         // Axis labels
-//         staticSvg.append("text")
-//             .attr("x", width / 2)
-//             .attr("y", height - marginBottom + 35)
-//             .attr("text-anchor", "middle")
-//             .style("font-size", "14px")
-//             .text("Time (s)");
-
-//         staticSvg.append("text")
-//             .attr("transform", "rotate(-90)")
-//             .attr("x", -height / 2)
-//             .attr("y", marginLeft - 30)
-//             .attr("text-anchor", "middle")
-//             .style("font-size", "14px")
-//             .text("Normalized Mx");
-
-//     }).catch(error => {
-//         console.error("Error loading data:", error);
-//     });
-// }
-
-// MOST RECENT ONE
 // first time you scroll on it it animate but subsequent times you can play it to animate
 function plotStaticDataMx() {
     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
@@ -544,6 +164,14 @@ function plotStaticDataMx() {
                 .attr("d", lineGen)
         );
 
+        const tooltip = d3.select("#tooltip")
+            .style("position", "absolute")
+            .style("padding", "6px 10px")
+            .style("border-radius", "4px")
+            .style("color", "#fff")
+            .style("opacity", 0)
+            .style("pointer-events", "none");
+
         // Draw WL1 line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -555,6 +183,34 @@ function plotStaticDataMx() {
                 .attr("d", lineGen)
         );
 
+        // Draw WL1 line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-wl1")
+            .data(normalizedDataMxWL1smooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-wl1")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#fc8d59")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Draw ECR line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -565,6 +221,34 @@ function plotStaticDataMx() {
                 .attr("opacity", 1)
                 .attr("d", lineGen)
         );
+        // Draw ECR line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-ecr")
+            .data(normalizedDataMxECRsmooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-ecr")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#99d594")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Legend
         const legend = staticSvg.append("g")
             .attr("transform", `translate(${width - 210}, 20)`);
@@ -790,6 +474,14 @@ function plotStaticDataMy() {
                 .attr("d", lineGen)
         );
 
+        const tooltip = d3.select("#tooltip")
+            .style("position", "absolute")
+            .style("padding", "6px 10px")
+            .style("border-radius", "4px")
+            .style("color", "#fff")
+            .style("opacity", 0)
+            .style("pointer-events", "none");
+
         // Draw WL1 line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -801,6 +493,34 @@ function plotStaticDataMy() {
                 .attr("d", lineGen)
         );
 
+        // Draw WL1 line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-wl1")
+            .data(normalizedDataMyWL1smooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-wl1")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#fc8d59")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Draw ECR line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -811,6 +531,34 @@ function plotStaticDataMy() {
                 .attr("opacity", 1)
                 .attr("d", lineGen)
         );
+        // Draw ECR line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-ecr")
+            .data(normalizedDataMyECRsmooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-ecr")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#99d594")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Legend
         const legend = staticSvg.append("g")
             .attr("transform", `translate(${width - 210}, 20)`);
@@ -1032,6 +780,14 @@ function plotStaticDataCoPy() {
                 .attr("d", lineGen)
         );
 
+        const tooltip = d3.select("#tooltip")
+            .style("position", "absolute")
+            .style("padding", "6px 10px")
+            .style("border-radius", "4px")
+            .style("color", "#fff")
+            .style("opacity", 0)
+            .style("pointer-events", "none");
+
         // Draw WL1 line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -1043,6 +799,34 @@ function plotStaticDataCoPy() {
                 .attr("d", lineGen)
         );
 
+        // Draw WL1 line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-wl1")
+            .data(normalizedDataCoPyWL1smooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-wl1")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#fc8d59")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Draw ECR line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -1053,6 +837,34 @@ function plotStaticDataCoPy() {
                 .attr("opacity", 1)
                 .attr("d", lineGen)
         );
+        // Draw ECR line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-ecr")
+            .data(normalizedDataCoPyECRsmooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-ecr")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#99d594")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Legend
         const legend = staticSvg.append("g")
             .attr("transform", `translate(${width - 210}, 20)`);
@@ -1273,6 +1085,14 @@ function plotStaticDataCoPx() {
                 .attr("d", lineGen)
         );
 
+        const tooltip = d3.select("#tooltip")
+            .style("position", "absolute")
+            .style("padding", "6px 10px")
+            .style("border-radius", "4px")
+            .style("color", "#fff")
+            .style("opacity", 0)
+            .style("pointer-events", "none");
+
         // Draw WL1 line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -1284,6 +1104,34 @@ function plotStaticDataCoPx() {
                 .attr("d", lineGen)
         );
 
+        // Draw WL1 line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-wl1")
+            .data(normalizedDataCoPxWL1smooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-wl1")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#fc8d59")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Draw ECR line smooth (main focus)
         animateLine(
             staticSvg.append("path")
@@ -1294,6 +1142,34 @@ function plotStaticDataCoPx() {
                 .attr("opacity", 1)
                 .attr("d", lineGen)
         );
+        // Draw ECR line smooth (main focus) with hover tooltip
+        staticSvg.selectAll(".dot-ecr")
+            .data(normalizedDataCoPxECRsmooth)
+            .enter().append("circle")
+            .attr("fill", "none")
+            .attr("stroke", "transparent") // Make it invisible
+            .attr("stroke-width", 10)
+            .attr("class", "dot-ecr")
+            .attr("cx", d => xScale(d.Time))
+            .attr("cy", d => yScale(d.value))
+            .attr("r", 3)
+            .on("mouseover", (event, d) => {
+                tooltip
+                    .style("opacity", 1)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .style("background-color", "#99d594")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mousemove", (event) => {
+                tooltip
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
         // Legend
         const legend = staticSvg.append("g")
             .attr("transform", `translate(${width - 210}, 20)`);
