@@ -7,7 +7,7 @@
     <style scoped>
         /* Add your background-specific styles here */
         .parallax-1, .parallax-2, .parallax-3 {
-            height: 50vh;
+            height: 40vh;
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
@@ -17,14 +17,27 @@
             align-items: center;
             text-align: center;
         }
-        .parallax-1 { background-image: url('background/imgs/walking.jpg'); }
-        .parallax-2 { background-image: url('background/imgs/balance.jpg'); }
-        .parallax-3 { background-image: url('background/imgs/vr.jpg'); }
+
+        .parallax-1 { 
+            background-image: url('background/imgs/walking.jpeg');
+            background-position: 10% 10000%;
+         }
+
+        .parallax-2 { 
+            background-image: url('background/imgs/balance.jpeg');
+            background-size: 150%;
+
+         }
+        .parallax-3 { 
+            background-image: url('background/imgs/vr.jpg');
+            background-size: 100%;
+            background-position: -5%;
+         }
         .parallax-inner {
-            /* display: flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 50%; */
+            height: 50%;
             color: white;
             max-width: 80%;
             text-align: center;
@@ -33,10 +46,11 @@
         #section1 h1 {
             font-size: 30px;
             text-align: center;
-            color: rgba(255, 255, 255, .8);
-            padding: 3rem;
+            color: white(0, 0, 0);
+            padding: 1rem;
             font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: rgb(0, 0, 0)
+            /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0);*/
         }
 
         p, ul {
