@@ -187,7 +187,7 @@ audio.loop = true;
 
 // Create source element
 const source = document.createElement('source');
-source.src = '../jupiter/01.I.AllegroVivace.mp3';
+source.src = '../dsc106_final_project/jupiter/01.I.AllegroVivace.mp3';
 source.type = 'audio/mpeg';
 
 audio.appendChild(source);
