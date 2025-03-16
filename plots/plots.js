@@ -39,7 +39,7 @@ fileNames.forEach(fileName => {
         .text(displayName); 
 });
 
-
+// ORIGINAL STATIC PLOT
 // Function to load and plot static data for Mx of WL1 and ECR
 // function plotStaticDataMx() {
 //     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
@@ -196,7 +196,7 @@ fileNames.forEach(fileName => {
 //     });
 // }
 
-// Function to load and plot static data for Mx of WL1 and ECR
+// starts animation as soon as website refreshes
 // function plotStaticDataMx() {
 //     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
 //     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
@@ -411,6 +411,8 @@ fileNames.forEach(fileName => {
 //     });
 // }
 
+// MOST RECENT ONE
+// first time you scroll on it it animate but subsequent times you can play it to animate
 function plotStaticDataMx() {
     const filePathWL1 = `../dsc106_final_project/data/smoothS1/smoothWL1.csv`;
     const filePathECR = `../dsc106_final_project/data/smoothS1/smoothECR.csv`;
@@ -565,7 +567,7 @@ function plotStaticDataMx() {
         );
         // Legend
         const legend = staticSvg.append("g")
-            .attr("transform", `translate(${width - 190}, 20)`);
+            .attr("transform", `translate(${width - 210}, 20)`);
 
         legend.append("rect")
             .attr("width", 12)
@@ -621,15 +623,25 @@ function plotStaticDataMx() {
     });
 }
 
+let hasPlayed = false;
+
+// Function to play animation
+function playAnimation() {
+    plotStaticDataMx();
+}
+
 // Intersection Observer to trigger plotStaticDataMx when visible
 const plotElement = document.querySelector("#static-plot-Mx");
 
 const observer = new IntersectionObserver(
     (entries, observer) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && !hasPlayed) {
                 console.log("Plot is in viewport. Starting animation...");
-                plotStaticDataMx();
+                playAnimation();
+                hasPlayed = true;
+                observer.unobserve(entry.target);
+                // plotStaticDataMx();
                 // observer.unobserve(entry.target); // Stop observing once triggered
             }
         });
@@ -639,6 +651,11 @@ const observer = new IntersectionObserver(
 
 observer.observe(plotElement);
 
+document.getElementById("replay-btn-mx").addEventListener("click", () => {
+    console.log("Replaying animation...");
+    hasPlayed = true; // Keep the flag true so it doesn't auto-replay on scroll
+    plotStaticDataMx();
+});
 
 // Function to load and plot static data for My of WL1 and ECR
 function plotStaticDataMy() {
