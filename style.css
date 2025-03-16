@@ -155,7 +155,8 @@ text {
 
 .MxPlot,
 .MyPlot,
-.CoPyPlot {
+.CoPyPlot,
+.CoPxPlot {
     display: flex;
     justify-content: space-between; 
     width: 90%;
@@ -164,14 +165,17 @@ text {
 
 .MxView,
 .MyView,
-.CoPyPlotFeet {
+.CoPyPlotFeet,
+.CoPxPlotFeet {
     width: 2px;
     justify-content: center;
     align-items: center;
 }
 
-.CoPyFeet2 {
+.CoPyFeet2,
+.CoPxFeet2 {
     width: 100px;
     height: 100px;
     margin-top: 120px;
+    margin-left: -100px;
 }
