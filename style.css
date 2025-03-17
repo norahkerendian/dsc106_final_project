@@ -187,40 +187,6 @@ text {
     margin-left: 0%;
 }
 
-.MLaxis1 {
-    position: absolute;
-    top: 45%; /* Raised the arrow vertically */
-    left: 86.5%; /* Position arrow in the center of the person */
-    width: 150px; /* Increased width of the arrow */
-    height: 4px; /* Thickness of the arrow line */
-    background-color: #CA2E55;
-    transform-origin: center;
-    transform: translateX(-50%); /* Center the arrow line */
-  }
-
-.APaxisFront1 {
-    position: absolute;
-    top: 50%; /* Raised the arrow vertically */
-    left: 84%; /* Position arrow in the center of the person */
-    width: 80px; /* Increased width of the arrow */
-    height: 4px; /* Thickness of the arrow line */
-    background-color: #CA2E55;
-    transform-origin: center;
-    transform: translateX(-50%) rotate(-45deg); /* Center the arrow line */
-}
-
-.APaxisBack1 {
-    position: absolute;
-    top: 31%; /* Raised the arrow vertically */
-    left: 91%; /* Position arrow in the center of the person */
-    width: 100px; /* Increased width of the arrow */
-    height: 4px; /* Thickness of the arrow line */
-    background-color: #CA2E55;
-    transform-origin: center;
-    transform: translateX(-50%) rotate(-45deg); /* Center the arrow line */
-    z-index: -1;
-}
-
 /* .background-video-wrapper {
     color: #fff;
     background: #000;
