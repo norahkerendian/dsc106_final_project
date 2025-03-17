@@ -154,9 +154,7 @@ text {
 }
 
 .MxPlot,
-.MyPlot,
-.CoPyPlot,
-.CoPxPlot {
+.MyPlot {
     display: flex;
     justify-content: space-between; 
     width: 90%;
@@ -174,11 +172,11 @@ text {
     display: flex;
 } */
 
-.CoPyFeet2,
+/* .CoPyFeet2,
 .CoPxFeet2 {
     width: 100px;
     height: 100px;
-}
+} */
 
 /* .CoPyArrow {
     height: 150px;
