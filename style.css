@@ -175,24 +175,25 @@ text {
     width: 140px;
     height: 120px;
     margin-top: 100%;
-    /* margin-left: 17%; */
+    margin-left: -40%;
 }
 
 .CoPxFeet2 {
     width: 130px;
     height: 130px;
     margin-top: 100%;
-    /* margin-left: 17%; */
+    margin-left: -40%;
 }
 
 .MxPerson1, .MyPerson1 {
-    margin-left: 50%;
+    /* original 50 */
+    margin-left: 0%;
 }
 
 .MLaxis1 {
     position: absolute;
     top: 45%; /* Raised the arrow vertically */
-    left: 93.5%; /* Position arrow in the center of the person */
+    left: 86.5%; /* Position arrow in the center of the person */
     width: 150px; /* Increased width of the arrow */
     height: 4px; /* Thickness of the arrow line */
     background-color: #CA2E55;
@@ -203,7 +204,7 @@ text {
 .APaxisFront1 {
     position: absolute;
     top: 50%; /* Raised the arrow vertically */
-    left: 90%; /* Position arrow in the center of the person */
+    left: 84%; /* Position arrow in the center of the person */
     width: 80px; /* Increased width of the arrow */
     height: 4px; /* Thickness of the arrow line */
     background-color: #CA2E55;
@@ -214,7 +215,7 @@ text {
 .APaxisBack1 {
     position: absolute;
     top: 31%; /* Raised the arrow vertically */
-    left: 97%; /* Position arrow in the center of the person */
+    left: 90%; /* Position arrow in the center of the person */
     width: 100px; /* Increased width of the arrow */
     height: 4px; /* Thickness of the arrow line */
     background-color: #CA2E55;
