@@ -63,9 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
         sections.forEach((section) => {
             const sectionTop = section.offsetTop; // Top position of the section
             const sectionHeight = section.clientHeight; // Height of the section
+            const sectionBottom = sectionTop + sectionHeight; // Bottom position of the section
+            console.log(`Section: ${section.id}, Top: ${sectionTop}, Bottom: ${sectionBottom}`);
 
             // Check if the current scroll position is within this section
-            if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
+            if (window.scrollY >= sectionTop - 50 && window.scrollY < sectionBottom - 50) {
                 current = section.getAttribute("id"); // Set the current section ID
             }
         });
