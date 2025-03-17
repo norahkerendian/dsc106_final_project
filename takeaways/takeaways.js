@@ -1,9 +1,9 @@
 const barchart = d3.select("#barchart");
-const dataTA = [
-  {"Scenario":"ECR","Change in Forward-Backward Position":4.9502452143,"Change in Side-to-Side Position":1.0776901206},
-  {"Scenario":"ECL1","Change in Forward-Backward Position":7.3870459711,"Change in Side-to-Side Position":1.744443572},
-  {"Scenario":"WR","Change in Forward-Backward Position":16.4142015912,"Change in Side-to-Side Position":2.1780062125},
-  {"Scenario":"WL1","Change in Forward-Backward Position":23.4076439986,"Change in Side-to-Side Position":2.5628889158}
+const dataTA = [ //square rooted
+  {"Scenario":"ECR","Change in Forward-Backward Position":2.225,"Change in Side-to-Side Position":1.038},
+  {"Scenario":"ECL1","Change in Forward-Backward Position":2.718,"Change in Side-to-Side Position":1.321},
+  {"Scenario":"WR","Change in Forward-Backward Position":4.051,"Change in Side-to-Side Position":1.476},
+  {"Scenario":"WL1","Change in Forward-Backward Position":4.838,"Change in Side-to-Side Position":1.601}
 ];
 const scenarioLabels = {
   "ECL1": "Eyes Closed, Music 0.1Hz",
@@ -14,7 +14,6 @@ const scenarioLabels = {
     
 
 setTimeout(function() {
-  console.log("Initializing chart in takeaways.js");
     
     createChart(dataTA);
 
@@ -73,8 +72,15 @@ setTimeout(function() {
         .attr("width", x.bandwidth() / 2)  // Make space for second bar
         .attr("fill", "steelblue")
         .on("mouseover", function(event, d) {
-          tooltip.style("opacity", 1)
-            .html(`${forwardBackwardKey}: ${d[forwardBackwardKey].toFixed(2)} mm`);
+          tooltip
+          .style("opacity", 1)
+                    .html(`Average Change in Forward-Backward Position: ${d[forwardBackwardKey].toFixed(2)} mm/sec`) // try to see if you can add the original value too
+                    .style("background-color", "#333")
+                    .style("left", `${event.pageX + 10}px`)
+                    .style("top", `${event.pageY - 20}px`);
+          // .style("opacity", 1)
+          //   .style("display", "block")
+          //   .text(`Average Change in Forward-Backward Position: ${d[forwardBackwardKey].toFixed(2)} mm/sec`);
         })
         .on("mousemove", function(event) {
           tooltip.style("left", (event.pageX + 10) + "px")
@@ -96,8 +102,16 @@ setTimeout(function() {
         .attr("width", x.bandwidth() / 2)
         .attr("fill", "orange")
         .on("mouseover", function(event, d) {
-          tooltip.style("opacity", 1)
-            .html(`${sideToSideKey}: ${d[sideToSideKey].toFixed(2)} mm`);
+          tooltip
+          .style("opacity", 1)
+            .style("display", "block")
+            .text(`Average Change in Side-to-Side Position: ${d[sideToSideKey].toFixed(2)} mm/sec`);
+            
+          // .style("opacity", 1)
+          //           .html(`Average Change in Side-to-Side Position: ${d[sideToSideKey].toFixed(2)} mm/sec`) // try to see if you can add the original value too
+          //           .style("background-color", "#333")
+          //           .style("left", `${event.pageX + 10}px`)
+          //           .style("top", `${event.pageY - 20}px`);
         })
         .on("mousemove", function(event) {
           tooltip.style("left", (event.pageX + 10) + "px")
@@ -149,6 +163,21 @@ setTimeout(function() {
         .nice()
         .range([heightTA - marginTA.bottom, marginTA.top]);
 
+      
+      const yAxisTooltip = d3.select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("background", "white")
+      .style("border", "1px solid #ccc")
+      .style("color","black")
+      .style("font-size", "10px")
+      .style("padding", "5px")
+      .style("border-radius", "5px")
+      .style("box-shadow", "2px 2px 5px rgba(0,0,0,0.3)")
+      .style("pointer-events", "none")
+      .style("opacity", 0);
+
       // Left Y-axis (for blue bars)
       barchart.append("g")
         .attr("transform", `translate(${marginTA.left},0)`)
@@ -159,21 +188,41 @@ setTimeout(function() {
         .selectAll("text")
         .attr("fill", "black"); // Keep text black
 
-      // Left Y axis title
-      barchart.append("text")
-        .attr("transform", "rotate(-90)") // Rotate to align with Y-axis
-        .attr("x", -heightTA / 2)
-        .attr("y", marginTA.left / 3)
-        .style("text-anchor", "middle")
-        .attr("class", "axis-label")
-        .append("tspan")  // First line
-        .text("Average Change in Position")
-        .attr("x", -heightTA / 2.5)
-        .attr("dy", "-0.5em")  // Adjust vertical spacing
-        .append("tspan")  // Second line
-        .text("(mm / second)")
-        .attr("x", -heightTA / 2.5)
-        .attr("dy", "1.2em"); // Adjust vertical spacing
+      
+      // Left Y axis title with tooltip
+      const yAxisLabel = barchart.append("text")
+      .attr("transform", "rotate(-90)")
+      .style("font-size", 14)
+      .attr("x", -heightTA / 2)
+      .attr("y", marginTA.left / 3)
+      .style("text-anchor", "middle")
+      .attr("class", "axis-label")
+      .on("mouseover", function(event) {
+        yAxisTooltip
+          .style("opacity", 1)
+          .style("display", "block")
+          .html("Calculated by taking the running absolute difference over time and averaging across subjects, then multiplying the forward-backward and side-to-side features to create a single metric per direction.") 
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY - 20}px`);
+      })
+      .on("mousemove", function(event) {
+        yAxisTooltip
+          .style("left", `${event.pageX + 10}px`)
+          .style("top", `${event.pageY - 20}px`);
+      })
+      .on("mouseout", function() {
+        yAxisTooltip.style("opacity", 0);
+      });
+
+      yAxisLabel.append("tspan")  
+      .text("Average Change in Position")
+      .attr("x", -heightTA / 2.5)
+      .attr("dy", "-0.5em");
+
+      yAxisLabel.append("tspan")  
+      .text("(mm / second)")
+      .attr("x", -heightTA / 2.5)
+      .attr("dy", "1.2em");
 
       // X axis label
       barchart.append("text")
@@ -190,6 +239,7 @@ setTimeout(function() {
         .attr("y", 40)
         .style("text-anchor", "middle")
         .style("font-weight", 900)
+        .style("font-size", 20)
         .text("Less Environment Stability ≈ More Movement");
 
       // Add less stable annotation
@@ -272,9 +322,9 @@ setTimeout(function() {
       // Draw the trend arrow line
       barchart.append("line")
         .attr("x1", 200)
-        .attr("y1", 300)
+        .attr("y1", 240)
         .attr("x2", 650)
-        .attr("y2", 70)
+        .attr("y2", 90)
         .attr("stroke", "#CA2E55")
         .attr("stroke-width", 2)
         .attr("marker-end", "url(#arrowhead2)");
