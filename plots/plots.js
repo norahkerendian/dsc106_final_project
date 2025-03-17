@@ -65,7 +65,8 @@ function plotStaticDataMx() {
             console.log(`Mean: ${mean} Std Dev: ${std}`);
             return data.map(d => ({
                 Time: d.Time,
-                value: (d[key] - mean) / std
+                value: (d[key] - mean) / std,
+                original: d[key]
             }));
         }
 
@@ -197,7 +198,7 @@ function plotStaticDataMx() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Normalized Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`) // try to see if you can add the original value too
                     .style("background-color", "#fc8d59")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -235,7 +236,7 @@ function plotStaticDataMx() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#99d594")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -375,7 +376,8 @@ function plotStaticDataMy() {
             console.log(`Mean: ${mean} Std Dev: ${std}`);
             return data.map(d => ({
                 Time: d.Time,
-                value: (d[key] - mean) / std
+                value: (d[key] - mean) / std,
+                original: d[key]
             }));
         }
 
@@ -507,7 +509,7 @@ function plotStaticDataMy() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#fc8d59")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -545,7 +547,7 @@ function plotStaticDataMy() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#99d594")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -681,7 +683,8 @@ function plotStaticDataCoPy() {
             console.log(`Mean: ${mean} Std Dev: ${std}`);
             return data.map(d => ({
                 Time: d.Time,
-                value: (d[key] - mean) / std
+                value: (d[key] - mean) / std,
+                original: d[key]
             }));
         }
 
@@ -813,7 +816,7 @@ function plotStaticDataCoPy() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#fc8d59")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -851,7 +854,7 @@ function plotStaticDataCoPy() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#99d594")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -986,7 +989,8 @@ function plotStaticDataCoPx() {
             console.log(`Mean: ${mean} Std Dev: ${std}`);
             return data.map(d => ({
                 Time: d.Time,
-                value: (d[key] - mean) / std
+                value: (d[key] - mean) / std,
+                original: d[key]
             }));
         }
 
@@ -1118,7 +1122,7 @@ function plotStaticDataCoPx() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#fc8d59")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -1156,7 +1160,7 @@ function plotStaticDataCoPx() {
             .on("mouseover", (event, d) => {
                 tooltip
                     .style("opacity", 1)
-                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}`)
+                    .html(`Time: ${d.Time.toFixed(2)}<br>Value: ${d.value.toFixed(2)}<br>Original Value: ${d.original.toFixed(2)}`)
                     .style("background-color", "#99d594")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
