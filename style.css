@@ -154,11 +154,14 @@ text {
 }
 
 .MxPlot,
-.MyPlot {
+.MyPlot,
+.CoPyPlot,
+.CoPxPlot {
     display: flex;
     justify-content: space-between; 
     width: 90%;
     margin: 10px;
+    position: relative;
 }
 
 .MxView,
@@ -168,27 +171,16 @@ text {
     align-items: center;
 }
 
-/* .CoPyPlotFeet {
-    display: flex;
-} */
-
-/* .CoPyFeet2,
-.CoPxFeet2 {
-    width: 100px;
-    height: 100px;
-} */
-
-/* .CoPyArrow {
-    height: 150px;
-    width: 200px;
-} */
-
-/* .CoPxArrow {
-    height: 30px;
-    width: 170px;
+.CoPyFeet2 {
+    width: 140px;
+    height: 120px;
+    margin-top: 100%;
+    margin-left: 17%;
 }
 
-.CoPxPlotFeet {
-    display: flex;
-    flex-direction: column;
-} */
+.CoPxFeet2 {
+    width: 130px;
+    height: 130px;
+    margin-top: 100%;
+    margin-left: 17%;
+}
