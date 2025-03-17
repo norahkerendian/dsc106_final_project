@@ -48,12 +48,12 @@ nav a.active {
 }
 
 a.current {
-    border-bottom: 0.4em solid oklch(60% 0.004 200);
+    border-bottom: 0.4em solid #7e8181;
     padding-bottom: 0.5rem; 
 }
 
 :root {
-    --color-accent: oklch(80% 0.004 200); 
+    --color-accent: #b8c8d4; 
 }
 
 html {
