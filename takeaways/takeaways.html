@@ -49,6 +49,16 @@
             line-height: 1.6;
             margin: 20px;
         }
+        .intro-section {
+            background-color: #f8f8f8;
+            border-left: 4px solid #2c3e50;
+            padding: 15px 10px;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+        .action-text {
+            font-weight: bold;
+        }
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="../style.css">
@@ -63,7 +73,11 @@
         </div>
     <!-- <section id = "section4">
     <h1>Takeaways</h1> -->
-    <p><strong>Our findings reveal that even in healthy adults, stability changes of the visual and auditory environment could significantly influence balance.</strong></p>
+    <br>
+    <div class="intro-section">
+        <p><strong>Our findings reveal that even in healthy adults, stability changes of the visual and auditory environment could significantly influence balance.</strong></p>
+    </div>
+    
 
     <p>By analyzing the average overall movement of the subjects, we find that <strong>when</strong> the VR environment shifts in the anterior-posterior direction ↕️,
         <strong>and/or when</strong> music loudness oscillates by 0.1 hertz (one cycle every 10 seconds)
@@ -71,12 +85,12 @@
         <strong>then</strong> there is more movement of the center of pressure   
         <img src="../dsc106_final_project/features/images/feet2.png" alt="Human Outline" height="20px" margin="0px" padding="0px">
         in the anterior-posterior direction ↕️,
-        but also more momement <img src="../dsc106_final_project/features/images/person.webp" alt="Feet Outline" height="40px" margin="0px" padding="0px" margin-top="10">
+        but also more momement <img src="../dsc106_final_project/features/images/person.webp" alt="Feet Outline" height="30px" margin="0px" padding="0px" >
         about the medial-lateral axis ↔️.
         <div class="container">
             <svg id="barchart" width="900" height="500"></svg>
         </div>
-    <p>While visual oscillations had the most pronounced impact, auditory cues also correlated with balance, suggesting that multisensory integration can influence stability control. These insights could inform rehabilitative strategies for individuals with balance disorders, particularly in developing personalized VR-based interventions that leverage both visual and auditory stimuli.</p>
+    <p>While visual oscillations had the most pronounced impact, auditory cues also <span class="action-text">correlated with balance</span>, suggesting that multisensory integration can influence stability control. These insights could inform <span class="action-text">rehabilitative strategies</span> for individuals with balance disorders, particularly in developing personalized VR-based interventions that leverage both visual and auditory stimuli.</p>
     </section>
         <script src="takeaways.js"></script>
 </body>

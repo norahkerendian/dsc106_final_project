@@ -215,7 +215,7 @@ text {
 .APaxisBack1 {
     position: absolute;
     top: 31%; /* Raised the arrow vertically */
-    left: 90%; /* Position arrow in the center of the person */
+    left: 91%; /* Position arrow in the center of the person */
     width: 100px; /* Increased width of the arrow */
     height: 4px; /* Thickness of the arrow line */
     background-color: #CA2E55;
