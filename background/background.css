@@ -26,7 +26,7 @@ html {
 .tooltip_bg {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted #0077cc;
+  border-bottom: 1px dotted black;
   cursor: pointer; /* Makes it clear that it's interactive */
   color: black; /* Makes the word stand out */
 }
@@ -39,10 +39,10 @@ html {
   text-align: left;
   font-size: 1rem;
   border-radius: 6px;
-  padding: 5px;
+  padding: 8px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Positions above the word */
+  top: 125%; /* Positions above the word */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0; /* Initially hidden */
