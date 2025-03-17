@@ -5,10 +5,10 @@
 //     { url: 'takeaways/takeaways.html', title: 'Takeaways', sectionId: 'section4' },
 // ];
 let pages = [
-    { url: 'background/index.html', title: 'Background', sectionId: 'content1' },
-    { url: 'features/features.html', title: 'Features', sectionId: 'content2' },
-    { url: 'plots/index.html', title: 'Main Plots', sectionId: 'content3' },
-    { url: 'takeaways/takeaways.html', title: 'Takeaways', sectionId: 'content4' },
+    { url: '/dsc106_final_project/background/index.html', title: 'Background', sectionId: 'content1' },
+    { url: '/dsc106_final_project/features/features.html', title: 'Features', sectionId: 'content2' },
+    { url: '/dsc106_final_project/plots/index.html', title: 'Main Plots', sectionId: 'content3' },
+    { url: '/dsc106_final_project/takeaways/takeaways.html', title: 'Takeaways', sectionId: 'content4' },
 ];
 let nav = document.createElement('nav');
 document.body.prepend(nav);

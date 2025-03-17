@@ -20,7 +20,7 @@
 
         /* Apply background image to parallax-1 */
         .parallax-5 { 
-            background-image: url('plots/imgs/plots2.jpg');
+            background-image: url('/dsc106_final_project/plots/imgs/plots2.jpg');
             background-position: center center; /* Ensure it's centered properly */
         }
 
@@ -64,15 +64,6 @@
             margin: 20px 0;
         }
             
-        /* .scenario-card {
-            flex: 1;
-            margin: 0 10px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        } */
         .scenario-card {
             flex: 1;
             margin: 0 10px;
@@ -117,8 +108,8 @@
             font-weight: bold;
         }
     </style>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../features/features.css">
+    <link rel="stylesheet" href="../dsc106_final_project//style.css">
+    <link rel="stylesheet" href="../dsc106_final_project//features/features.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
@@ -149,10 +140,14 @@
     <!-- <div class="intro-section">
         <p>Before we dive into our visualizations, let's take a look at what subjects in the study experienced in their VR environment!</p>
     </div>
-
+    <br>
+    <div class="intro-section">
+        <p>Play the music, Mozart's Jupiter, at the top right of the screen to get the full experience! </p>
+    </div>
+    <br>
     <div class="background-video-wrapper">
         <video class="background-video" preload="auto" autoplay loop muted playsinline>
-        <source src="plots/imgs/vr_environment.mp4" type="video/mp4">
+        <source src="/dsc106_final_project/plots/imgs/vr_environment.mp4" type="video/mp4">
         </video>
         <div class="fade"></div>
         <div class="copy">
@@ -190,7 +185,7 @@
         <svg id="static-plot-Mx" width="800" height="400"></svg>
         <div class="MxView">
             <div class="MxPerson1">
-              <img class="MxPersonImage" src="features/images/person.webp" alt="Human Outline">
+              <img class="MxPersonImage" src="/dsc106_final_project/features/images/person.webp" alt="Human Outline">
               <div class="MLaxis1"></div>
             </div>
         </div>
@@ -208,7 +203,7 @@
         <button id="replay-btn-copy">Restart CoPy Animation</button>
         <div class="CoPyPlot">
             <svg id="static-plot-CoPy" width="800" height="400"></svg>
-            <div class="CoPyPlotFeet"><img class="CoPyFeet2" src="features/images/CoPyFeet.png" alt="Feet"></div>
+            <div class="CoPyPlotFeet"><img class="CoPyFeet2" src="/dsc106_final_project/features/images/CoPyFeet.png" alt="Feet"></div>
         </div>
 
         <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
@@ -232,7 +227,7 @@
             <div class="MyView">
                 <div class="MyPerson1">
                   <div class="APaxisBack1"></div>
-                  <img class="MyPersonImage" src="features/images/person.webp" alt="Human Outline">
+                  <img class="MyPersonImage" src="/dsc106_final_project/features/images/person.webp" alt="Human Outline">
                   <div class="APaxisFront1"></div>
                 </div>
             </div>
@@ -254,7 +249,7 @@
         <button id="replay-btn-copx">Restart CoPx Animation</button>
         <div class="CoPxPlot">
             <svg id="static-plot-CoPx" width="800" height="400"></svg>
-            <div class="CoPxPlotFeet"><img class="CoPxFeet2" src="features/images/CoPxFeet.png" alt="Feet"></div>
+            <div class="CoPxPlotFeet"><img class="CoPxFeet2" src="/dsc106_final_project/features/images/CoPxFeet.png" alt="Feet"></div>
         </div>
         <br>
         <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
@@ -305,8 +300,8 @@
         font-size: 12px;
     "></div>
 </section>
-    <script src="plots.js" type="module"></script>
-    <script src="../features/features.js" type="module"></script>
+    <script src="/dsc106_final_project/plots.js" type="module"></script>
+    <script src="../dsc106_final_project/features/features.js" type="module"></script>
 </body>
 </html>
 

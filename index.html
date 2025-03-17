@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background and Motivation</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="features/features.css">
-    <link rel="stylesheet" href="takeaways/takeaways.css">
-    <link rel="stylesheet" href="background/background.css">
+    <base href="/">
+    <link rel="stylesheet" href="/dsc106_final_project/style.css">
+    <link rel="stylesheet" href="/dsc106_final_project/features/features.css">
+    <link rel="stylesheet" href="/dsc106_final_project/takeaways/takeaways.css">
+    <link rel="stylesheet" href="/dsc106_final_project/background/background.css">
     <script src="https://d3js.org/d3.v7.min.js"></script> 
 </head>
 <body>
@@ -35,20 +36,20 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-        loadHTML("content1", "background/index.html", "background/background.js");
+        loadHTML("content1", "/dsc106_final_project/background/index.html", "/dsc106_final_project/background/background.js");
     });
     document.addEventListener("DOMContentLoaded", () => {
-        loadHTML("content2", "features/features.html", "features/features.js");
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        loadHTML("content3", "plots/index.html", "plots/plots.js");
+        loadHTML("content2", "/dsc106_final_project/features/features.html", "/dsc106_final_project/features/features.js");
     });
 
     document.addEventListener("DOMContentLoaded", () => {
-        loadHTML("content4", "takeaways/takeaways.html", "takeaways/takeaways.js");
+        loadHTML("content3", "/dsc106_final_project/plots/index.html", "/dsc106_final_project/plots/plots.js");
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadHTML("content4", "/dsc106_final_project/takeaways/takeaways.html", "/dsc106_final_project/takeaways/takeaways.js");
     });
     </script>
-    <script src="global.js" type="module"></script>
+    <script src="/dsc106_final_project/global.js" type="module"></script>
 </body>
 </html>
