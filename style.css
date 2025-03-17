@@ -48,12 +48,12 @@ nav a.active {
 }
 
 a.current {
-    border-bottom: 0.4em solid #7e8181;
+    border-bottom: 0.4em solid #a5a9ad;
     padding-bottom: 0.5rem; 
 }
 
 :root {
-    --color-accent: #b8c8d4; 
+    --color-accent: #a5a9ad; 
 }
 
 html {
