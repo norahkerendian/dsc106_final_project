@@ -33,11 +33,11 @@ html {
 
 .tooltip_bg .tooltiptext_bg {
   visibility: hidden;
-  width: 120px;
+  width: 180px;
   background-color: black;
   color: #fff;
   text-align: left;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border-radius: 6px;
   padding: 5px;
   position: absolute;
