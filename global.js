@@ -96,6 +96,46 @@ document.addEventListener("DOMContentLoaded", function () {
     // });
  });
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     const terms = document.querySelectorAll(".term");
+
+//     terms.forEach(term => {
+//         let tooltip;
+
+//         term.addEventListener("mouseenter", function (event) {
+//             tooltip = document.createElement("div");
+//             tooltip.classList.add("tooltip");
+//             tooltip.textContent = term.getAttribute("data-definition");
+//             document.body.appendChild(tooltip);
+
+//             const rect = term.getBoundingClientRect();
+//             tooltip.style.left = `${rect.left + window.scrollX}px`;
+//             tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+
+//             setTimeout(() => tooltip.classList.add("visible"), 10);
+//         });
+
+//         term.addEventListener("mouseleave", function () {
+//             if (tooltip) {
+//                 tooltip.remove();
+//             }
+//         });
+
+//         term.addEventListener("click", function (event) {
+//             event.stopPropagation(); // Prevent closing immediately
+//             if (tooltip) {
+//                 tooltip.classList.toggle("visible");
+//             }
+//         });
+
+//         document.addEventListener("click", function () {
+//             if (tooltip) {
+//                 tooltip.remove();
+//             }
+//         });
+//     });
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
     const terms = document.querySelectorAll(".term");
 
@@ -112,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tooltip.style.left = `${rect.left + window.scrollX}px`;
             tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
 
-            setTimeout(() => tooltip.classList.add("visible"), 10);
+            requestAnimationFrame(() => tooltip.classList.add("visible"));
         });
 
         term.addEventListener("mouseleave", function () {
@@ -122,14 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         term.addEventListener("click", function (event) {
-            event.stopPropagation(); // Prevent closing immediately
+            event.stopPropagation(); // Prevent immediate closing
             if (tooltip) {
                 tooltip.classList.toggle("visible");
             }
         });
 
-        document.addEventListener("click", function () {
-            if (tooltip) {
+        document.addEventListener("click", function (event) {
+            if (tooltip && !term.contains(event.target)) {
                 tooltip.remove();
             }
         });

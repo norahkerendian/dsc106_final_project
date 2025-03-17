@@ -22,8 +22,42 @@ html {
   font-size: 80%; 
   font-family: inherit; 
 }
+/* .term {
+  position: relative;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
 
-.term {
+.term:hover::after {
+  content: attr(data-definition); 
+  position: absolute;
+  bottom: 100%; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.term::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+} */
+
+/* .term {
   position: relative;
   cursor: pointer;
   color: #0077cc;
@@ -53,14 +87,14 @@ color: white;
 padding: 5px;
 border-radius: 5px;
 font-size: 12px;
-pointer-events: none; /* Prevent the tooltip from blocking mouse events */
+pointer-events: none; /* Prevent the tooltip from blocking mouse events
 z-index: 9999;
 }
 
 text {
 fill: black !important;
 visibility: visible !important;
-}
+} */
 
 body{
     background: #f2f2f2;
