@@ -70,6 +70,36 @@
         .action-text {
             font-weight: bold;
         }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            cursor: pointer; /* Makes it clear that it's interactive */
+            color: blue; /* Makes the word stand out */
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Positions above the word */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../background/background.css"> 
@@ -128,9 +158,8 @@
         </div>
         
         <p>Any <span class="action-text">disruptions</span> to these inputs can lead to feelings of <span class="action-text">instability</span> 
-            or a <span class="action-text">false sense of motion</span>. This is otherwise known as <span class="term" data-definition="A sensation
-            of motion or spinning that is often described as dizziness."> vertigo</span> .</p>
-            
+            or a <span class="action-text">false sense of motion</span>. This is otherwise known as <span class="tooltip">vertigo<span class="tooltiptext">A sensation
+                of motion or spinning that is often described as dizziness.</span></span>.</p>         
             
         <section class="parallax-3">
             <div class="parallax-inner">
@@ -151,16 +180,6 @@
         <p>The use of VR for studying the role of vision in regulating body sway is well established, 
             however there has been less research done into how incorporating music can influence sway.</p>
 
-        <div id="tooltip" style="
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 14px;
-            max-width: 200px;
-            display: none;
-            z-index: 1000;"></div>
     </section>
 <script src="../background/background.js"></script> 
 <script src="../global.js" type="module"></script>
