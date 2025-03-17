@@ -73,108 +73,93 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Highlight navbar based on scroll position
-    // const observer = new IntersectionObserver((entries) => {
-    //     let activeSection = null;
-
-    //     entries.forEach(entry => {
-    //         if (entry.isIntersecting) {
-    //             activeSection = entry.target.getAttribute('id');
-    //         }
-    //     });
-
-    //     if (activeSection) {
-    //         navLinks.forEach(link => link.classList.remove('active'));
-    //         const activeLink = document.querySelector(`nav a[href="#${activeSection}"]`);
-    //         if (activeLink) {
-    //             activeLink.classList.add('active');
-    //         }
-    //     }
-    // }, { threshold: 0.6 }); // Adjust threshold for better responsiveness
-
-    // sections.forEach(section => {
-    //     observer.observe(section);
-    // });
+    document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll('div[id^="content"]');
+        const navLinks = document.querySelectorAll('nav a');
+    
+        // Function to highlight the active section
+        function highlightActiveSection() {
+            let fromTop = window.scrollY + 10; // Adjust for fixed navbar
+    
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+    
+                if (fromTop >= sectionTop && fromTop < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }
+    
+        // Highlight navbar based on scroll position
+        window.addEventListener('scroll', highlightActiveSection);
+    
+        // Smooth scrolling when clicking on navbar links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 10, // Adjust if needed for fixed navbar
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    
+        // Initial call to highlight the active section on page load
+        highlightActiveSection();
+    });
  });
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const terms = document.querySelectorAll(".term");
+document.addEventListener("DOMContentLoaded", function () {
+    const terms = document.querySelectorAll(".term");
 
-//     terms.forEach(term => {
-//         let tooltip;
+    terms.forEach(term => {
+        let tooltip;
 
-//         term.addEventListener("mouseenter", function (event) {
-//             tooltip = document.createElement("div");
-//             tooltip.classList.add("tooltip");
-//             tooltip.textContent = term.getAttribute("data-definition");
-//             document.body.appendChild(tooltip);
+        term.addEventListener("mouseenter", function (event) {
+            tooltip = document.createElement("div");
+            tooltip.classList.add("tooltip");
+            tooltip.textContent = term.getAttribute("data-definition");
+            document.body.appendChild(tooltip);
 
-//             const rect = term.getBoundingClientRect();
-//             tooltip.style.left = `${rect.left + window.scrollX}px`;
-//             tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+            const rect = term.getBoundingClientRect();
+            tooltip.style.left = `${rect.left + window.scrollX}px`;
+            tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
 
-//             setTimeout(() => tooltip.classList.add("visible"), 10);
-//         });
+            requestAnimationFrame(() => tooltip.classList.add("visible"));
+        });
 
-//         term.addEventListener("mouseleave", function () {
-//             if (tooltip) {
-//                 tooltip.remove();
-//             }
-//         });
+        term.addEventListener("mouseleave", function () {
+            if (tooltip) {
+                tooltip.remove();
+            }
+        });
 
-//         term.addEventListener("click", function (event) {
-//             event.stopPropagation(); // Prevent closing immediately
-//             if (tooltip) {
-//                 tooltip.classList.toggle("visible");
-//             }
-//         });
+        term.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent immediate closing
+            if (tooltip) {
+                tooltip.classList.toggle("visible");
+            }
+        });
 
-//         document.addEventListener("click", function () {
-//             if (tooltip) {
-//                 tooltip.remove();
-//             }
-//         });
-//     });
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const terms = document.querySelectorAll(".term");
-
-//     terms.forEach(term => {
-//         let tooltip;
-
-//         term.addEventListener("mouseenter", function (event) {
-//             tooltip = document.createElement("div");
-//             tooltip.classList.add("tooltip");
-//             tooltip.textContent = term.getAttribute("data-definition");
-//             document.body.appendChild(tooltip);
-
-//             const rect = term.getBoundingClientRect();
-//             tooltip.style.left = `${rect.left + window.scrollX}px`;
-//             tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
-
-//             requestAnimationFrame(() => tooltip.classList.add("visible"));
-//         });
-
-//         term.addEventListener("mouseleave", function () {
-//             if (tooltip) {
-//                 tooltip.remove();
-//             }
-//         });
-
-//         term.addEventListener("click", function (event) {
-//             event.stopPropagation(); // Prevent immediate closing
-//             if (tooltip) {
-//                 tooltip.classList.toggle("visible");
-//             }
-//         });
-
-//         document.addEventListener("click", function (event) {
-//             if (tooltip && !term.contains(event.target)) {
-//                 tooltip.remove();
-//             }
-//         });
-//     });
-// });
+        document.addEventListener("click", function (event) {
+            if (tooltip && !term.contains(event.target)) {
+                tooltip.remove();
+            }
+        });
+    });
+});
 
 
 // // Create play button
