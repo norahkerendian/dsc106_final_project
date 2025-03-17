@@ -1,10 +1,15 @@
+// let pages = [
+//     { url: 'background/index.html', title: 'Background', sectionId: 'section1' },
+//     { url: 'features/features.html', title: 'Features', sectionId: 'section2' },
+//     { url: 'plots/index.html', title: 'Main Plots', sectionId: 'section3' },
+//     { url: 'takeaways/takeaways.html', title: 'Takeaways', sectionId: 'section4' },
+// ];
 let pages = [
-    { url: 'background/index.html', title: 'Background', sectionId: 'section1' },
-    { url: 'features/features.html', title: 'Features', sectionId: 'section2' },
-    { url: 'plots/index.html', title: 'Main Plots', sectionId: 'section3' },
-    { url: 'takeaways/takeaways.html', title: 'Takeaways', sectionId: 'section4' },
+    { url: 'background/index.html', title: 'Background', sectionId: 'content1' },
+    { url: 'features/features.html', title: 'Features', sectionId: 'content2' },
+    { url: 'plots/index.html', title: 'Main Plots', sectionId: 'content3' },
+    { url: 'takeaways/takeaways.html', title: 'Takeaways', sectionId: 'content4' },
 ];
-
 let nav = document.createElement('nav');
 document.body.prepend(nav);
 
