@@ -49,6 +49,73 @@
             line-height: 1.6;
             margin: 20px;
         }
+            
+        .intro-section {
+            background-color: #f5f5f5;
+            border-left: 4px solid #2c3e50;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+            
+        .scenario-box {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+            
+        /* .scenario-card {
+            flex: 1;
+            margin: 0 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        } */
+        .scenario-card {
+            flex: 1;
+            margin: 0 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scenario-card.scenario-1 {
+            border-top: 4px solid #fc8d59;
+        }
+        
+        .scenario-card.scenario-2 {
+            border-top: 4px solid #99d594;
+        }
+
+        .scenario-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .color-sq {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+            
+        .section-heading {
+            color: #2c3e50;
+            /* border-bottom: 2px solid #2c3e50; */
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+            
+        .action-text {
+            font-weight: bold;
+        }
     </style>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../features/features.css">
@@ -61,12 +128,49 @@
                 <h1>Visualizations</h1>
             </div>
         </div>
+    <br>
+    <!-- <div class="intro-section">
+        <p>Now that we have familiarized ourselves with the motivation and features of this project, let's visualize our data!</p>
+    </div>
+        
+    <h2 class="section-heading">Scenarios Under Analysis</h2>
+        
+    <div class="scenario-box">
+        <div class="scenario-card">
+            <h3>Scenario 1</h3>
+            <p>VR shifting with music playing at 0.1Hz</p>
+        </div>
+        
+        <div class="scenario-card">
+            <h3>Scenario 2</h3>
+            <p>Eyes closed with music at regular speed</p>
+        </div>
+    </div> -->
+    <div class="intro-section">
+        <p>Now that we have familiarized ourselves with the motivation and features of this project, let's visualize our data!</p>
+    </div>
+        
+    <h2 class="section-heading">Scenarios Under Analysis</h2>
+        
+    <div class="scenario-box">
+        <div class="scenario-card scenario-1">
+            <div class="color-indicator color-1"></div>
+            <h3>Scenario 1</h3>
+            <p><span class="color-sq" style="background-color: #fc8d59;"></span>VR shifting with music playing at 0.1Hz</p>
+        </div>
+        
+        <div class="scenario-card scenario-2">
+            <div class="color-indicator color-2"></div>
+            <h3>Scenario 2</h3>
+            <p><span class="color-sq" style="background-color: #99d594;"></span>Eyes closed with music at regular speed</p>
+        </div>
+    </div>
 
+        
+    <p>Let's look at <span class="action-text">each feature individually</span> and <span class="action-text">compare the trends over time</span> for both scenarios.</p>
+    
     <div class="center">
         <br> 
-        <p>Now that we have familiarized ourselves with the motivation and features of this project, let's visualize our data!</p>
-        <p>We will be focusing on two main scenarios: VR shifting with music playing at 0.1Hz and eyes closed with music at regular speed.</p>
-        <p>Let's look at each feature individually and compare the trends over time for both scenarios:</p>
         <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-mx">Restart Mx Animation</button>
         <div class="MxPlot">
@@ -86,7 +190,7 @@
             <span style="color: rgb(73, 188, 73);">&#8594;</span> Much more stable
         </div>
         <br>
-        
+        <br>
         <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-copy">Restart CoPy Animation</button>
         <div class="CoPyPlot">
@@ -106,7 +210,7 @@
         <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
             <span style="color: rgb(73, 188, 73);">&#8594;</span> Even more stable
         </div>
-
+        <br>
         <br>
         <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-my">Restart My Animation</button>
@@ -131,7 +235,7 @@
                 <span style="color: rgb(73, 188, 73);">&#8594;</span> More stable
             </div>
             
-
+        <br>
         <br>
         <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-copx">Restart CoPx Animation</button>
@@ -147,7 +251,10 @@
             <span style="color: black;">&#8594;</span> Almost the same data as above, but flipped negative due to data encoding
         </div>
         <br>
-        <p>Now it's your turn! Play around with the data by selecting a subject and the scenario they were in to see how their movemement changes over time. Explore the difference between the two sets of features in real time!</p>
+        <br>
+        <div class="intro-section"> 
+            <p>Now it's your turn! Play around with the data by selecting a subject and the scenario they were in to see how their movemement changes over time. Explore the difference between the two sets of features in real time!</p>
+        </div>
         <h2>Normalized Features for Selected Subject and Scenario</h2>
         
     </div>
