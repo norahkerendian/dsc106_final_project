@@ -175,12 +175,16 @@ text {
     width: 140px;
     height: 120px;
     margin-top: 100%;
-    margin-left: 17%;
+    /* margin-left: 17%; */
 }
 
 .CoPxFeet2 {
     width: 130px;
     height: 130px;
     margin-top: 100%;
-    margin-left: 17%;
+    /* margin-left: 17%; */
+}
+
+.MxPerson, .MyPerson {
+    margin-left: 50%;
 }
