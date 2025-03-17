@@ -23,31 +23,34 @@ html {
   font-family: inherit; 
 }
 
-.tooltip {
+.tooltip_bg {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
+  cursor: pointer; /* Makes it clear that it's interactive */
+  color: black; /* Makes the word stand out */
 }
 
-.tooltip .tooltiptext {
+.tooltip_bg .tooltiptext_bg {
   visibility: hidden;
   width: 120px;
   background-color: black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
-  
-  /* Position the tooltip */
+  padding: 5px;
   position: absolute;
   z-index: 1;
-  top: 100%;
+  bottom: 125%; /* Positions above the word */
   left: 50%;
-  margin-left: -60px;
+  transform: translateX(-50%);
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip_bg:hover .tooltiptext_bg {
   visibility: visible;
+  opacity: 1;
 }
 /* .term {
   position: relative;

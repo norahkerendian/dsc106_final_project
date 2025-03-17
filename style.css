@@ -73,7 +73,7 @@ nav a:hover {
     font-family: inherit; 
 }
 
-.term {
+/* .term {
     position: relative;
     cursor: pointer;
     color: #0077cc;
@@ -103,14 +103,14 @@ nav a:hover {
     padding: 5px;
     border-radius: 5px;
     font-size: 12px;
-    pointer-events: none; /* Prevent the tooltip from blocking mouse events */
+    pointer-events: none; 
     z-index: 9999;
 }
 
 text {
     fill: black !important;
     visibility: visible !important;
-}
+} */
 
 .button-container {
     position: fixed;
