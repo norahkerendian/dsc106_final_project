@@ -36,47 +36,74 @@ const slider = document.getElementById("pressureSlider");
 const leftBox = document.getElementById("leftPressure");
 const rightBox = document.getElementById("rightPressure");
 
-slider.addEventListener("input", () => {
+function updateColors() {
   let value = slider.value;
-  let intensity = Math.abs(value - 50) * 5; // Scale intensity, higher intensity = darker blue
+  let intensity = (value / 100) * 255; // Scale intensity across full range (0 to 255)
 
-  let leftColor, rightColor;
+  let rightShade = 255 - intensity; // Darker as value decreases
+  let leftShade = intensity; // Opposite of leftShade
 
-  if (value < 50) {
-      // As the slider moves left, more pressure on the left, so left gets darker blue
-      leftColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`; // Darker blue for more pressure on left
-      rightColor = `#d3e2f0`; // Lighter blue for less pressure on the right
-  } else {
-      // As the slider moves right, more pressure on the right, so right gets darker blue
-      leftColor = `#d3e2f0`; // Lighter blue for less pressure on the left
-      rightColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`; // Darker blue for more pressure on the right
-  }
+  let leftColor = `rgb(${leftShade}, ${leftShade}, ${leftShade})`;
+  let rightColor = `rgb(${rightShade}, ${rightShade}, ${rightShade})`;
 
   leftBox.style.backgroundColor = leftColor;
   rightBox.style.backgroundColor = rightColor;
-});
+}
 
+// Set initial value to middle and apply colors on load
+slider.value = 50;
+updateColors();
+
+// Update colors on slider input
+slider.addEventListener("input", updateColors);
+
+
+// const sliderY = document.getElementById("pressureSliderY");
+// const upperBox = document.getElementById("upperPressure");
+// const lowerBox = document.getElementById("lowerPressure");
+
+// sliderY.addEventListener("input", () => {
+//     let value = sliderY.value;
+//     let intensity = Math.abs(value - 50) * 5; // Scale intensity for visual effect
+
+//     let upperColor, lowerColor;
+
+//     if (value < 50) {
+//         // More pressure on upper, so it gets darker blue
+//         upperColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`;
+//         lowerColor = `#d3e2f0`; // Lighter blue for less pressure on lower
+//     } else {
+//         // More pressure on lower, so it gets darker blue
+//         upperColor = `#d3e2f0`; // Lighter blue for less pressure on upper
+//         lowerColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`;
+//     }
+
+//     upperBox.style.backgroundColor = upperColor;
+//     lowerBox.style.backgroundColor = lowerColor;
+// });
 
 const sliderY = document.getElementById("pressureSliderY");
 const upperBox = document.getElementById("upperPressure");
 const lowerBox = document.getElementById("lowerPressure");
 
-sliderY.addEventListener("input", () => {
+function updateVerticalColors() {
     let value = sliderY.value;
-    let intensity = Math.abs(value - 50) * 5; // Scale intensity for visual effect
+    let intensity = (value / 100) * 255; // Scale intensity across full range (0 to 255)
 
-    let upperColor, lowerColor;
+    let lowerShade = 255 - intensity; // Darker as value decreases
+    let upperShade = intensity; // Opposite of upperShade
 
-    if (value < 50) {
-        // More pressure on upper, so it gets darker blue
-        upperColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`;
-        lowerColor = `#d3e2f0`; // Lighter blue for less pressure on lower
-    } else {
-        // More pressure on lower, so it gets darker blue
-        upperColor = `#d3e2f0`; // Lighter blue for less pressure on upper
-        lowerColor = `#0000${(255 - intensity).toString(16).padStart(2, '0')}`;
-    }
+    let upperColor = `rgb(${upperShade}, ${upperShade}, ${upperShade})`;
+    let lowerColor = `rgb(${lowerShade}, ${lowerShade}, ${lowerShade})`;
 
     upperBox.style.backgroundColor = upperColor;
     lowerBox.style.backgroundColor = lowerColor;
-});
+}
+
+// Set initial value to middle and apply colors on load
+sliderY.value = 50;
+updateVerticalColors();
+
+// Update colors on slider input
+sliderY.addEventListener("input", updateVerticalColors);
+
