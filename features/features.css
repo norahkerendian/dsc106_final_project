@@ -157,6 +157,7 @@ h1 {
     height: 100px; /* Taller container for upper and lower division */
     display: flex;
     flex-direction: column;
+    right: 10%;
 }
 
 .pressure-box-y {
@@ -164,6 +165,7 @@ h1 {
     height: 100%;
     transition: background-color 0.2s ease-in-out;
     border-radius: 5px;
+    right: 10%;
 }
 .CoPyFeet {
     position: absolute;

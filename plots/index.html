@@ -61,18 +61,20 @@
                 <h1>Visualizations</h1>
             </div>
         </div>
-    <!-- <section id = "section3">
-    <div class = 'center'><h1>Postural Sway Visualizations</h2></div> -->
 
     <div class="center">
+        <br> 
+        <p>Now that we have familiarized ourselves with the motivation and features of this project, let's visualize our data!</p>
+        <p>We will be focusing on two main scenarios: VR shifting with music playing at 0.1Hz and eyes closed with music at regular speed.</p>
+        <p>Let's look at each feature individually and compare the trends over time for both scenarios:</p>
         <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
         <button id="replay-btn-mx">Restart Mx Animation</button>
         <div class="MxPlot">
         <svg id="static-plot-Mx" width="800" height="400"></svg>
         <div class="MxView">
-            <div class="MxPerson">
+            <div class="MxPerson1">
               <img class="MxPersonImage" src="features/images/person.webp" alt="Human Outline">
-              <div class="MLaxis"></div>
+              <div class="MLaxis1"></div>
             </div>
         </div>
         </div>
@@ -111,10 +113,10 @@
         <div class="MyPlot">
             <svg id="static-plot-My" width="800" height="400"></svg>
             <div class="MyView">
-                <div class="MyPerson">
-                  <div class="APaxisBack"></div>
+                <div class="MyPerson1">
+                  <div class="APaxisBack1"></div>
                   <img class="MyPersonImage" src="features/images/person.webp" alt="Human Outline">
-                  <div class="APaxisFront"></div>
+                  <div class="APaxisFront1"></div>
                 </div>
             </div>
             </div>
@@ -145,8 +147,9 @@
             <span style="color: black;">&#8594;</span> Almost the same data as above, but flipped negative due to data encoding
         </div>
         <br>
-        <h2>Normalized Features for Selected Subject and Scenario</h2>
         <p>Now it's your turn! Play around with the data by selecting a subject and the scenario they were in to see how their movemement changes over time. Explore the difference between the two sets of features in real time!</p>
+        <h2>Normalized Features for Selected Subject and Scenario</h2>
+        
     </div>
     
 
@@ -181,7 +184,6 @@
         font-size: 12px;
     "></div>
 </section>
-    <!-- <script src="../global.js" type="module"></script> -->
     <script src="plots.js" type="module"></script>
     <script src="../features/features.js" type="module"></script>
 </body>
