@@ -202,6 +202,7 @@ setTimeout(function() {
         yAxisTooltip
           .style("opacity", 1)
           .style("display", "block")
+          .style("width", "200px")
           .html("Calculated by taking the running absolute difference over time and averaging across subjects, then multiplying the forward-backward and side-to-side features to create a single metric per direction.") 
           .style("left", `${event.pageX + 10}px`)
           .style("top", `${event.pageY - 20}px`);
@@ -253,7 +254,7 @@ setTimeout(function() {
         .attr("stroke", "#CA2E55")
         .text("less stable");
 
-      // Create Diagonal arrow marker definition
+      // Create less stable arrow marker definition
       barchart.append("defs").append("marker")
         .attr("id", "arrowhead")
         .attr("refX", 6)
@@ -265,7 +266,7 @@ setTimeout(function() {
         .attr("d", "M0,0 L6,3 L0,6")
         .attr("fill", "#CA2E55");
 
-      // Draw the Diagonal arrow line
+      // Draw the less stable arrow line
       barchart.append("line")
         .attr("x1", 650)
         .attr("y1", heightTA - marginTA.bottom + 76)
@@ -274,6 +275,39 @@ setTimeout(function() {
         .attr("stroke", "#CA2E55")
         .attr("stroke-width", 1)
         .attr("marker-end", "url(#arrowhead)");
+
+
+        // Add more stable annotation
+      barchart.append("text")
+      .attr("class", "annotation")
+      .attr("x", 300)
+      .attr("y", heightTA - marginTA.bottom + 80)
+      .style("text-anchor", "middle")
+      .style("font-weight", 200)
+      .attr("stroke", "#CA2E55")
+      .text("more stable");
+
+    // Create more stable arrow marker definition
+    barchart.append("defs").append("marker")
+      .attr("id", "arrowhead")
+      .attr("refX", 6)
+      .attr("refY", 3)
+      .attr("markerWidth", 10)
+      .attr("markerHeight", 10)
+      .attr("orient", "auto")
+      .append("path")
+      .attr("d", "M0,0 L6,3 L0,6")
+      .attr("fill", "#CA2E55");
+
+    // Draw the more stable arrow line
+    barchart.append("line")
+      .attr("x1", 200)
+      .attr("y1", heightTA - marginTA.bottom + 76)
+      .attr("x2", 150)
+      .attr("y2", heightTA - marginTA.bottom + 76)
+      .attr("stroke", "#CA2E55")
+      .attr("stroke-width", 1)
+      .attr("marker-end", "url(#arrowhead)");
 
       // Create a legend container
       const legend = barchart.append("g")
