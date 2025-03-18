@@ -132,6 +132,7 @@ setTimeout(function() {
         .attr("dy", "0.71em")
         .attr("text-anchor", "middle")
         .style("font-size", "14px") // You can now use a larger font size
+        .style("fill", "black")
         .each(function(d) {
           const label = scenarioLabels[d];
           const parts = label.split(", ");
