@@ -107,6 +107,16 @@
         .action-text {
             font-weight: bold;
         }
+
+        .MxPlotAll, .MyPlotAll, .CoPxPlotAll, .CoPyPlotAll {
+          margin: 40px 0;
+          padding: 30px 60px;
+          width: 87%;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          background-color: #f8f8f8;
+        }
+
     </style>
     <link rel="stylesheet" href="../dsc106_final_project//style.css">
     <link rel="stylesheet" href="../dsc106_final_project//features/features.css">
@@ -179,81 +189,87 @@
     
     <div class="center">
         <br> 
-        <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-        <button id="replay-btn-mx">Restart Mx Animation</button>
-        <div class="MxPlot">
-        <svg id="static-plot-Mx" width="800" height="400"></svg>
-        <div class="MxView">
-            <div class="MxPerson1">
-                <img class="MxPersonImage" src="/dsc106_final_project/features/images/MxHuman.png" alt="Human Outline">
-            </div>
-        </div>
-        </div>
-        
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: #fc8d59;">&#8594;</span> Oscillating pattern for forward-backward <strong>rotation</strong> aligned with 10 second oscillations in the VR and music of this scenario
-        </div>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: rgb(73, 188, 73);">&#8594;</span> Much more stable
-        </div>
-        <br>
-        <br>
-        <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-        <button id="replay-btn-copy">Restart CoPy Animation</button>
-        <div class="CoPyPlot">
-            <svg id="static-plot-CoPy" width="800" height="400"></svg>
-            <div class="CoPyPlotFeet"><img class="CoPyFeet2" src="/dsc106_final_project/features/images/CoPyFeet.png" alt="Feet"></div>
-        </div>
-
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: black;">&#8594;</span> Highly correlated with first plot
-        </div>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: black;">&#8594;</span> Forward-backward <strong>center of pressure</strong>
-        </div>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: #fc8d59">&#8594;</span> 10 second oscillations
-        </div>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: rgb(73, 188, 73);">&#8594;</span> Even more stable
-        </div>
-        <br>
-        <br>
-        <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-        <button id="replay-btn-my">Restart My Animation</button>
-        <div class="MyPlot">
-            <svg id="static-plot-My" width="800" height="400"></svg>
-            <div class="MyView">
-                <div class="MyPerson1">
-                  <img class="MyPersonImage" src="/dsc106_final_project/features/images/MyHuman.png" alt="Human Outline">
+        <div class = "MxPlotAll"> 
+            <h3>Normalized Mx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+            <button id="replay-btn-mx">Restart Mx Animation</button>
+            <div class="MxPlot">
+            <svg id="static-plot-Mx" width="800" height="400"></svg>
+            <div class="MxView">
+                <div class="MxPerson1">
+                    <img class="MxPersonImage" src="/dsc106_final_project/features/images/MxHuman.png" alt="Human Outline">
                 </div>
             </div>
             </div>
-            
-            <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-                <span style="color: black;">&#8594;</span> <strong>Side-to-side</strong> rotation
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: #fc8d59;">&#8594;</span> Oscillating pattern for forward-backward <strong>rotation</strong> aligned with 10 second oscillations in the VR and music of this scenario
             </div>
-            <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-                <span style="color: #fc8d59;">&#8594;</span> No oscillation pattern, but more overall movement
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: rgb(73, 188, 73);">&#8594;</span> Much more stable
             </div>
-            <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-                <span style="color: rgb(73, 188, 73);">&#8594;</span> More stable
-            </div>
-            
-        <br>
-        <br>
-        <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
-        <button id="replay-btn-copx">Restart CoPx Animation</button>
-        <div class="CoPxPlot">
-            <svg id="static-plot-CoPx" width="800" height="400"></svg>
-            <div class="CoPxPlotFeet"><img class="CoPxFeet2" src="/dsc106_final_project/features/images/CoPxFeet.png" alt="Feet"></div>
         </div>
         <br>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: black;">&#8594;</span> Side-to-side center of pressure
+        <br>
+        <div class = "CoPyPlotAll">
+            <h3>Normalized CoPy for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+            <button id="replay-btn-copy">Restart CoPy Animation</button>
+            <div class="CoPyPlot">
+                <svg id="static-plot-CoPy" width="800" height="400"></svg>
+                <div class="CoPyPlotFeet"><img class="CoPyFeet2" src="/dsc106_final_project/features/images/CoPyFeet.png" alt="Feet"></div>
+            </div>
+
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: black;">&#8594;</span> Highly correlated with first plot
+            </div>
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: black;">&#8594;</span> Forward-backward <strong>center of pressure</strong>
+            </div>
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: #fc8d59">&#8594;</span> 10 second oscillations
+            </div>
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: rgb(73, 188, 73);">&#8594;</span> Even more stable
+            </div>
         </div>
-        <div style="text-align: left; display: block; width: 100%; padding-left: 300px;">
-            <span style="color: black;">&#8594;</span> Almost the same data as above, but flipped negative due to data encoding
+        <br>
+        <br>
+        <div class="MyPlotAll">
+            <h3>Normalized My for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+            <button id="replay-btn-my">Restart My Animation</button>
+            <div class="MyPlot">
+                <svg id="static-plot-My" width="800" height="400"></svg>
+                <div class="MyView">
+                    <div class="MyPerson1">
+                    <img class="MyPersonImage" src="/dsc106_final_project/features/images/MyHuman.png" alt="Human Outline">
+                    </div>
+                </div>
+                </div>
+                
+                <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                    <span style="color: black;">&#8594;</span> <strong>Side-to-side</strong> rotation
+                </div>
+                <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                    <span style="color: #fc8d59;">&#8594;</span> No oscillation pattern, but more overall movement
+                </div>
+                <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                    <span style="color: rgb(73, 188, 73);">&#8594;</span> More stable
+                </div>
+        </div>
+        <br>
+        <br>
+        <div class = "CoPxPlotAll" >
+            <h3>Normalized CoPx for VR Shifting, Music 0.1Hz and Eyes Closed, Music Regular Over Time</h3>
+            <button id="replay-btn-copx">Restart CoPx Animation</button>
+            <div class="CoPxPlot">
+                <svg id="static-plot-CoPx" width="800" height="400"></svg>
+                <div class="CoPxPlotFeet"><img class="CoPxFeet2" src="/dsc106_final_project/features/images/CoPxFeet.png" alt="Feet"></div>
+            </div>
+            <br>
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: black;">&#8594;</span> Side-to-side center of pressure
+            </div>
+            <div style="text-align: left; display: block; width: 100%; padding-left: 50px;">
+                <span style="color: black;">&#8594;</span> Almost the same data as above, but flipped negative due to data encoding
+        </div>
         </div>
         <br>
         <br>

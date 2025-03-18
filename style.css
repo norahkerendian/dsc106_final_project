@@ -130,22 +130,22 @@ nav a:hover {
 }
 
 .CoPyFeet2 {
-    width: 140px;
-    height: 120px;
-    margin-top: 100%;
-    margin-left: -40%;
+    width: 105px;
+    height: 105px;
+    margin-top: 140%;
+    margin-left: 60%;
 }
 
 .CoPxFeet2 {
-    width: 130px;
-    height: 130px;
+    width: 105px;
+    height: 105px;
     margin-top: 100%;
-    margin-left: -40%;
+    margin-left: 60%;
 }
 
 .MxPerson1, .MyPerson1 {
     /* original 50 */
-    margin-left: 0%;
+    margin-left: 90%;
 }
 
 #shake {
