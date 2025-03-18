@@ -59,6 +59,14 @@
         .action-text {
             font-weight: bold;
         }
+        .barchartDisplay {
+          margin: 40px 10px;
+          width: 99%;
+          /* padding: 30px 30px; */
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          background-color: #f8f8f8;
+        }
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="../dsc106_final_project/style.css">
@@ -87,8 +95,10 @@
         in the anterior-posterior direction ↕️,
         but also more moment <img src="../dsc106_final_project/features/images/person.webp" alt="Feet Outline" height="30px" margin="0px" padding="0px" >
         about the medial-lateral axis ↔️.
-        <div class="container">
-            <svg id="barchart" width="900" height="500"></svg>
+        <div class = "barchartDisplay">
+            <div class="container">
+                <svg id="barchart" width="850" height="500"></svg>
+            </div>
         </div>
     <p>While visual oscillations had the most pronounced impact, auditory cues also <span class="action-text">correlated with balance</span>, suggesting that multisensory integration can influence stability control. These insights could inform <span class="action-text">rehabilitative strategies</span> for individuals with balance disorders, particularly in developing personalized VR-based interventions that leverage both visual and auditory stimuli.</p>
     </section>

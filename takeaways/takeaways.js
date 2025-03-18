@@ -183,9 +183,9 @@ setTimeout(function() {
       barchart.append("g")
         .attr("transform", `translate(${marginTA.left},0)`)
         .call(d3.axisLeft(yLeft))
-        .call(g => g.select(".domain").attr("stroke", "steelblue")) // Color axis line
-        .call(g => g.selectAll(".tick line").attr("stroke", "steelblue")) // Color tick marks
-        .style("stroke-width", "2px") // Thicker axis line
+        .call(g => g.select(".domain").attr("stroke")) // Color axis line
+        .call(g => g.selectAll(".tick line").attr("stroke")) // Color tick marks
+        .style("stroke-width", "1px") // Thicker axis line
         .selectAll("text")
         .attr("fill", "black"); // Keep text black
 
