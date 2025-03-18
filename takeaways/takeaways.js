@@ -52,6 +52,7 @@ setTimeout(function() {
         .append("div")
         .attr("class", "tooltip")
         .style("position", "absolute")
+        .style("font-size", "12px")
         .style("background", "white")
         .style("border", "1px solid #ccc")
         .style("padding", "5px")
@@ -74,7 +75,7 @@ setTimeout(function() {
         .on("mouseover", function(event, d) {
           tooltip
           .style("opacity", 1)
-                    .html(`Average Change in Forward-Backward Position: ${d[forwardBackwardKey].toFixed(2)} mm/sec`) // try to see if you can add the original value too
+                    .html(`Average Change in Forward-Backward Position: ${d[forwardBackwardKey].toFixed(2)} mm/sec`) 
                     .style("background-color", "white")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
@@ -108,7 +109,7 @@ setTimeout(function() {
             .text(`Average Change in Side-to-Side Position: ${d[sideToSideKey].toFixed(2)} mm/sec`);
             
           // .style("opacity", 1)
-          //           .html(`Average Change in Side-to-Side Position: ${d[sideToSideKey].toFixed(2)} mm/sec`) // try to see if you can add the original value too
+          //           .html(`Average Change in Side-to-Side Position: ${d[sideToSideKey].toFixed(2)} mm/sec`) 
           //           .style("background-color", "#333")
           //           .style("left", `${event.pageX + 10}px`)
           //           .style("top", `${event.pageY - 20}px`);
@@ -131,7 +132,7 @@ setTimeout(function() {
         .attr("x", 0)
         .attr("dy", "0.71em")
         .attr("text-anchor", "middle")
-        .style("font-size", "14px") // You can now use a larger font size
+        .style("font-size", "14px")
         .style("fill", "black")
         .each(function(d) {
           const label = scenarioLabels[d];
@@ -172,7 +173,7 @@ setTimeout(function() {
       .style("background", "white")
       .style("border", "1px solid #ccc")
       .style("color","black")
-      .style("font-size", "10px")
+      .style("font-size", "12px")
       .style("padding", "5px")
       .style("border-radius", "5px")
       .style("box-shadow", "2px 2px 5px rgba(0,0,0,0.3)")
@@ -202,7 +203,7 @@ setTimeout(function() {
         yAxisTooltip
           .style("opacity", 1)
           .style("display", "block")
-          .style("width", "200px")
+          .style("width", "250px")
           .html("Calculated by taking the running absolute difference over time and averaging across subjects, then multiplying the forward-backward and side-to-side features to create a single metric per direction.") 
           .style("left", `${event.pageX + 10}px`)
           .style("top", `${event.pageY - 20}px`);
@@ -301,9 +302,9 @@ setTimeout(function() {
 
     // Draw the more stable arrow line
     barchart.append("line")
-      .attr("x1", 200)
+      .attr("x1", 250)
       .attr("y1", heightTA - marginTA.bottom + 76)
-      .attr("x2", 150)
+      .attr("x2", 200)
       .attr("y2", heightTA - marginTA.bottom + 76)
       .attr("stroke", "#CA2E55")
       .attr("stroke-width", 1)
