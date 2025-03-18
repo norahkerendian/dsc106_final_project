@@ -75,7 +75,7 @@ setTimeout(function() {
           tooltip
           .style("opacity", 1)
                     .html(`Average Change in Forward-Backward Position: ${d[forwardBackwardKey].toFixed(2)} mm/sec`) // try to see if you can add the original value too
-                    .style("background-color", "#333")
+                    .style("background-color", "white")
                     .style("left", `${event.pageX + 10}px`)
                     .style("top", `${event.pageY - 20}px`);
           // .style("opacity", 1)
