@@ -117,6 +117,12 @@
           background-color: #f8f8f8;
         }
 
+        .InteractivePlot {
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          background-color: #f8f8f8;
+        }
+
     </style>
     <link rel="stylesheet" href="../dsc106_final_project//style.css">
     <link rel="stylesheet" href="../dsc106_final_project//features/features.css">
@@ -276,12 +282,36 @@
         <div class="intro-section"> 
             <p>Now it's your turn! Play around with the data by selecting a subject and the scenario they were in to see how their movemement changes over time. Explore the difference between the two sets of features in real time!</p>
         </div>
-        <h2>Normalized Features for Selected Subject and Scenario</h2>
         
     </div>
     
-
-    <div class="center">
+    <div class = "InteractivePlot">
+        <div class="center">
+            <h2>Normalized Features for Selected Subject and Scenario</h2>
+            <div class="controls">
+                <label for="subject-select">Select Subject:</label>
+                <select id="subject-select"></select>
+                
+                <label for="file-select">Select Scenario:</label>
+                <select id="file-select"></select>
+                
+                <button id="toggleButton">Switch to Mx/My</button>
+            </div>
+        </div>
+        
+        <div class="center">
+            <svg id="main-plot" width="800" height="400"></svg>
+            <br>
+        </div>
+        <br>
+    </div>
+    <br>
+    <small>*Data is normalized by subtracting the mean and dividing by the standard deviation.</small>
+    <br>
+    <small>*There is an inconsistency with the animation due to the smoothing.</small>
+    <br>
+    <br>
+    <!-- <div class="center">
         <div class="controls">
             <label for="subject-select">Select Subject:</label>
             <select id="subject-select"></select>
@@ -300,7 +330,7 @@
         <small>*There is an inconsistency with the animation due to the smoothing.</small>
         <br>
         <br>
-    </div>
+    </div> -->
 
     <div id="tooltip" style="
         position: absolute;
