@@ -53,30 +53,30 @@ for (let p of pages) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const sections = document.querySelectorAll('div[id^="content"]'); // Select all sections with IDs starting with "content"
-    const navLinks = document.querySelectorAll('nav a'); // Select all navigation links
+    const sections = document.querySelectorAll('div[id^="content"]'); 
+    const navLinks = document.querySelectorAll('nav a');
 
     // Highlight the active section based on scroll position
     window.addEventListener("scroll", () => {
-        let current = ""; // Variable to store the ID of the currently active section
+        let current = ""; 
 
         sections.forEach((section) => {
-            const sectionTop = section.offsetTop; // Top position of the section
-            const sectionHeight = section.clientHeight; // Height of the section
-            const sectionBottom = sectionTop + sectionHeight; // Bottom position of the section
+            const sectionTop = section.offsetTop; 
+            const sectionHeight = section.clientHeight; 
+            const sectionBottom = sectionTop + sectionHeight; 
             console.log(`Section: ${section.id}, Top: ${sectionTop}, Bottom: ${sectionBottom}`);
 
             // Check if the current scroll position is within this section
             if (window.scrollY >= sectionTop - 50 && window.scrollY < sectionBottom - 50) {
-                current = section.getAttribute("id"); // Set the current section ID
+                current = section.getAttribute("id"); 
             }
         });
 
         // Highlight the corresponding navigation link
         navLinks.forEach((link) => {
-            link.classList.remove("active"); // Remove the "active" class from all links
+            link.classList.remove("active"); 
             if (link.getAttribute("href") === `#${current}`) {
-                link.classList.add("active"); // Add the "active" class to the current link
+                link.classList.add("active"); 
             }
         });
     });
@@ -84,13 +84,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Smooth scrolling when clicking on navbar links
     navLinks.forEach((link) => {
         link.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default anchor behavior
-            const targetId = this.getAttribute("href").substring(1); // Get the target section ID
-            const targetSection = document.getElementById(targetId); // Find the target section
+            event.preventDefault();
+            const targetId = this.getAttribute("href").substring(1); 
+            const targetSection = document.getElementById(targetId); 
 
             if (targetSection) {
                 window.scrollTo({
-                    top: targetSection.offsetTop - 10, // Scroll to the section, adjusting for fixed navbar
+                    top: targetSection.offsetTop - 10, 
                     behavior: "smooth", // Smooth scrolling
                 });
             }
